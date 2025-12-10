@@ -4,65 +4,90 @@ const API_KEY_STORAGE_KEY = 'openrouter_api_key';
 const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 
-// 利用可能な文章生成モデル一覧
+// 利用可能な文章生成モデル一覧（エロ小説向け・無検閲モデル）
 export const AVAILABLE_TEXT_MODELS = [
   {
-    id: 'cognitivecomputations/dolphin3.0-mistral-24b:free',
-    name: 'Dolphin 3.0 Mistral 24B (無料)',
-    description: '無検閲、NSFW対応、無料',
+    id: 'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',
+    name: 'Dolphin Venice Edition (無料)',
+    description: '無検閲、NSFW対応、無料、おすすめ',
     price: '無料'
   },
   {
-    id: 'deepseek/deepseek-chat',
-    name: 'DeepSeek Chat',
-    description: '無検閲、コスパ良い、日本語OK',
+    id: 'thedrummer/cydonia-24b-v4.1',
+    name: 'Cydonia 24B V4.1',
+    description: '高品質エロ小説、無検閲、日本語OK',
     price: '安い'
   },
   {
-    id: 'mistralai/mistral-nemo',
-    name: 'Mistral Nemo',
-    description: 'NSFWフィルターほぼなし',
+    id: 'thedrummer/anubis-70b-v1.1',
+    name: 'Anubis 70B V1.1',
+    description: '最高品質、長文得意、無検閲',
+    price: '$0.48/M'
+  },
+  {
+    id: 'thedrummer/skyfall-36b-v2',
+    name: 'Skyfall 36B V2',
+    description: 'ロールプレイ特化、無検閲',
+    price: '$0.30/M'
+  },
+  {
+    id: 'thedrummer/rocinante-12b',
+    name: 'Rocinante 12B',
+    description: 'クリエイティブ文章、無検閲',
     price: '安い'
   },
   {
-    id: 'qwen/qwen-2.5-7b-instruct',
-    name: 'Qwen 2.5 7B',
-    description: '日本語に強い',
+    id: 'neversleep/noromaid-20b',
+    name: 'Noromaid 20B',
+    description: 'ロマンス・エロ特化、無検閲',
+    price: '$0.15/M'
+  },
+  {
+    id: 'gryphe/mythomax-l2-13b',
+    name: 'MythoMax 13B',
+    description: 'ファンタジー・ロマンス特化、無検閲',
     price: '安い'
   },
   {
-    id: 'meta-llama/llama-3.1-8b-instruct',
-    name: 'Llama 3.1 8B',
-    description: '汎用モデル',
+    id: 'mancer/weaver',
+    name: 'Mancer Weaver',
+    description: 'ロールプレイ・物語向け、無検閲',
+    price: '安い'
+  },
+  {
+    id: 'deepseek/deepseek-chat-v3-0324',
+    name: 'DeepSeek Chat V3',
+    description: '高品質、コスパ良い、日本語OK',
     price: '安い'
   }
 ];
 
 // 利用可能な画像生成モデル一覧
+// ※注意: OpenRouterの画像生成モデルは全てNSFWコンテンツを生成できません
 export const AVAILABLE_IMAGE_MODELS = [
   {
-    id: 'black-forest-labs/flux-1.1-pro',
-    name: 'FLUX 1.1 Pro',
-    description: '高品質、無検閲、実写風',
-    price: '$0.04/MP'
-  },
-  {
-    id: 'black-forest-labs/flux-schnell',
-    name: 'FLUX Schnell (高速)',
-    description: '高速生成、無検閲',
-    price: '安い'
-  },
-  {
-    id: 'stabilityai/stable-diffusion-xl',
-    name: 'Stable Diffusion XL',
-    description: '汎用、アニメ向き',
-    price: '安い'
-  },
-  {
     id: 'none',
-    name: '画像生成を無効化',
-    description: '画像生成を使用しない',
+    name: '画像生成を無効化（推奨）',
+    description: 'NSFW画像は生成不可のため無効化推奨',
     price: '無料'
+  },
+  {
+    id: 'google/gemini-2.5-flash-image',
+    name: 'Gemini 2.5 Flash Image',
+    description: '最安・高速（NSFW不可）',
+    price: '$0.001/枚'
+  },
+  {
+    id: 'openai/gpt-5-image-mini',
+    name: 'GPT-5 Image Mini',
+    description: '高品質・実写風（NSFW不可）',
+    price: '$1.1/M'
+  },
+  {
+    id: 'openai/gpt-5-image',
+    name: 'GPT-5 Image',
+    description: '最高品質（NSFW不可）',
+    price: '$5/M'
   }
 ];
 
