@@ -5,36 +5,25 @@ const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 
 // 利用可能な文章生成モデル一覧（エロ小説向け・無検閲モデル）
+// ※価格順：安い順に並んでいます
 export const AVAILABLE_TEXT_MODELS = [
   {
     id: 'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',
-    name: 'Dolphin Venice Edition (無料)',
-    description: '無検閲、NSFW対応、無料、おすすめ',
+    name: 'Dolphin Venice Edition',
+    description: '無検閲、NSFW対応、おすすめ',
     price: '無料'
   },
   {
-    id: 'thedrummer/cydonia-24b-v4.1',
-    name: 'Cydonia 24B V4.1',
-    description: '高品質エロ小説、無検閲、日本語OK',
-    price: '安い'
+    id: 'gryphe/mythomax-l2-13b',
+    name: 'MythoMax 13B',
+    description: 'ファンタジー・ロマンス特化、無検閲',
+    price: '$0.06/M (最安)'
   },
   {
-    id: 'thedrummer/anubis-70b-v1.1',
-    name: 'Anubis 70B V1.1',
-    description: '最高品質、長文得意、無検閲',
-    price: '$0.48/M'
-  },
-  {
-    id: 'thedrummer/skyfall-36b-v2',
-    name: 'Skyfall 36B V2',
-    description: 'ロールプレイ特化、無検閲',
-    price: '$0.30/M'
-  },
-  {
-    id: 'thedrummer/rocinante-12b',
-    name: 'Rocinante 12B',
-    description: 'クリエイティブ文章、無検閲',
-    price: '安い'
+    id: 'mancer/weaver',
+    name: 'Mancer Weaver',
+    description: 'ロールプレイ・物語向け、無検閲',
+    price: '$0.11/M'
   },
   {
     id: 'neversleep/noromaid-20b',
@@ -43,26 +32,39 @@ export const AVAILABLE_TEXT_MODELS = [
     price: '$0.15/M'
   },
   {
-    id: 'gryphe/mythomax-l2-13b',
-    name: 'MythoMax 13B',
-    description: 'ファンタジー・ロマンス特化、無検閲',
-    price: '安い'
+    id: 'thedrummer/rocinante-12b',
+    name: 'Rocinante 12B',
+    description: 'クリエイティブ文章、無検閲',
+    price: '$0.18/M'
   },
   {
-    id: 'mancer/weaver',
-    name: 'Mancer Weaver',
-    description: 'ロールプレイ・物語向け、無検閲',
-    price: '安い'
+    id: 'thedrummer/cydonia-24b-v4.1',
+    name: 'Cydonia 24B V4.1',
+    description: '高品質エロ小説、無検閲、日本語OK',
+    price: '$0.24/M'
+  },
+  {
+    id: 'thedrummer/skyfall-36b-v2',
+    name: 'Skyfall 36B V2',
+    description: 'ロールプレイ特化、無検閲',
+    price: '$0.30/M'
+  },
+  {
+    id: 'thedrummer/anubis-70b-v1.1',
+    name: 'Anubis 70B V1.1',
+    description: '最高品質、長文得意、無検閲',
+    price: '$0.48/M'
   },
   {
     id: 'deepseek/deepseek-chat-v3-0324',
     name: 'DeepSeek Chat V3',
-    description: '高品質、コスパ良い、日本語OK',
-    price: '安い'
+    description: '高品質、日本語OK',
+    price: '$0.55/M'
   }
 ];
 
 // 利用可能な画像生成モデル一覧
+// ※価格順：安い順に並んでいます
 // ※注意: OpenRouterの画像生成モデルは全てNSFWコンテンツを生成できません
 export const AVAILABLE_IMAGE_MODELS = [
   {
