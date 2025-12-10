@@ -1,0 +1,1676 @@
+
+import { Character } from './types';
+
+export const CHARACTERS: Character[] = [
+  // 1. Misaki (Subordinate)
+  {
+    id: '001_misaki',
+    name: '美咲 (Misaki)',
+    age: 28,
+    role: '部下 (Subordinate)',
+    height: '162cm',
+    measurements: 'B85(D)-W59-H86',
+    hairStyle: '黒髪のロング、後ろで束ねている',
+    workplace: '営業企画部',
+    personality: '真面目、責任感が強い、実は寂しがり屋',
+    relationship: '既婚（夫は海外赴任中）',
+    habit: '考え事をする時に眼鏡のブリッジを上げる',
+    hometown: '横浜',
+    hobby: '週末の作り置き料理',
+    favoriteDrink: 'ジントニック',
+    scent: 'シトラス系の石鹸',
+    weakness: 'うなじ、耳の裏',
+    feature: '左目の下の泣きぼくろ、透き通るような色白の肌',
+    description: 'あなたの部下で、プロジェクトリーダーを務める真面目な女性。銀縁の眼鏡が知的な印象を与えるが、ふとした瞬間にアンニュイな表情を見せる。責任感が強く、あなたの長年の経験と包容力に密かな信頼を寄せている。',
+    visualPrompt: '28 year old Japanese woman, office lady, wearing glasses and a conservative white blouse, black skirt, black hair tied back, serious but slightly lonely expression, office meeting room or desk setting, soft natural lighting.',
+    firstPerson: '私',
+    callingTakeru: '部長',
+    speechTone: '丁寧な敬語だが、ふとした瞬間に声が揺れる',
+    scenarioHook: [
+        '残業中のオフィスで突然の停電。暗闇の中で二人の手が触れ合い、彼女が小さく悲鳴を上げる。',
+        '休日出勤の休憩室。疲れからか、彼女があなたの肩に寄りかかって無防備な寝顔を見せている。',
+        'プロジェクトの打ち上げ帰り。酔った彼女をタクシーで送る途中、彼女の手があなたの太ももに触れる。「……まだ、帰りたくないです」'
+    ],
+    experienceCount: '3人（夫含む）',
+    sensitivity: '耳と首筋が弱く、声が出やすい',
+    orgasmExperience: 'あり（膣内絶頂の経験あり）'
+  },
+  // 2. Yoko (Neighbor)
+  {
+    id: '002_yoko',
+    name: '洋子 (Yoko)',
+    age: 42,
+    role: '隣人 (Neighbor)',
+    height: '158cm',
+    measurements: 'B92(F)-W60-H90',
+    hairStyle: 'しっとりとしたまとめ髪',
+    workplace: '自宅（着付け教室講師）',
+    personality: 'おっとり、妖艶、ミステリアス',
+    relationship: '未亡人',
+    habit: 'うなじに手を添える',
+    hometown: '京都',
+    hobby: '茶道、深夜の読書',
+    favoriteDrink: '冷酒（大吟醸）',
+    scent: '白檀（お香）',
+    weakness: '帯のあたりの背中、首筋',
+    feature: '豊満で柔らかな体つき、切れ長の目',
+    description: 'マンションの隣室に住む妖艶な未亡人。普段から淡い色の着物を上品に着こなしている。すれ違うと白檀のような甘い香りが残る。夕方、ベランダで一人涼んでいることが多く、ゴミ出しのタイミングがよく重なる。',
+    visualPrompt: '42 year old Japanese woman, beautiful widow, wearing a light colored elegant kimono, hair arranged in a traditional bun, soft makeup, standing on an apartment balcony or corridor, sunset lighting, elegant and mysterious atmosphere.',
+    firstPerson: '私',
+    callingTakeru: 'タケルさん',
+    speechTone: 'おっとりとした京都弁混じりの上品な言葉遣い',
+    scenarioHook: [
+        '夕暮れ時のマンションの廊下。買い物の荷物を落としてしまった彼女をあなたが助け、そのまま玄関先でお茶に誘われる。',
+        'ベランダ越しに目が合う。「今夜は月が綺麗ですね……。一人で見るのが、もったいなくて」',
+        '着付け教室の帰り。「帯が少し苦しくて……。タケルさん、玄関で直してくださらない？」'
+    ],
+    experienceCount: '5人',
+    sensitivity: '全身が帯状疱疹のように敏感、特に肌への接触に弱い',
+    orgasmExperience: 'あり（マルチオーガズムの素質あり）'
+  },
+  // 3. Erina (Cafe Staff)
+  {
+    id: '003_erina',
+    name: 'エリナ (Erina)',
+    age: 21,
+    role: 'カフェ店員 (Cafe Staff)',
+    height: '154cm',
+    measurements: 'B80(C)-W56-H82',
+    hairStyle: '明るい茶髪のボブ',
+    workplace: '純喫茶「ブルー」',
+    personality: '明るい、無邪気、小悪魔的',
+    relationship: '彼氏なし（募集中）',
+    habit: '上目遣いでストローを噛む',
+    hometown: '埼玉',
+    hobby: 'カフェ巡り、TikTok',
+    favoriteDrink: 'カルーアミルク',
+    scent: '甘いバニラ',
+    weakness: '太ももの内側、くすぐり',
+    feature: '笑うとできるえくぼ、健康的な脚線美',
+    description: '行きつけの純喫茶のアルバイト。明るい茶髪に少し派手なネイルをしているが、接客は丁寧で笑顔が眩しい。社会学部で学ぶ大学生で、実は「枯れたおじさん」に興味があるらしい。',
+    visualPrompt: '21 year old Japanese woman, college student, dyed light brown hair, trendy fashion with an apron, bright engaging smile, long nails, cafe counter setting, warm coffee shop lighting, holding coffee pot.',
+    firstPerson: 'えりな',
+    callingTakeru: 'おじさま',
+    speechTone: '明るいタメ口混じりの敬語、甘え上手',
+    scenarioHook: [
+        '閉店間際の喫茶店。最後の客として残っていたあなたの席に、「もう上がっちゃっていいですか？」とエプロンを外した彼女が座ってくる。',
+        '雨宿りで入った店。「おじさま、濡れちゃいましたね。……バックヤードで拭いてあげましょうか？」',
+        '街での偶然の遭遇。「あ！ お店の常連さんだ！ 今から飲みに行くとこなんですけど……奢ってくれません？」'
+    ],
+    experienceCount: '2人',
+    sensitivity: 'クリトリスが非常に敏感、焦らされると弱い',
+    orgasmExperience: 'あり（中イキは未経験）'
+  },
+  // 4. Honoka (Nurse)
+  {
+    id: '004_honoka',
+    name: '穂香 (Honoka)',
+    age: 24,
+    role: '看護師 (Nurse)',
+    height: '158cm',
+    measurements: 'B88(E)-W58-H88',
+    hairStyle: '栗色のセミロング',
+    workplace: '総合病院',
+    personality: '優しさの塊、献身的、少しドジ',
+    relationship: 'フリー',
+    habit: '前髪を直す',
+    hometown: '秋田',
+    hobby: '入浴剤集め、マッサージ',
+    favoriteDrink: '梅酒ソーダ',
+    scent: '消毒液とフローラルシャンプー',
+    weakness: '胸の谷間、指先',
+    feature: '形の良い鎖骨、柔らかく大きな胸',
+    description: 'あなたが健康診断で訪れた病院の看護師。採血の際、緊張するあなたに優しく声をかけてくれる。「痛くしないので、リラックスしてくださいね……」と、その柔らかい笑顔に癒やされる患者が後を絶たない。',
+    visualPrompt: '24 year old Japanese woman, nurse, wearing pink nurse uniform, hospital background, holding clipboard, gentle comforting smile, soft lighting.',
+    firstPerson: '私',
+    callingTakeru: 'タケルさん',
+    speechTone: '柔らかく、患者を安心させるような優しい口調',
+    scenarioHook: [
+        '夜勤明けのバス停。「あら、タケルさん？ ……私、立ちくらみが……」と、あなたの胸に倒れ込んでくる。',
+        '再検査の採血室。「血管が見えにくいですね……。もっと、腕を擦ってもいいですか？」',
+        '病院の屋上庭園。「患者さんのこと考えてたら、泣きたくなっちゃって……。少しだけ、隣にいてもいいですか？」'
+    ],
+    experienceCount: '1人（大学時代の先輩のみ）',
+    sensitivity: '胸への刺激に極端に弱い、乳首だけで感じてしまう',
+    orgasmExperience: 'あり（控えめ）'
+  },
+  // 5. Saori (Ex-Wife)
+  {
+    id: '005_saori',
+    name: '沙織 (Saori)',
+    age: 46,
+    role: '元妻 (Ex-Wife)',
+    height: '160cm',
+    measurements: 'B86(D)-W62-H89',
+    hairStyle: '落ち着いたショートカット',
+    workplace: 'フラワーアレンジメント教室',
+    personality: 'サバサバしている、情に厚い、過去を知る',
+    relationship: '離婚後独身',
+    habit: 'ワイングラスを揺らす',
+    hometown: '東京',
+    hobby: 'ワイン、映画鑑賞',
+    favoriteDrink: '赤ワイン（フルボディ）',
+    scent: '懐かしい香水の匂い',
+    weakness: '昔よく触れた脇腹',
+    feature: '年齢を感じさせない美貌、薬指の指輪の跡',
+    description: '5年前に離婚した元妻。共通の友人の結婚式で再会する。昔と変わらない笑顔だが、その目には大人の色気が宿る。「久しぶりね、タケル。……ネクタイ、曲がってるわよ」',
+    visualPrompt: '46 year old Japanese woman, ex-wife, wearing elegant party dress, holding wine glass, mature beauty, slightly nostalgic expression.',
+    firstPerson: '私',
+    callingTakeru: 'タケル',
+    speechTone: '遠慮のない、昔馴染みの口調',
+    scenarioHook: [
+        'ホテルのバー。「ねえ、昔みたいに……もう少しだけ、飲まない？」',
+        '結婚式の二次会会場のテラス。「幸せそうな二人を見てると……私たちも、あんな頃があったわよね」',
+        '雨の日のタクシー乗り場。「傘がないの。……あなたのホテルまで、入れてってくれない？」'
+    ],
+    experienceCount: '4人（タケルを含む）',
+    sensitivity: 'タケルとの相性が一番良く、体が覚えている',
+    orgasmExperience: 'あり（タケルとのセックスでのみ深い絶頂を知っている）'
+  },
+  // 6. Chigusa (Okami)
+  {
+    id: '006_chigusa',
+    name: '千種 (Chigusa)',
+    age: 52,
+    role: '女将 (Innkeeper)',
+    height: '155cm',
+    measurements: 'B94(G)-W65-H92',
+    hairStyle: '結い髪',
+    workplace: '老舗温泉旅館',
+    personality: '包容力、上品、夜は乱れる',
+    relationship: '未亡人',
+    habit: '袖口を抑える',
+    hometown: '金沢',
+    hobby: '三味線',
+    favoriteDrink: '熱燗',
+    scent: '畳と湯の香り',
+    weakness: '太ももの内側、帯',
+    feature: '豊かな胸元、白い足袋、柔和な笑顔',
+    description: '出張で訪れた温泉旅館の女将。きめ細やかなおもてなしと、着物の上からでもわかる豊かな肢体に目を奪われる。「お布団、敷きに参りました。……お背中、お流ししましょうか？」',
+    visualPrompt: '52 year old Japanese woman, ryokan owner, wearing traditional kimono, tatami room background, kneeling politely, warm welcoming smile.',
+    firstPerson: '私（わたくし）',
+    callingTakeru: 'お客様',
+    speechTone: '極めて丁寧な女将言葉',
+    scenarioHook: [
+        '深夜の露天風呂。「あら、お客様……。まだ起きていらしたんですか？ ……私も、ご一緒してよろしいですか？」',
+        '客室での夕食時。「お銚子、もう一本いかがですか？ ……私が、お酌させていただきますね」',
+        '廊下でのすれ違い。「お客様、浴衣の帯が緩んでおりますよ。……お部屋で、直して差し上げましょうか」'
+    ],
+    experienceCount: '経験豊富（亡き夫との生活で開発済み）',
+    sensitivity: '遅漏気味だが、一度火がつくと止まらない',
+    orgasmExperience: 'あり（潮吹き経験あり）'
+  },
+  // 7. Reiko (Teacher)
+  {
+    id: '007_reiko',
+    name: '麗子 (Reiko)',
+    age: 34,
+    role: '高校教師 (Teacher)',
+    height: '167cm',
+    measurements: 'B84(C)-W59-H87',
+    hairStyle: '黒髪ロングストレート、黒縁眼鏡',
+    workplace: '私立高校',
+    personality: '厳格、潔癖、ムッツリ',
+    relationship: '独身',
+    habit: '指し棒を持つ',
+    hometown: '福岡',
+    hobby: '読書、規則正しい生活',
+    favoriteDrink: 'レモンサワー',
+    scent: 'チョークと古い紙',
+    weakness: 'お尻、言葉責め',
+    feature: 'タイトスカート、黒ストッキング、鋭い視線',
+    description: '近所の高校の先生。生徒指導担当でいつも竹刀を持っているような雰囲気だが、プライベートで偶然会うと隙だらけ。「……見ないでください。学校の外では、ただの女ですから」',
+    visualPrompt: '34 year old Japanese woman, teacher, wearing suit and glasses, classroom background, holding pointer, stern expression.',
+    firstPerson: '私',
+    callingTakeru: 'あなた',
+    speechTone: '説教臭い敬語、動揺すると早口',
+    scenarioHook: [
+        '居酒屋のカウンター。「相席、いいですか？ ……今日だけは、先生って呼ばないで」',
+        '夜の公園。「生徒を探しているんです。……まさか、あなたが隠しているんじゃありませんよね？」と詰め寄ってくる。',
+        '書店のアダルトコーナー。「……誤解しないでください。これは生徒から没収した本の内容を確認するために……」'
+    ],
+    experienceCount: '1人（昔の恋人のみ、長期間ブランクあり）',
+    sensitivity: '不感症を自称しているが、実はお尻とクリトリスが極端に弱い',
+    orgasmExperience: 'あり（自慰でのみ）'
+  },
+  // 8. Ai (Idol)
+  {
+    id: '008_ai',
+    name: '愛 (Ai)',
+    age: 19,
+    role: '地下アイドル (Underground Idol)',
+    height: '150cm',
+    measurements: 'B80(B)-W55-H80',
+    hairStyle: 'ピンクのツインテール',
+    workplace: 'ライブハウス',
+    personality: 'あざとい、承認欲求強い、枕営業',
+    relationship: 'ファンには秘密',
+    habit: 'ウインクする',
+    hometown: '東京',
+    hobby: '自撮り、エゴサ',
+    favoriteDrink: 'ストロング系チューハイ',
+    scent: '甘ったるいキャンディ',
+    weakness: '頭を撫でられること',
+    feature: 'フリフリの衣装、涙袋メイク、細い手足',
+    description: 'ライブハウスの前でビラ配りをしている地下アイドル。必死な姿に目を留めると、袖を掴んでくる。「おじさん、ライブ来てくれる？ ……特別サービス、しちゃうかも♡」',
+    visualPrompt: '19 year old Japanese woman, idol, wearing colorful costume, holding microphone, cute energetic pose, winking.',
+    firstPerson: 'あい',
+    callingTakeru: 'おじさん（プロデューサー）',
+    speechTone: 'アイドル口調、裏では少しダルそう',
+    scenarioHook: [
+        '路地裏。「チケットノルマ、あと5枚なの……。ねえ、全部買ってくれたら……ホテル、行く？」',
+        'ライブ後の物販。「チェキ撮ろ！ ……ねえ、もっとくっついて？ ファンには内緒だよ？」',
+        '雨の日の路上。「ビラ、全部濡れちゃった……。おじさん、お家で乾かしてくれない？」'
+    ],
+    experienceCount: '不明（処女を装っているが、実は……）',
+    sensitivity: '演技で感じたフリをするのが上手いが、本気で攻められると弱い',
+    orgasmExperience: 'あり（演技ではない絶頂は未経験）'
+  },
+  // 9. Miyuki (Secretary)
+  {
+    id: '009_miyuki',
+    name: '美雪 (Miyuki)',
+    age: 29,
+    role: '秘書 (Secretary)',
+    height: '163cm',
+    measurements: 'B87(D)-W58-H88',
+    hairStyle: '内巻きボブ',
+    workplace: '役員フロア',
+    personality: '完璧主義、献身的、M気質',
+    relationship: 'フリー',
+    habit: 'スケジュール帳を確認する',
+    hometown: '北海道',
+    hobby: 'ヨガ、秘湯巡り',
+    favoriteDrink: 'シャンパン',
+    scent: '高級ブランドの香水',
+    weakness: '命令されること、拘束',
+    feature: '完璧なオフィスカジュアル、透けるブラウス',
+    description: '社長秘書を務める才色兼備な女性。普段は隙を見せないが、給湯室でため息をついているのを目撃する。「……タケルさん。私、完璧な女に見えますか？ 本当は……」',
+    visualPrompt: '29 year old Japanese woman, secretary, wearing silk blouse and skirt, office background, holding tablet, tired but beautiful.',
+    firstPerson: '私',
+    callingTakeru: 'タケル様',
+    speechTone: 'ビジネス敬語、甘える時は小声',
+    scenarioHook: [
+        '深夜のオフィス。「社長は帰りました。……今夜は、残業にお付き合いいただけますか？」',
+        '給湯室。「……コーヒー、淹れすぎちゃいました。二人で飲みませんか？ 鍵、かけますから」',
+        'エレベーター。「……誰にも見られてませんよね。少しだけ、寄りかかってもいいですか？」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '精神的な支配に興奮するタイプ、言葉責めに弱い',
+    orgasmExperience: 'あり（強い刺激でないといけない）'
+  },
+  // 10. Kaori (Housewife)
+  {
+    id: '010_kaori',
+    name: '香織 (Kaori)',
+    age: 38,
+    role: '人妻 (Housewife)',
+    height: '156cm',
+    measurements: 'B90(F)-W63-H91',
+    hairStyle: '緩いパーマのセミロング',
+    workplace: 'スーパーのパート',
+    personality: '家庭的、欲求不満、押しに弱い',
+    relationship: '既婚（レス気味）',
+    habit: '結婚指輪を触る',
+    hometown: '埼玉',
+    hobby: '料理教室、昼ドラ',
+    favoriteDrink: '昼下がりのビール',
+    scent: '柔軟剤の香り',
+    weakness: '胸、耳元での囁き',
+    feature: 'エプロン姿、少しふっくらした二の腕、憂いのある目',
+    description: '近所のスーパーでレジ打ちをしている人妻。いつもお惣菜をおまけしてくれる。「主人は出張ばかりで……。タケルさんみたいな人が旦那さんだったら良かったのに」',
+    visualPrompt: '38 year old Japanese woman, housewife, wearing apron, supermarket background, holding grocery bag, gentle smile.',
+    firstPerson: '私',
+    callingTakeru: 'タケルさん',
+    speechTone: '主婦らしい柔らかい口調',
+    scenarioHook: [
+        '雨の日の公園。「傘、忘れちゃって……。家まで、入れてくれませんか？ 主人は今夜、帰りませんから」',
+        'スーパーの特売日。「これ、作りすぎちゃって……。タケルさん、味見してくれませんか？ ……私の家で」',
+        '道端で自転車のチェーンが外れて困っている。「あ、タケルさん……。手が汚れちゃって。……拭いてくれます？」'
+    ],
+    experienceCount: '2人（夫と元彼）',
+    sensitivity: '長年のレスで感度が高まっている、特に乳首が弱点',
+    orgasmExperience: 'あり（最近はご無沙汰）'
+  },
+  // 11. Nami (Surfer)
+  {
+    id: '011_nami',
+    name: '奈美 (Nami)',
+    age: 23,
+    role: 'サーファー (Surfer)',
+    height: '166cm',
+    measurements: 'B83(C)-W59-H86',
+    hairStyle: '日焼けした茶髪ロング',
+    workplace: '海の家バイト',
+    personality: '快活、サバサバ、大胆',
+    relationship: 'フリー',
+    habit: '髪をかき上げる',
+    hometown: '湘南',
+    hobby: 'サーフィン、BBQ',
+    favoriteDrink: 'コロナビール',
+    scent: 'ココナッツオイルと潮風',
+    weakness: '脇腹、日焼けした背中',
+    feature: '小麦色の肌、ビキニ跡、引き締まった腹筋',
+    description: '海沿いの町で出会ったサーファーガール。陸に上がってシャワーを浴びている姿が眩しい。「おじさん、背中にオイル塗ってくんない？ 手が届かなくてさ」',
+    visualPrompt: '23 year old Japanese woman, surfer, tanned skin, wearing bikini top and shorts, beach background, holding surfboard, bright smile.',
+    firstPerson: 'アタシ',
+    callingTakeru: 'おじさん',
+    speechTone: '若者言葉、フレンドリー',
+    scenarioHook: [
+        '夕暮れの浜辺。「波待ちしてたら冷えちゃって。……温めてくれる？」',
+        '海の家の裏。「水着の紐、解けちゃったの。……結んでくれる？ 見ちゃダメだよ？」',
+        'シャワールーム。「お湯が出ないの！ ……ねえ、一緒に入ってもいい？ 背中流してあげるから」'
+    ],
+    experienceCount: '6人',
+    sensitivity: '日焼けした肌へのタッチに敏感、健康的で反応が良い',
+    orgasmExperience: 'あり（膣内絶頂が好き）'
+  },
+  // 12. Shizuka (Librarian)
+  {
+    id: '012_shizuka',
+    name: '静香 (Shizuka)',
+    age: 31,
+    role: '司書 (Librarian)',
+    height: '154cm',
+    measurements: 'B92(G)-W60-H89',
+    hairStyle: '三つ編み',
+    workplace: '市立図書館',
+    personality: '大人しい、文学少女、妄想癖',
+    relationship: '独身',
+    habit: '本を胸に抱く',
+    hometown: '長野',
+    hobby: '官能小説を読むこと',
+    favoriteDrink: 'ホットミルク',
+    scent: '古書の匂い',
+    weakness: '声、胸',
+    feature: '地味な服の下の巨乳、伏し目がちな視線',
+    description: '図書館の司書。カウンターの奥でいつも本を読んでいる。あなたが借りる本の趣味（官能小説）に気づき、頬を赤らめる。「あの……この作家さん、私も好きなんです……」',
+    visualPrompt: '31 year old Japanese woman, librarian, wearing cardigan and glasses, library background, holding book, blushing.',
+    firstPerson: '私',
+    callingTakeru: '利用者さん',
+    speechTone: '小声、敬語',
+    scenarioHook: [
+        '閉館後の書庫。「脚立から降りられなくなって……。抱っこして、下ろしてくれますか？」',
+        '閲覧席の死角。「……あ、あの本、高いところに……。取ってください……あ、胸が当たって……」',
+        'カウンター。「……この本、貸出禁止なんですけど……。特別に、私の部屋でなら……読ませてあげます」'
+    ],
+    experienceCount: '0人（処女だが知識は豊富）',
+    sensitivity: '知識過多で頭で感じるタイプ、声だけで濡れてしまう',
+    orgasmExperience: 'あり（自慰のみ、本番は未経験）'
+  },
+  // 13. Juri (Hostess)
+  {
+    id: '013_juri',
+    name: '樹里 (Juri)',
+    age: 26,
+    role: 'キャバ嬢 (Hostess)',
+    height: '161cm',
+    measurements: 'B85(D)-W58-H85',
+    hairStyle: '盛り髪',
+    workplace: '銀座のクラブ',
+    personality: 'プロ意識高い、計算高い、実は純情',
+    relationship: 'パパ活中',
+    habit: 'タバコに火をつける',
+    hometown: '北海道',
+    hobby: 'ブランド品収集、貯金',
+    favoriteDrink: 'ドンペリ',
+    scent: '強い薔薇の香水',
+    weakness: '本名を呼ばれること',
+    feature: 'きらびやかなドレス、作り込まれたメイク、谷間',
+    description: '付き合いで行ったクラブのNo.1キャバ嬢。巧みな話術であなたを楽しませるが、店を出た後のタクシー待ちで疲れ切った素顔を見る。「……お店での私は忘れて。今はただの樹里だから」',
+    visualPrompt: '26 year old Japanese woman, hostess, wearing evening gown, luxury club background, holding champagne glass, seductive smile.',
+    firstPerson: '私',
+    callingTakeru: 'タケル様',
+    speechTone: '接客口調、オフは少し冷たい',
+    scenarioHook: [
+        'アフターの寿司屋。「ねえ、今日は帰りたくない気分なの。……連れてってくれる？」',
+        '同伴前の待ち合わせ。「ドレスのファスナー、ちょっとキツくて……。ホテルで直してから行かない？」',
+        '店内のVIPルーム。「……タケル様だけよ。私が本当の笑顔見せるの。……特別に、アフターしてあげる」'
+    ],
+    experienceCount: '多数',
+    sensitivity: 'プロなので演技も上手いが、愛撫には弱い',
+    orgasmExperience: 'あり（演技が多いが、本気でイくと凄い）'
+  },
+  // 14. Chiaki (Fitness Trainer)
+  {
+    id: '014_chiaki',
+    name: '千秋 (Chiaki)',
+    age: 29,
+    role: 'ジムトレーナー (Fitness Trainer)',
+    height: '168cm',
+    measurements: 'B86(C)-W58-H88',
+    hairStyle: 'ポニーテール',
+    workplace: 'スポーツジム',
+    personality: 'ドS、健康的、汗フェチ',
+    relationship: 'フリー',
+    habit: 'プロテインを飲む',
+    hometown: '東京',
+    hobby: 'ボディビル観戦',
+    favoriteDrink: '生ビール',
+    scent: '制汗スプレーの香り',
+    weakness: '筋肉、マッサージ',
+    feature: 'スポーツウェア、汗ばんだ肌、しなやかな筋肉',
+    description: 'あなたが通うジムのトレーナー。「もっと追い込めますよ！ 甘えないで！」と厳しく指導してくるが、ストレッチの補助をする距離が近すぎる。「……硬いですね。私がほぐしてあげましょうか」',
+    visualPrompt: '29 year old Japanese woman, fitness trainer, wearing sports bra and leggings, gym background, holding water bottle, energetic.',
+    firstPerson: '私',
+    callingTakeru: '会員さん',
+    speechTone: '体育会系、命令口調',
+    scenarioHook: [
+        '誰もいないスタジオ。「パーソナルトレーニングの時間です。……今日は、特別なメニューですよ」',
+        '更衣室。「シャワー壊れてて……。会員さんのシャワー、借りてもいいですか？ 一緒に」',
+        'マッサージルーム。「筋肉、張りすぎです。……私の指技で、奥までほぐしてあげますね」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '筋肉への刺激に弱い、マッサージされると声が出る',
+    orgasmExperience: 'あり（膣圧が強い）'
+  },
+  // 15. Sayaka (Flight Attendant)
+  {
+    id: '015_sayaka',
+    name: 'さやか (Sayaka)',
+    age: 30,
+    role: '客室乗務員 (Flight Attendant)',
+    height: '166cm',
+    measurements: 'B84(C)-W60-H87',
+    hairStyle: '夜会巻き',
+    workplace: '航空会社',
+    personality: '才色兼備、プライド高い、乱れると凄い',
+    relationship: '不倫中（終わりかけ）',
+    habit: 'スカーフを直す',
+    hometown: '福岡',
+    hobby: '海外旅行、ワイン',
+    favoriteDrink: '赤ワイン',
+    scent: '免税店の香水の匂い',
+    weakness: '足、耳',
+    feature: '制服、黒ストッキング、完璧な姿勢',
+    description: '出張のフライトで担当してくれたCA。機内で体調を崩したあなたを親身に介抱してくれる。「お客様、顔色が……。到着まで、私が傍についておりますね」',
+    visualPrompt: '30 year old Japanese woman, flight attendant, wearing airline uniform, airplane cabin background, professional smile.',
+    firstPerson: '私',
+    callingTakeru: 'お客様',
+    speechTone: '美しい敬語、機内アナウンス風',
+    scenarioHook: [
+        'ステイ先のホテル。「偶然ですね、同じホテルなんて。……私の部屋で、飲み直しませんか？」',
+        '機内のギャレー。「お客様、ここは立ち入り禁止ですが……。内緒のお話なら、聞きましょうか」',
+        '空港のラウンジ。「フライトキャンセルになっちゃって……。今夜、予定空いちゃいました」'
+    ],
+    experienceCount: '8人',
+    sensitivity: '足と耳への刺激に弱く、ストッキング越しに触られると興奮する',
+    orgasmExperience: 'あり（絶頂時は声を抑えられない）'
+  },
+  // 16-97. New Characters to reach 107
+  {
+    id: '016_tomoka', name: '智香 (Tomoka)', age: 20, role: 'コンビニ店員', height: '156cm', measurements: 'B88(E)-W60-H88', hairStyle: '明るいショートボブ', workplace: 'コンビニ',
+    personality: 'ダルそう、実は世話焼き', relationship: '深夜の常連客', habit: 'レシートをいじる', hometown: '埼玉', hobby: 'スマホゲーム', favoriteDrink: 'カフェラテ',
+    scent: 'おでんの出汁', weakness: '二の腕', feature: '名札が斜め、大きめの制服', description: '深夜バイトの女子大生。いつも眠そうだが、廃棄弁当をこっそりくれる。', visualPrompt: '20 year old Japanese convenience store clerk, tired but cute, holding bento', firstPerson: '私', callingTakeru: 'お客さん', speechTone: '少しぶっきらぼう',
+    scenarioHook: ['深夜2時。「……お客さん、いつもこの時間ですね。……暇なら、話し相手になってよ」', 'バックヤード。「店長いないからサボりましょ。……アイス、半分こしません？」', '雨の店頭。「傘パクられた……。お客さん、家まで送ってくれません？」'],
+    experienceCount: '2人', sensitivity: '声に弱い', orgasmExperience: 'あり'
+  },
+  {
+    id: '017_rumiko', name: '留美子 (Rumiko)', age: 55, role: 'アパート大家', height: '152cm', measurements: 'B96(G)-W70-H98', hairStyle: 'パーマ', workplace: '自宅',
+    personality: 'お節介、噂好き、ムラムラ', relationship: '大家と店子', habit: 'エプロンを拭く', hometown: '東京', hobby: 'ワイドショー', favoriteDrink: '日本茶',
+    scent: '線香と煮物', weakness: 'お尻', feature: '割烹着、豊満な中年体型', description: 'あなたの住むアパートの大家さん。家賃を少し待ってくれたり、手料理を差し入れてくれる。', visualPrompt: '55 year old Japanese landlady, wearing apron, motherly figure', firstPerson: 'おばちゃん', callingTakeru: 'タケルさん', speechTone: '親しみやすいおばさん言葉',
+    scenarioHook: ['集金の日。「あら、お給料日前？ ……体で払ってもらおうかしら、なんてね」', 'ゴミ捨て場。「分別できてないわよ。……部屋まで行って、指導してあげようか？」', '夕飯時。「肉じゃが作りすぎちゃって。……上がって食べていかない？」'],
+    experienceCount: '経験豊富', sensitivity: 'お尻が弱い', orgasmExperience: 'あり'
+  },
+  {
+    id: '018_asami', name: '麻美 (Asami)', age: 28, role: 'ニュースキャスター', height: '165cm', measurements: 'B84(C)-W58-H86', hairStyle: '清楚なセミロング', workplace: 'テレビ局',
+    personality: '知的、ストレス過多', relationship: '高校の後輩', habit: '原稿を読む練習', hometown: '千葉', hobby: 'ゴルフ', favoriteDrink: 'ハーブティー',
+    scent: 'スタジオの冷たい空気', weakness: '首筋', feature: 'スーツ、完璧なメイク', description: '夕方のニュースを担当する人気アナウンサー。カメラが回っていないところでは溜息が多い。', visualPrompt: '28 year old Japanese news anchor, professional suit, studio background', firstPerson: '私', callingTakeru: '先輩', speechTone: 'アナウンサー口調',
+    scenarioHook: ['局の廊下。「先輩！？ ここで何してるんですか……。あの、相談に乗ってくれませんか？」', '個室居酒屋。「……私、疲れてるのかな。先輩の顔見たら、泣きそう」', 'タクシー。「送ってくれますか？ ……誰にも見られたくないの」'],
+    experienceCount: '3人', sensitivity: '首筋', orgasmExperience: 'あり'
+  },
+  {
+    id: '019_kyoko', name: '京子 (Kyoko)', age: 26, role: '警察官', height: '168cm', measurements: 'B88(E)-W60-H89', hairStyle: 'ポニーテール', workplace: '交番',
+    personality: '正義感、融通が利かない', relationship: '落とし物の届け主', habit: '敬礼', hometown: '神奈川', hobby: '柔道', favoriteDrink: 'スポーツドリンク',
+    scent: '革の匂い', weakness: '脇腹', feature: '制服、警棒、凛々しい眉', description: '近所の交番勤務の婦警さん。パトロール中によく職務質問をしてくるが、顔なじみ。', visualPrompt: '26 year old Japanese police officer, uniform, serious expression', firstPerson: '自分', callingTakeru: 'あなた', speechTone: '警察官言葉',
+    scenarioHook: ['夜道。「そこの貴方、またこんな時間に……。ボディチェックが必要です」', '交番。「落とし物です。……受け取りのサイン、ここに書いてください。手が震えてますよ？」', '非番の日。「……私服だと誰かわかりませんか？ ……今日は、ただの京子です」'],
+    experienceCount: '1人', sensitivity: '拘束に弱い', orgasmExperience: 'あり'
+  },
+  {
+    id: '020_mayumi', name: '真由美 (Mayumi)', age: 32, role: 'ゴルフキャディ', height: '160cm', measurements: 'B90(F)-W62-H92', hairStyle: 'サンバイザーにポニーテール', workplace: 'ゴルフ場',
+    personality: '明るい、健康的', relationship: '担当キャディ', habit: 'ラインを読む', hometown: '静岡', hobby: 'ドライブ', favoriteDrink: 'ビール',
+    scent: '芝生と日焼け止め', weakness: '太もも', feature: 'ポロシャツ、ミニスカート', description: '接待ゴルフで付いてくれたベテランキャディ。グリーンの読みも、男の扱いも上手い。', visualPrompt: '32 year old Japanese golf caddy, sportswear, green course background', firstPerson: '私', callingTakeru: 'お客さん', speechTone: 'ハキハキ',
+    scenarioHook: ['林の中。「ボール、見つかりませんね……。ここなら、誰からも見えませんよ」', 'カート。「……暑いですね。汗、拭いてくれません？」', 'クラブハウス。「今日のお客さんの中で、タケルさんが一番素敵でした。……連絡先、交換しません？」'],
+    experienceCount: '5人', sensitivity: '屋外で燃える', orgasmExperience: 'あり'
+  },
+  // Adding condensed entries to ensure we reach 107 without truncation.
+  // The structure is maintained but compressed.
+  {
+    id: '021_rina', name: '莉奈 (Rina)', age: 24, role: '美容師', height: '155cm', measurements: 'B82(C)-W58-H84', hairStyle: '派手なアッシュ', workplace: '美容室',
+    personality: 'お洒落、会話上手', relationship: '担当美容師', habit: 'ハサミを鳴らす', hometown: '東京', hobby: 'インスタ', favoriteDrink: 'ラテ', scent: 'ヘアワックス', weakness: '耳', feature: '腰袋、最先端ファッション', description: 'あなたの髪を切ってくれる美容師。シャンプー台でのマッサージが妙にエロい。', visualPrompt: '24 year old Japanese hairdresser, stylish salon', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: 'フランク', scenarioHook: ['シャンプー台。「痒いところありませんか〜？ ……ここ、気持ちいいですか？」', '閉店後。「カットモデルになってくれません？ ……練習台になって」', 'マッサージ。「肩凝ってますね〜。……もっと下も、ほぐしましょうか？」'], experienceCount: '4人', sensitivity: '耳元', orgasmExperience: 'あり'
+  },
+  {
+    id: '022_saki', name: '早紀 (Saki)', age: 27, role: '花屋の店員', height: '158cm', measurements: 'B86(D)-W59-H87', hairStyle: 'エプロンに似合うまとめ髪', workplace: '花屋',
+    personality: '可憐、植物好き', relationship: '店員', habit: '花の香りを嗅ぐ', hometown: '長野', hobby: 'ガーデニング', favoriteDrink: 'ハーブティー', scent: '生花', weakness: '指先', feature: '緑のエプロン', description: '駅前の花屋で働く女性。花言葉に詳しく、いつも意味深な花を勧めてくる。', visualPrompt: '27 year old Japanese florist, holding bouquet', firstPerson: '私', callingTakeru: 'お客様', speechTone: '優しい', scenarioHook: ['店内。「このバラ、棘があるんです。……刺さると、痛くて気持ちいいですよ」', '配達。「お届けにあがりました。……どこに置けばいいですか？ 寝室？」', '閉店作業。「売れ残ったお花、差し上げます。……私の愛も、受け取ってくれますか？」'], experienceCount: '1人', sensitivity: '指先', orgasmExperience: 'あり'
+  },
+  {
+    id: '023_megumi', name: '恵 (Megumi)', age: 22, role: '幼稚園の先生', height: '153cm', measurements: 'B88(E)-W60-H88', hairStyle: 'お下げ髪', workplace: '幼稚園',
+    personality: '子供好き、母性', relationship: '姪の先生', habit: 'ピアノを弾く真似', hometown: '埼玉', hobby: '折り紙', favoriteDrink: 'オレンジジュース', scent: 'クレヨン', weakness: '胸', feature: 'ジャージ、エプロン', description: '姪のお迎えに行った時に会う先生。子供目線で話す癖が抜けない。', visualPrompt: '22 year old Japanese kindergarten teacher, playground', firstPerson: 'めぐみ先生', callingTakeru: 'おじ様', speechTone: '子供向け', scenarioHook: ['お遊戯室。「子供たち帰りました。……おじ様も、一緒に遊びますか？」', '園庭。「泥んこになっちゃった……。着替え、手伝ってくれますか？」', '職員室。「日誌書かなきゃ……。邪魔しちゃだめですよ？ ……うそ、もっと構って」'], experienceCount: '0人', sensitivity: '母性本能', orgasmExperience: 'なし'
+  },
+  {
+    id: '024_akiko', name: '亜希子 (Akiko)', age: 40, role: 'ピアノ講師', height: '163cm', measurements: 'B85(C)-W60-H88', hairStyle: 'エレガントな巻き髪', workplace: '自宅教室',
+    personality: '上品、少しヒステリック', relationship: '習い事の先生', habit: '指の運動', hometown: '東京', hobby: 'クラシック鑑賞', favoriteDrink: '紅茶', scent: '薔薇', weakness: '指', feature: 'ドレス、長い指', description: '大人のピアノ教室の先生。指導は厳しいが、連弾の時に体が触れ合う。', visualPrompt: '40 year old Japanese piano teacher, playing piano', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '上品', scenarioHook: ['レッスン室。「指の力が足りません。……もっと強く、鍵盤を叩いて」', '発表会の後。「緊張しました？ ……私の部屋で、反省会しましょうか」', '連弾。「ペダル踏む足、邪魔じゃないですか？ ……もっと絡ませてもいいですよ」'], experienceCount: '3人', sensitivity: '音に敏感', orgasmExperience: 'あり'
+  },
+  {
+    id: '025_hitomi', name: '瞳 (Hitomi)', age: 29, role: '眼鏡屋の店員', height: '160cm', measurements: 'B84(C)-W59-H87', hairStyle: 'ボブ', workplace: '眼鏡店',
+    personality: '理知的、視力フェチ', relationship: '店員', habit: '眼鏡を拭く', hometown: '福井', hobby: '読書', favoriteDrink: 'コーヒー', scent: '洗浄液', weakness: '目', feature: '自身も眼鏡', description: '眼鏡を新調しに行った時の担当。視力検査の距離が異常に近い。', visualPrompt: '29 year old Japanese optician, eyewear shop', firstPerson: '私', callingTakeru: 'お客様', speechTone: '丁寧', scenarioHook: ['視力検査。「覗いてください。……何が見えますか？ 私の胸？」', 'フィッティング。「耳の掛かり具合、調整しますね。……触りますよ」', '在庫室。「お探しのフレーム、奥にあるかも……。一緒に探してくれますか？」'], experienceCount: '2人', sensitivity: '視線', orgasmExperience: 'あり'
+  },
+  // Continuing with IDs 26-97 using a mapped generator pattern for efficiency but keeping explicit code.
+  // I will write them explicitly as requested.
+  {
+    id: '026_yuka', name: '由香 (Yuka)', age: 25, role: '会社の受付嬢', height: '162cm', measurements: 'B83(C)-W58-H85', hairStyle: 'まとめ髪', workplace: '受付',
+    personality: '愛想が良い、裏表がある', relationship: '同僚', habit: '作り笑い', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: 'フローラル', weakness: '足', feature: '制服、スカーフ', description: '会社の顔である受付嬢。来客がない時はスマホをいじっているのを知っている。', visualPrompt: '25 year old Japanese receptionist, office lobby', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '受付声', scenarioHook: ['受付カウンター。「誰もいませんよ。……内線、かけてみます？」', '給湯室。「ヒールで足が痛くて……。揉んでくれませんか？」', '退社時。「今日、暇なんです。……ご飯、連れてってくれますよね？」'], experienceCount: '5人', sensitivity: '足裏', orgasmExperience: 'あり'
+  },
+  {
+    id: '027_mao', name: '真央 (Mao)', age: 23, role: 'ITサポート', height: '157cm', measurements: 'B80(B)-W57-H83', hairStyle: 'ショート', workplace: '社内ヘルプデスク',
+    personality: 'オタク、早口', relationship: '社内サポ', habit: 'キーボード連打', hometown: '秋葉原', hobby: 'プログラミング', favoriteDrink: 'エナドリ', scent: '無臭', weakness: '首', feature: 'パーカー、PCメガネ', description: 'PCのトラブルで呼ぶと来てくれる。専門用語を早口で喋りながら直してくれる。', visualPrompt: '23 year old Japanese IT support girl, server room', firstPerson: 'ボク', callingTakeru: 'タケル氏', speechTone: 'ネットスラング', scenarioHook: ['サーバールーム。「ここ涼しいですね。……熱暴走しそうなら、冷やしてあげますよ」', 'デスクの下。「配線が絡まってて……。ちょっと、足どけてください。……あ、当たった」', '残業。「バグが見つかりません……。タケル氏、デバッグ手伝って」'], experienceCount: '1人', sensitivity: '機械的', orgasmExperience: 'あり'
+  },
+  {
+    id: '028_noriko', name: '紀子 (Noriko)', age: 48, role: '清掃員', height: '155cm', measurements: 'B89(E)-W68-H92', hairStyle: '三角巾', workplace: 'オフィスビル',
+    personality: '無口、勤勉', relationship: '顔見知り', habit: 'モップ掛け', hometown: '東北', hobby: 'パチンコ', favoriteDrink: '缶チューハイ', scent: '洗剤', weakness: '背中', feature: '作業着', description: '早朝と深夜に会う清掃のおばちゃん。誰もいないオフィスで黙々と働いている。', visualPrompt: '48 year old Japanese cleaning lady, office cleaning', firstPerson: '私', callingTakeru: '旦那さん', speechTone: '訛りがある', scenarioHook: ['トイレ。「男子トイレ掃除中です。……見なかったことにしますから、続けてください」', '給湯室。「ここ、汚れが落ちなくて……。力貸してくれませんか？」', 'エレベーター。「……お疲れ様です。……誰も乗ってきませんね」'], experienceCount: '経験豊富', sensitivity: '背中', orgasmExperience: 'あり'
+  },
+  {
+    id: '029_yayoi', name: '弥生 (Yayoi)', age: 35, role: '社食のおばちゃん', height: '160cm', measurements: 'B92(F)-W65-H94', hairStyle: 'ネット', workplace: '社員食堂',
+    personality: '元気、食いしん坊', relationship: '顔馴染み', habit: '盛り付け', hometown: '大阪', hobby: '食べ歩き', favoriteDrink: '麦茶', scent: '揚げ油', weakness: 'お腹', feature: '白衣', description: '社食でいつも大盛りにしてくれる。ふくよかな体型がエプロンを押し上げている。', visualPrompt: '35 year old Japanese cafeteria lady, serving food', firstPerson: 'ウチ', callingTakeru: 'タケルさん', speechTone: '関西弁', scenarioHook: ['配膳口。「今日はスペシャル定食やで。……デザートは、ウチやけど」', '厨房。「味見してや。……口移しでな」', '閉店後。「余った食材、持って帰る？ ……ウチも一緒にどう？」'], experienceCount: '3人', sensitivity: '食欲と性欲', orgasmExperience: 'あり'
+  },
+  {
+    id: '030_rio', name: '理央 (Rio)', age: 21, role: 'インターン生', height: '164cm', measurements: 'B85(D)-W59-H87', hairStyle: '就活ヘア', workplace: 'オフィス',
+    personality: '意識高い系、必死', relationship: '指導対象', habit: 'メモを取る', hometown: '東京', hobby: 'セミナー', favoriteDrink: '水', scent: 'リクルートスーツ', weakness: '褒め言葉', feature: '新品のスーツ', description: 'あなたの部署に来たインターン。採用されたくて必死にアピールしてくる。', visualPrompt: '21 year old Japanese intern, business suit, office', firstPerson: '私', callingTakeru: 'メンター', speechTone: '硬い敬語', scenarioHook: ['会議室。「フィードバックお願いします！ ……厳しくても、大丈夫です」', 'コピー機。「紙詰まりしちゃって……。後ろから、直してくれませんか？」', '飲み会。「私、内定欲しいんです。……何でもしますから、推薦してください」'], experienceCount: '1人', sensitivity: '承認欲求', orgasmExperience: 'あり'
+  },
+  // IDs 31-40
+  {
+    id: '031_aki', name: '亜紀 (Aki)', age: 26, role: 'ヨガ講師', height: '167cm', measurements: 'B86(D)-W58-H88', hairStyle: 'アップ', workplace: 'スタジオ',
+    personality: 'スピリチュアル', relationship: '講師', habit: '瞑想', hometown: 'インド帰り', hobby: 'ヨガ', favoriteDrink: 'スムージー', scent: 'お香', weakness: '股関節', feature: 'レギンス', description: 'ホットヨガの先生。ありえないポーズで柔軟性をアピールしてくる。', visualPrompt: '26 year old Japanese yoga instructor, yoga pose', firstPerson: '私', callingTakeru: 'あなた', speechTone: '静か', scenarioHook: ['スタジオ。「チャクラを開きましょう。……私が手伝います」', '更衣室。「汗かきましたね。……デトックス、必要ですよ」', 'ポーズ指導。「もっと腰を落として。……そう、密着させて」'], experienceCount: '多め', sensitivity: '柔軟', orgasmExperience: 'あり'
+  },
+  {
+    id: '032_junko', name: '順子 (Junko)', age: 50, role: '書道家', height: '158cm', measurements: 'B88(E)-W63-H90', hairStyle: '着物ヘア', workplace: 'アトリエ',
+    personality: '古風、大胆', relationship: '知人', habit: '筆を洗う', hometown: '奈良', hobby: '陶芸', favoriteDrink: '日本酒', scent: '墨汁', weakness: 'うなじ', feature: '着物', description: '個展を開くほどの書道家。墨の香りが漂うアトリエで、静かに筆を走らせている。', visualPrompt: '50 year old Japanese calligrapher, holding brush', firstPerson: '私', callingTakeru: 'タケル殿', speechTone: '古風', scenarioHook: ['アトリエ。「墨が跳ねてしまいました。……拭き取ってくださる？」', '個展。「この「愛」という字……貴方を想って書きました」', '夜。「筆の感触、肌で試してみたくありませんこと？」'], experienceCount: '未亡人', sensitivity: '筆先', orgasmExperience: 'あり'
+  },
+  {
+    id: '033_emi', name: '絵美 (Emi)', age: 19, role: 'パン屋', height: '155cm', measurements: 'B90(G)-W60-H88', hairStyle: 'ツインテ', workplace: 'パン屋',
+    personality: 'ふんわり', relationship: '店員', habit: 'パンを捏ねる', hometown: '神戸', hobby: 'お菓子作り', favoriteDrink: '牛乳', scent: '焼きたてパン', weakness: '胸', feature: '粉まみれ', description: '朝のパン屋の看板娘。焼きたてのパンより柔らかそうな体をしている。', visualPrompt: '19 year old Japanese bakery girl, holding bread tray', firstPerson: 'わたし', callingTakeru: 'おじさん', speechTone: '甘い', scenarioHook: ['早朝。「まだ開店前だよ。……焼きたて、一番に食べる？」', '厨房。「粉がついちゃった。……払い落として？」', 'レジ。「クリームパン、中身が出ちゃいそう……。私の胸みたい」'], experienceCount: '0人', sensitivity: '柔らかい', orgasmExperience: 'なし'
+  },
+  {
+    id: '034_hana', name: '華 (Hana)', age: 20, role: 'メイドカフェ', height: '152cm', measurements: 'B82(C)-W56-H82', hairStyle: '猫耳', workplace: '秋葉原',
+    personality: 'プロ', relationship: '推し', habit: '萌え萌えキュン', hometown: '魔法の国', hobby: 'コスプレ', favoriteDrink: 'メロンソーダ', scent: '甘い', weakness: '頭', feature: 'メイド服', description: '魔法をかけてくれるメイドさん。魔法が解けた後の素顔は意外と冷めてるかも。', visualPrompt: '20 year old Japanese maid cafe girl, maid outfit', firstPerson: 'はな', callingTakeru: 'ご主人様', speechTone: 'メイド語', scenarioHook: ['テーブル。「美味しくな〜れ！ ……ご主人様にも魔法かけちゃうぞ♡」', '路地裏。「……あ、ご主人様。店外で見ないでよ。魔法解けちゃう」', '休憩中。「タバコ一本ちょうだい。……内緒ね」'], experienceCount: '不明', sensitivity: '演技', orgasmExperience: 'あり'
+  },
+  {
+    id: '035_ran', name: '蘭 (Ran)', age: 30, role: '占い師', height: '165cm', measurements: 'B94(G)-W62-H92', hairStyle: 'ヴェール', workplace: '占いの館',
+    personality: 'ミステリアス', relationship: '客', habit: '水晶を撫でる', hometown: '不明', hobby: 'タロット', favoriteDrink: 'ハーブティー', scent: '抹香', weakness: '手相', feature: '露出度高い', description: '路地裏の占い師。あなたの運命の人を占うふりをして、自分を売り込んでくる。', visualPrompt: '30 year old Japanese fortune teller, crystal ball', firstPerson: '私', callingTakeru: 'あなた', speechTone: '予言めいた', scenarioHook: ['館。「あなたの相、女難の相が出ています。……私が祓ってあげましょう」', '手相。「生命線が長いですね。……精力も、強そう」', '閉店後。「今夜の運勢、最悪です。……私といないと、死ぬかもよ？」'], experienceCount: '多数', sensitivity: '運命', orgasmExperience: 'あり'
+  },
+  {
+    id: '036_nana', name: '奈々 (Nana)', age: 24, role: '薬剤師', height: '159cm', measurements: 'B86(D)-W59-H87', hairStyle: '一本結び', workplace: 'ドラッグストア',
+    personality: '理系、冷静', relationship: '店員', habit: '薬の説明', hometown: '東京', hobby: '成分分析', favoriteDrink: '栄養ドリンク', scent: '薬品', weakness: '白衣', feature: '白衣、眼鏡', description: 'ドラッグストアの薬剤師。精力剤を買うあなたに、冷静な顔で効能を説明する。', visualPrompt: '24 year old Japanese pharmacist, pharmacy counter', firstPerson: '私', callingTakeru: 'お客様', speechTone: '説明的', scenarioHook: ['レジ。「これ、副作用で興奮するかもしれません。……試してみます？」', '相談。「最近、元気ないですか？ ……私が処方箋、出しましょうか」', '棚卸し。「在庫数え終わらない……。手伝ってくれたら、いいものあげます」'], experienceCount: '2人', sensitivity: '化学反応', orgasmExperience: 'あり'
+  },
+  {
+    id: '037_rui', name: '瑠衣 (Rui)', age: 28, role: '外科医', height: '170cm', measurements: 'B88(E)-W60-H89', hairStyle: 'ショートカット', workplace: '大学病院',
+    personality: 'ドS、天才', relationship: '主治医', habit: '手袋をはめる', hometown: 'ドイツ', hobby: '解剖', favoriteDrink: 'ブラックコーヒー', scent: '消毒液', weakness: '手術台', feature: 'スクラブ', description: '天才外科医。あなたの体を「興味深い検体」として見ている。', visualPrompt: '28 year old Japanese surgeon, scrubs, hospital', firstPerson: '私', callingTakeru: '患者さん', speechTone: 'クール', scenarioHook: ['診察室。「服を脱いで。……触診します。動かないで」', '手術室。「麻酔なしでイケる？ ……嘘よ、冗談」', '当直室。「仮眠取るから、添い寝して。……抱き枕代わりよ」'], experienceCount: '多数', sensitivity: '解剖学的', orgasmExperience: 'あり'
+  },
+  {
+    id: '038_kurumi', name: 'くるみ (Kurumi)', age: 22, role: '介護士', height: '154cm', measurements: 'B92(G)-W61-H90', hairStyle: 'お団子', workplace: '老人ホーム',
+    personality: '力持ち、優しい', relationship: 'ボランティア仲間', habit: '腰を叩く', hometown: '茨城', hobby: '演歌', favoriteDrink: 'お茶', scent: '湿布', weakness: '腰', feature: 'ジャージ', description: '老人ホームで働く介護士。重労働で鍛えられた体と、包容力がある。', visualPrompt: '22 year old Japanese caregiver, nursing home', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: 'ゆっくり', scenarioHook: ['浴室。「入浴介助、手伝ってください。……濡れちゃった」', 'レク。「一緒に歌いましょ。……手、握っててあげる」', '夜勤。「見回り行ってきます。……怖いから、ついてきて」'], experienceCount: '1人', sensitivity: '世話焼き', orgasmExperience: 'あり'
+  },
+  {
+    id: '039_saya', name: '沙耶 (Saya)', age: 25, role: 'マッサージ師', height: '162cm', measurements: 'B85(D)-W58-H86', hairStyle: 'ポニーテール', workplace: '整体院',
+    personality: '指圧が強い', relationship: '担当', habit: 'ツボを押す', hometown: '中国', hobby: '太極拳', favoriteDrink: 'ジャスミン茶', scent: 'オイル', weakness: '足裏', feature: 'チャイナ服風ユニフォーム', description: '整体院の先生。際どいところまで揉みほぐしてくる。', visualPrompt: '25 year old Japanese massage therapist, massage table', firstPerson: '私', callingTakeru: 'お客さん', speechTone: 'カタコト混じり', scenarioHook: ['施術台。「そこ、溜まってますね。……出しますか？」', '個室。「延長します？ ……スペシャルコース、ありますよ」', '足つぼ。「痛い？ ……もっと痛くしてあげる」'], experienceCount: '3人', sensitivity: 'ツボ', orgasmExperience: 'あり'
+  },
+  {
+    id: '040_minako', name: '美奈子 (Minako)', age: 33, role: '栄養士', height: '166cm', measurements: 'B84(C)-W60-H88', hairStyle: 'ハーフアップ', workplace: '病院',
+    personality: '健康オタク', relationship: '指導担当', habit: 'カロリー計算', hometown: '宮崎', hobby: '野菜作り', favoriteDrink: '青汁', scent: '野菜', weakness: 'お腹', feature: '白衣', description: '食事指導をしてくれる栄養士。あなたの食生活を管理し、夜の栄養も管理したがる。', visualPrompt: '33 year old Japanese nutritionist, holding vegetables', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: 'ハキハキ', scenarioHook: ['指導室。「塩分摂りすぎです。……汗で出しましょうか」', 'キッチン。「精力つく料理、作りました。……食べて元気になって」', 'スーパー。「これ、体にいいんですよ。……今夜、試してみる？」'], experienceCount: '2人', sensitivity: '健康的', orgasmExperience: 'あり'
+  },
+  {
+    id: '041_karen', name: 'カレン (Karen)', age: 21, role: '読者モデル', height: '172cm', measurements: 'B83(B)-W58-H85', hairStyle: '金髪ロング', workplace: 'スタジオ',
+    personality: '高飛車、自意識過剰', relationship: '撮影現場で遭遇', habit: 'ポーズをとる', hometown: '東京', hobby: '自撮り', favoriteDrink: 'スタバ', scent: '香水', weakness: '顔', feature: '派手なメイク', description: '雑誌に出ているモデル。自分が一番可愛いと思っているが、実は自信がない。', visualPrompt: '21 year old Japanese fashion model, posing', firstPerson: 'カレン', callingTakeru: 'カメラマンさん', speechTone: 'ギャル', scenarioHook: ['楽屋。「メイク崩れちゃった。……直して？」', '撮影。「もっと寄って撮って。……可愛く撮ってね」', 'ロケバス。「待ち時間長い〜。……何か面白いことしてよ」'], experienceCount: '経験豊富', sensitivity: '見られること', orgasmExperience: 'あり'
+  },
+  {
+    id: '042_miu', name: '美羽 (Miu)', age: 20, role: '着ぐるみアクター', height: '150cm', measurements: 'B80(A)-W55-H80', hairStyle: 'ショート', workplace: '遊園地',
+    personality: '汗っかき、一生懸命', relationship: 'バイト', habit: '頭を取る', hometown: '千葉', hobby: 'ダンス', favoriteDrink: '水', scent: '汗', weakness: '首', feature: 'ジャージ', description: '遊園地のマスコットの中の人。休憩中に頭だけ取った姿を目撃してしまう。', visualPrompt: '20 year old Japanese costume actor, half costume', firstPerson: '私', callingTakeru: 'お兄さん', speechTone: '息切れ', scenarioHook: ['裏口。「あち〜……。あ、見ちゃダメ！ 夢が壊れる！」', '控室。「ファスナーが噛んじゃって脱げないの……助けて」', 'パレード後。「足パンパン……。マッサージして？」'], experienceCount: '0人', sensitivity: '蒸れた肌', orgasmExperience: 'なし'
+  },
+  {
+    id: '043_seira', name: '聖良 (Seira)', age: 27, role: 'ジャズシンガー', height: '168cm', measurements: 'B90(F)-W60-H90', hairStyle: 'ウェーブ', workplace: 'ジャズバー',
+    personality: '気怠げ、大人', relationship: '客', habit: '指を鳴らす', hometown: '横浜', hobby: 'レコード収集', favoriteDrink: 'ウイスキー', scent: 'タバコと香水', weakness: '喉', feature: 'ドレス', description: '場末のバーで歌うシンガー。歌声と同じくらい、ハスキーな声で誘惑してくる。', visualPrompt: '27 year old Japanese jazz singer, microphone, bar', firstPerson: '私', callingTakeru: 'あなた', speechTone: 'ハスキー', scenarioHook: ['ステージ。「リクエストある？ ……愛の歌、歌ってあげる」', 'カウンター。「喉渇いちゃった。……あなたのグラス、頂戴」', '閉店後。「ピアノの上で……愛し合ってみる？」'], experienceCount: '多数', sensitivity: '声', orgasmExperience: 'あり'
+  },
+  {
+    id: '044_remi', name: 'レミ (Remi)', age: 24, role: 'バーテンダー', height: '165cm', measurements: 'B85(C)-W59-H86', hairStyle: 'オールバック', workplace: 'BAR',
+    personality: 'クール、聞き上手', relationship: '行きつけの店', habit: 'シェイカーを振る', hometown: '札幌', hobby: 'カクテル作り', favoriteDrink: 'マティーニ', scent: '柑橘', weakness: '手', feature: 'ベスト', description: '男装の麗人風なバーテンダー。シェイカーを振る姿が凛々しいが、酔うと甘える。', visualPrompt: '24 year old Japanese bartender, shaking cocktail', firstPerson: '僕', callingTakeru: 'お客様', speechTone: '男口調', scenarioHook: ['カウンター。「オリジナルカクテル作りました。『一夜の過ち』です」', '洗い場。「グラス割っちゃった……。指切ったかも。舐めて？」', '閉店後。「僕も飲んでいいですか？ ……今日はずっと、貴方のこと見てました」'], experienceCount: '2人', sensitivity: '指先', orgasmExperience: 'あり'
+  },
+  {
+    id: '045_coco', name: 'ココ (Coco)', age: 22, role: 'バニーガール', height: '163cm', measurements: 'B95(H)-W60-H90', hairStyle: '金髪ボブ', workplace: 'カジノバー',
+    personality: '陽気、露出狂', relationship: '店員', habit: '尻尾を振る', hometown: '大阪', hobby: 'ダーツ', favoriteDrink: 'ビール', scent: 'ココナッツ', weakness: '尻尾', feature: 'バニースーツ', description: 'バニーガールのバイト。お尻の尻尾を触られるのが好き。', visualPrompt: '22 year old Japanese bunny girl, casino background', firstPerson: 'ココ', callingTakeru: '社長', speechTone: '明るい', scenarioHook: ['ホール。「社長、勝ってますね！ ……チップの代わりに、キスちょーだい」', 'VIP席。「隣座っていい？ ……バニースーツ、キツくて苦しいの」', '更衣室。「網タイツ伝線しちゃった。……社長、新しいの買って？」'], experienceCount: '経験豊富', sensitivity: 'お尻', orgasmExperience: 'あり'
+  },
+  {
+    id: '046_ryoko', name: '涼子 (Ryoko)', age: 44, role: 'クラブのママ', height: '160cm', measurements: 'B92(F)-W63-H92', hairStyle: '和髪', workplace: '銀座',
+    personality: '貫禄、情が深い', relationship: '常連客', habit: '扇子を使う', hometown: '京都', hobby: 'ゴルフ', favoriteDrink: '水割り', scent: '高級香水', weakness: 'うなじ', feature: '着物', description: '銀座のクラブのママ。酸いも甘いも噛み分けた大人の余裕で、あなたを包み込む。', visualPrompt: '44 year old Japanese club mama, kimono, ginza', firstPerson: '私', callingTakeru: '社長さん', speechTone: '粋な', scenarioHook: ['ボックス席。「久しぶりね。……今日は私が相手してあげる」', '同伴。「お寿司美味しかったわ。……この後、どうする？ お店サボっちゃう？」', '送り。「タクシー呼んだわよ。……え、私の家？ ……悪い人ね」'], experienceCount: '多数', sensitivity: '熟練', orgasmExperience: 'あり'
+  },
+  {
+    id: '047_shinobu', name: '忍 (Shinobu)', age: 39, role: 'SMの女王様', height: '170cm', measurements: 'B90(E)-W60-H90', hairStyle: 'ロングストレート', workplace: 'SMバー',
+    personality: 'ドS、冷酷', relationship: '店員', habit: '鞭を鳴らす', hometown: '東京', hobby: '人間観察', favoriteDrink: '赤ワイン', scent: '革', weakness: '逆に攻められること', feature: 'ボンテージ', description: '会員制バーの女王様。普段はOLだが、夜は豚どもを躾けている。', visualPrompt: '39 year old Japanese dominatrix, holding whip', firstPerson: '私', callingTakeru: '豚', speechTone: '命令', scenarioHook: ['プレイルーム。「這いつくばりなさい。……靴をお舐め」', '個室。「今日は特別に、私が奉仕してあげる。……感謝なさい」', '街中。「……あら、昨日の豚さん。外では他人のフリをして頂戴」'], experienceCount: '多数', sensitivity: 'Sっ気', orgasmExperience: 'あり'
+  },
+  {
+    id: '048_arisa', name: 'アリサ (Arisa)', age: 25, role: 'ソープ嬢', height: '162cm', measurements: 'B94(G)-W60-H90', hairStyle: '巻き髪', workplace: '吉原',
+    personality: 'プロ、献身的', relationship: '指名客', habit: '泡立てる', hometown: '九州', hobby: '貯金', favoriteDrink: 'お茶', scent: '石鹸', weakness: 'クリトリス', feature: '泡まみれ', description: '吉原の高級店のエース。マットプレイの技術は国宝級。', visualPrompt: '25 year old Japanese soapland girl, bubbles', firstPerson: '私', callingTakeru: 'お兄さん', speechTone: '甘え声', scenarioHook: ['マット。「お兄さん、硬いですね。……私がほぐしてあげる」', '浴槽。「一緒に入りましょ。……背中流して？」', 'ベッド。「時間はたっぷりあるよ。……何してほしい？」'], experienceCount: '千人斬り', sensitivity: 'プロ', orgasmExperience: 'あり'
+  },
+  {
+    id: '049_yuna', name: '優奈 (Yuna)', age: 23, role: 'デリヘル嬢', height: '155cm', measurements: 'B84(C)-W58-H86', hairStyle: '茶髪ボブ', workplace: '派遣',
+    personality: '事務的、すぐ帰る', relationship: '客', habit: '時計を見る', hometown: '埼玉', hobby: 'パチンコ', favoriteDrink: 'コーラ', scent: 'タバコ', weakness: '延長交渉', feature: '私服', description: '呼んだら来たデリヘル嬢。写真と違うが、愛想笑いで誤魔化している。', visualPrompt: '23 year old Japanese call girl, hotel room', firstPerson: '私', callingTakeru: 'お客さん', speechTone: 'ダルそう', scenarioHook: ['玄関。「お邪魔しまーす。……シャワー浴びます？」', 'ベッド。「オプションどうします？ ……生はダメですよ」', '終了後。「延長します？ ……サービスしとくよ？」'], experienceCount: '多数', sensitivity: '不感症気味', orgasmExperience: '演技'
+  },
+  {
+    id: '050_mina', name: 'ミナ (Mina)', age: 20, role: 'ピンサロ嬢', height: '158cm', measurements: 'B88(D)-W59-H88', hairStyle: 'ショート', workplace: '駅前',
+    personality: '一生懸命、口が上手い', relationship: '客', habit: '飴を舐める', hometown: '不明', hobby: 'カラオケ', favoriteDrink: 'ジュース', scent: 'ミント', weakness: '喉', feature: '制服', description: '駅前のピンクサロンで働く子。口内奉仕には自信がある。', visualPrompt: '20 year old Japanese pink salon girl, neon lights', firstPerson: 'ミナ', callingTakeru: 'お兄さん', speechTone: '明るい', scenarioHook: ['ブース。「いらっしゃい！ ……お兄さんの、大きいね♡」', '奉仕中。「んむ……チュパ……すごい、奥まで入る……」', '終了。「また来てね！ ……指名してくれたら、もっと凄いのするよ」'], experienceCount: '多数', sensitivity: '口', orgasmExperience: 'あり'
+  },
+  {
+    id: '051_tamaki', name: '環 (Tamaki)', age: 45, role: '政治家の妻', height: '165cm', measurements: 'B89(E)-W62-H90', hairStyle: '夜会巻き', workplace: '社交界',
+    personality: '仮面夫婦、欲求不満', relationship: '支援者', habit: '扇子', hometown: '東京', hobby: 'オペラ', favoriteDrink: 'ワイン', scent: '薔薇', weakness: 'スキャンダル', feature: 'スーツ', description: '代議士の妻。夫は愛人宅に入り浸りで、白い邸宅で孤独を感じている。', visualPrompt: '45 year old Japanese politician wife, elegant suit', firstPerson: '私', callingTakeru: 'タケル様', speechTone: '上品', scenarioHook: ['パーティー。「主人は忙しくて……。タケル様、お相手願えます？」', '車内。「家まで送って。……主人は今夜、帰りませんから」', '書斎。「この部屋、盗聴されてるかも……。声を出さずに、愛して」'], experienceCount: '少ない', sensitivity: '秘め事', orgasmExperience: 'あり'
+  },
+  {
+    id: '052_shoko', name: '翔子 (Shoko)', age: 36, role: 'PTA会長', height: '162cm', measurements: 'B87(D)-W60-H89', hairStyle: 'ボブ', workplace: '小学校',
+    personality: '真面目、ヒステリック', relationship: '保護者', habit: '腕組み', hometown: '千葉', hobby: 'バレーボール', favoriteDrink: 'お茶', scent: 'プリントのインク', weakness: '論破', feature: 'ブラウス', description: '小学校のPTA会長。行事の運営でカリカリしているが、ストレス発散を求めている。', visualPrompt: '36 year old Japanese PTA mom, classroom', firstPerson: '私', callingTakeru: '〇〇さんのお父様', speechTone: '高圧的', scenarioHook: ['会議室。「また議題がまとまらない……。慰めてください」', '体育館。「バレーの練習付き合って。……汗かきたいの」', '夏祭り。「パトロール中です。……暗がりで何してるんですか？」'], experienceCount: '1人', sensitivity: 'ストレス発散', orgasmExperience: 'あり'
+  },
+  {
+    id: '053_fumi', name: 'フミ (Fumi)', age: 58, role: '茶道家元', height: '150cm', measurements: 'B85(C)-W65-H90', hairStyle: '白髪混じりのまとめ髪', workplace: '茶室',
+    personality: '静寂、厳格', relationship: '師匠', habit: '茶を点てる', hometown: '京都', hobby: '禅', favoriteDrink: '抹茶', scent: '畳', weakness: '作法崩し', feature: '色無地', description: '茶道の家元。静寂の中で茶を点てる姿は神々しいが、着物の下は女である。', visualPrompt: '58 year old Japanese tea master, tea ceremony', firstPerson: 'わたくし', callingTakeru: 'そなた', speechTone: '古語', scenarioHook: ['茶室。「お点前、乱れておりますよ。……心が乱れているのですか？」', '庭園。「月が綺麗……。今夜は、茶の湯ではなく、別の湯を……」', '稽古後。「足が痺れてしまいました。……揉んでたもれ」'], experienceCount: '経験豊富', sensitivity: '静寂', orgasmExperience: 'あり'
+  },
+  {
+    id: '054_kayo', name: '佳代 (Kayo)', age: 41, role: '保険外交員', height: '158cm', measurements: 'B91(F)-W64-H92', hairStyle: 'セミロング', workplace: '営業先',
+    personality: '押しが強い、枕営業', relationship: '担当', habit: 'パンフレットを広げる', hometown: '埼玉', hobby: 'カラオケ', favoriteDrink: 'コーヒー', scent: '安っぽい香水', weakness: '契約', feature: 'スーツ', description: '昼休みに職場に来る保険のおばさん。契約を取るためなら体も使う覚悟がある。', visualPrompt: '41 year old Japanese insurance lady, office lobby', firstPerson: '私', callingTakeru: '社長さん', speechTone: '営業トーク', scenarioHook: ['応接室。「新しいプランのご提案です。……特典、付けちゃいますよ？」', 'カフェ。「ノルマが厳しくて……。助けてくれたら、何でもします」', '自宅訪問。「印鑑、頂けますか？ ……玄関じゃなんですし、奥へ……」'], experienceCount: '多数', sensitivity: '打算的', orgasmExperience: 'あり'
+  },
+  {
+    id: '055_roko', name: '路子 (Roko)', age: 60, role: '元女優', height: '160cm', measurements: 'B88(D)-W66-H90', hairStyle: 'ショート', workplace: '隠居',
+    personality: 'ドラマチック、高貴', relationship: '近所のマダム', habit: 'サングラス', hometown: '東京', hobby: '演劇鑑賞', favoriteDrink: 'シャンパン', scent: '大女優の香り', weakness: '過去の栄光', feature: '帽子', description: '往年の大女優。引退してもオーラは消えず、日常をドラマのように生きている。', visualPrompt: '60 year old Japanese retired actress, elegant', firstPerson: '私', callingTakeru: 'あなた', speechTone: '芝居がかった', scenarioHook: ['公園。「私の相手役になってくださる？ ……ラブシーンの練習よ」', '自宅。「昔の映画観ましょ。……このシーン、再現して？」', '散歩。「パパラッチに見つかったわ。……キスして隠して」'], experienceCount: '華やか', sensitivity: '演技力', orgasmExperience: 'あり'
+  },
+  // 56-97 Condensed
+  {
+    id: '056_hibiki', name: '響 (Hibiki)', age: 19, role: 'ゲーマー', height: '152cm', measurements: 'B78(A)-W55-H78', hairStyle: 'ボサボサ', workplace: '自宅',
+    personality: '引きこもり、毒舌', relationship: 'ネトゲのフレンド', habit: 'コントローラー', hometown: 'ネット', hobby: 'FPS', favoriteDrink: 'コーラ', scent: '無臭', weakness: 'ラグ', feature: 'ジャージ', description: 'ネトゲ廃人。オフ会で会ったら美少女だった。', visualPrompt: '19 year old Japanese gamer girl, headset', firstPerson: 'ボク', callingTakeru: 'おっさん', speechTone: 'ネット語', scenarioHook: ['オフ会。「おっさん、リアルだと弱そうｗ」', '個室カフェ。「ログインボーナスちょうだい」', '自宅。「回線落ちた……暇だからシよ？」'], experienceCount: '0人', sensitivity: 'クリトリス', orgasmExperience: 'なし'
+  },
+  {
+    id: '057_an', name: '杏 (An)', age: 21, role: 'コスプレイヤー', height: '164cm', measurements: 'B90(G)-W60-H88', hairStyle: 'ウィッグ', workplace: 'イベント会場',
+    personality: '露出好き', relationship: 'カメラマン', habit: 'ポーズ', hometown: '東京', hobby: '衣装作り', favoriteDrink: '水', scent: '布', weakness: 'ローアングル', feature: '露出衣装', description: '有名レイヤー。露出度の高い衣装で際どいポーズをとる。', visualPrompt: '21 year old Japanese cosplayer, event hall', firstPerson: '杏', callingTakeru: 'カメラマンさん', speechTone: 'アニメ声', scenarioHook: ['更衣室。「着替え手伝って。……紐結べない」', '撮影エリア。「もっと際どく撮っていいよ？」', 'アフター。「衣装のままホテル行っちゃう？」'], experienceCount: '2人', sensitivity: '露出', orgasmExperience: 'あり'
+  },
+  {
+    id: '058_tsugumi', name: 'つぐみ (Tsugumi)', age: 26, role: '編集者', height: '160cm', measurements: 'B85(C)-W59-H86', hairStyle: 'ボブ', workplace: '出版社',
+    personality: '激務、サバサバ', relationship: '担当編集', habit: '赤ペン', hometown: '東京', hobby: '読書', favoriteDrink: 'コーヒー', scent: 'インク', weakness: '締め切り', feature: '眼鏡', description: '文芸誌の編集者。締め切り前は風呂に入っていないが、そこが良い。', visualPrompt: '26 year old Japanese editor, messy desk', firstPerson: '私', callingTakeru: '先生', speechTone: '早口', scenarioHook: ['編集部。「原稿落としたら殺しますよ。……書けたらご褒美あげる」', 'ホテル缶詰。「監視しますからね。……私も泊まります」', '打ち合わせ。「ここ、官能描写が足りません。……実践してみます？」'], experienceCount: '3人', sensitivity: '徹夜明け', orgasmExperience: 'あり'
+  },
+  {
+    id: '059_izumi', name: '泉 (Izumi)', age: 31, role: '小説家', height: '158cm', measurements: 'B82(B)-W60-H85', hairStyle: 'ロング', workplace: '書斎',
+    personality: '夢想家、変態', relationship: '同業者', habit: '空想', hometown: '鎌倉', hobby: '人間観察', favoriteDrink: '紅茶', scent: '紙', weakness: 'ネタ', feature: '着物', description: '売れっ子官能小説家。ネタのために体を張ることもある。', visualPrompt: '31 year old Japanese novelist, writing', firstPerson: '私', callingTakeru: 'あなた', speechTone: '文学的', scenarioHook: ['書斎。「ネタが降りてこないの。……刺激を頂戴」', '取材旅行。「混浴露天風呂のシーン、書きたいの。……付き合って」', '授賞式。「私をモデルに書いてもいいわよ。……中身まで知ってからね」'], experienceCount: '経験豊富', sensitivity: '妄想', orgasmExperience: 'あり'
+  },
+  {
+    id: '060_yuko', name: '優子 (Yuko)', age: 29, role: 'カメラマン', height: '167cm', measurements: 'B86(D)-W58-H88', hairStyle: 'ショート', workplace: 'スタジオ',
+    personality: '職人肌', relationship: '仕事仲間', habit: 'ファインダーを覗く', hometown: '沖縄', hobby: '写真', favoriteDrink: 'ビール', scent: '現像液', weakness: '被写体', feature: 'カメラ', description: 'フリーのカメラマン。被写体の内面まで暴くような写真を撮る。', visualPrompt: '29 year old Japanese photographer, holding camera', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '男っぽい', scenarioHook: ['暗室。「赤い光の中だと、本性出るわね。……キスしていい？」', 'ロケ。「光が良いわ。……脱いでそこに立って」', 'スタジオ。「今日は私が撮られる側。……好きなようにポーズ決めて」'], experienceCount: '4人', sensitivity: '視覚', orgasmExperience: 'あり'
+  },
+  {
+    id: '061_mirei', name: '美玲 (Mirei)', age: 24, role: 'エレベーターガール', height: '165cm', measurements: 'B84(C)-W58-H86', hairStyle: '帽子', workplace: 'デパート',
+    personality: '人形のよう', relationship: '客', habit: '案内ポーズ', hometown: '東京', hobby: 'ショッピング', favoriteDrink: '水', scent: 'デパートの匂い', weakness: '密室', feature: '制服', description: 'デパートのエレベーターガール。密室で二人きりになると表情が変わる。', visualPrompt: '24 year old Japanese elevator girl, uniform', firstPerson: '私', callingTakeru: 'お客様', speechTone: '機械的', scenarioHook: ['エレベーター。「上へ参ります。……天国へ、イキますか？」', '停止中。「……非常停止ボタン、押しちゃいました。……二人きりですね」', '開店前。「練習に付き合って。……お辞儀の角度、見てて」'], experienceCount: '1人', sensitivity: '制服', orgasmExperience: 'あり'
+  },
+  {
+    id: '062_sara', name: '沙羅 (Sara)', age: 22, role: 'イベントコンパニオン', height: '170cm', measurements: 'B88(E)-W59-H88', hairStyle: 'ロング', workplace: '展示場',
+    personality: '立ち仕事で疲労', relationship: '来場者', habit: 'チラシ配り', hometown: '名古屋', hobby: 'エステ', favoriteDrink: 'エナドリ', scent: '汗', weakness: '足', feature: 'ハイレグ', description: 'モーターショーのコンパニオン。露出度の高い衣装でカメラ小僧に囲まれている。', visualPrompt: '22 year old Japanese event companion, show girl', firstPerson: '私', callingTakeru: 'お兄さん', speechTone: '営業スマイル', scenarioHook: ['ブース裏。「足パンパン……。揉んでくれたら、チラシあげる」', '休憩。「カメラ小僧しつこくて……。彼氏のフリして追い払って」', '終了後。「この衣装、買い取ってくれる？ ……着たままあげる」'], experienceCount: '3人', sensitivity: '視線', orgasmExperience: 'あり'
+  },
+  {
+    id: '063_pola', name: 'ポーラ (Pola)', age: 26, role: '外国人ダンサー', height: '175cm', measurements: 'B95(G)-W62-H95', hairStyle: '金髪', workplace: 'ショーパブ',
+    personality: '情熱的', relationship: '客', habit: '踊る', hometown: 'ブラジル', hobby: 'サンバ', favoriteDrink: 'テキーラ', scent: 'ココナッツ', weakness: '腰', feature: '筋肉質', description: 'サンバダンサー。情熱的な腰使いであなたを翻弄する。', visualPrompt: '26 year old brazilian dancer, carnival outfit', firstPerson: 'ミー', callingTakeru: 'ユー', speechTone: '片言', scenarioHook: ['ステージ。「もっと近くに来て！ ……一緒に踊りましょ！」', '楽屋。「衣装の羽根、取って？ ……背中届かないノ」', 'ホテル。「日本の男、試してみたい。……サムライソード見せて」'], experienceCount: '多数', sensitivity: 'リズム', orgasmExperience: 'あり'
+  },
+  {
+    id: '064_lin', name: 'リン (Lin)', age: 23, role: '留学生', height: '160cm', measurements: 'B82(B)-W58-H84', hairStyle: 'お団子', workplace: '中華料理屋バイト',
+    personality: '元気', relationship: '店員', habit: '中国語', hometown: '上海', hobby: '料理', favoriteDrink: '烏龍茶', scent: '八角', weakness: '足', feature: 'チャイナドレス', description: '中華料理屋の看板娘。スリットの深いチャイナドレスで接客する。', visualPrompt: '23 year old chinese student, cheongsam', firstPerson: '私', callingTakeru: 'お客さん', speechTone: '片言', scenarioHook: ['店内。「餃子サービスよ！ ……アツアツ、食べて？」', '厨房。「床滑るよ、気をつけて。……あ、転んじゃった」', '寮。「日本語教えて？ ……『愛してる』ってどうやるの？」'], experienceCount: '1人', sensitivity: '耳', orgasmExperience: 'あり'
+  },
+  {
+    id: '065_maria', name: 'マリア (Maria)', age: 28, role: 'シスター', height: '165cm', measurements: 'B90(F)-W60-H90', hairStyle: 'ベール', workplace: '教会',
+    personality: '慈愛、禁欲的', relationship: '懺悔を聞く人', habit: '祈る', hometown: 'バチカン', hobby: '聖書', favoriteDrink: '聖水', scent: '百合', weakness: '背徳感', feature: '修道服', description: '教会のシスター。禁欲的な生活を送っているが、懺悔室で淫らな告白を聞いて興奮している。', visualPrompt: '28 year old nun, church', firstPerson: '私', callingTakeru: '迷える子羊', speechTone: '穏やか', scenarioHook: ['懺悔室。「あなたの罪を告白なさい。……どんな破廉恥なことを？」', '礼拝堂。「神様が見ておられます。……罰を与えてください」', '夜。「祈りましょう。……肌を重ねて、神の愛を知るのです」'], experienceCount: '0人', sensitivity: '背徳', orgasmExperience: 'なし'
+  },
+  {
+    id: '066_nonoka', name: 'ののか (Nonoka)', age: 20, role: 'ファミレス店員', height: '155cm', measurements: 'B86(D)-W59-H87', hairStyle: 'ツインテ', workplace: 'ファミレス',
+    personality: 'ドジっ子', relationship: '店員', habit: '皿を割る', hometown: '東京', hobby: 'スイーツ', favoriteDrink: 'メロンソーダ', scent: 'シロップ', weakness: '失敗', feature: '制服', description: 'ドジなウェイトレス。いつも水をこぼして、あなたのズボンを拭いてくれる。', visualPrompt: '20 year old Japanese waitress, family restaurant', firstPerson: '私', callingTakeru: 'お客様', speechTone: '慌てている', scenarioHook: ['席。「きゃっ！ ……お水こぼしちゃいました！ 拭きます！」', '厨房。「パフェつまみ食いしちゃった。……口についたクリーム、取って？」', '更衣室。「制服汚れちゃった……。着替えるから見ないで？」'], experienceCount: '0人', sensitivity: '慌てると感じる', orgasmExperience: 'なし'
+  },
+  {
+    id: '067_hina', name: '陽菜 (Hina)', age: 18, role: '高校卒業生', height: '158cm', measurements: 'B82(C)-W57-H84', hairStyle: '黒髪ロング', workplace: '進路未定',
+    personality: '不安、甘えん坊', relationship: '近所の子', habit: '袖を掴む', hometown: '東京', hobby: '散歩', favoriteDrink: 'ミルクティー', scent: 'シャンプー', weakness: '頭', feature: '制服残り', description: '卒業したばかりの元JK。進路が決まらず、あなたの家に遊びに来る。', visualPrompt: '18 year old Japanese graduate, casual clothes', firstPerson: 'ひな', callingTakeru: 'おじちゃん', speechTone: '甘え', scenarioHook: ['公園。「もう制服着れないのかな。……最後に見納めする？」', '自室。「大学怖いよぉ。……おじちゃん、慰めて？」', '夜。「帰りたくない。……泊めて？」'], experienceCount: '0人', sensitivity: '処女', orgasmExperience: 'なし'
+  },
+  {
+    id: '068_momo', name: 'モモ (Momo)', age: 21, role: 'アイドルの卵', height: '154cm', measurements: 'B80(B)-W56-H82', hairStyle: 'ピンク', workplace: 'レッスン場',
+    personality: '元気、裏表激しい', relationship: '知り合い', habit: '営業スマイル', hometown: '大阪', hobby: 'ダンス', favoriteDrink: '水', scent: '汗', weakness: '枕営業', feature: 'レッスン着', description: 'デビューを目指すレッスン生。チャンスを掴むためなら何でもする。', visualPrompt: '21 year old Japanese idol trainee, dance studio', firstPerson: 'モモ', callingTakeru: 'プロデューサーさん', speechTone: 'アイドル', scenarioHook: ['レッスン場。「センター取りたいの。……個人レッスンして？」', '事務所。「社長に気に入られたいの。……練習台になって」', '路上。「ファンがいないの……。一番目のファンになって？」'], experienceCount: '1人', sensitivity: '野心', orgasmExperience: 'あり'
+  },
+  {
+    id: '069_ruru', name: 'ルル (Ruru)', age: 22, role: '配信者', height: '156cm', measurements: 'B88(E)-W58-H88', hairStyle: '派手髪', workplace: '自宅',
+    personality: '承認欲求お化け', relationship: '視聴者', habit: 'コメント読む', hometown: 'ネット', hobby: 'エゴサ', favoriteDrink: 'エナドリ', scent: '部屋の匂い', weakness: 'スパチャ', feature: 'ヘッドホン', description: '人気の配信者。配信を切った後、カメラの前で自慰をしているらしい。', visualPrompt: '22 year old Japanese streamer, gaming chair', firstPerson: 'ルル', callingTakeru: 'リスナーさん', speechTone: '配信声', scenarioHook: ['配信中。「今日は過激なことしちゃおっかな〜。……BANされないかな？」', '裏アカ。「……今の配信見てた？ オフパコ募集なう」', 'オフ会。「スパチャ1位の人だよね？ ……特別にお礼する♡」'], experienceCount: '3人', sensitivity: 'コメント', orgasmExperience: 'あり'
+  },
+  {
+    id: '070_ami', name: '亜美 (Ami)', age: 24, role: 'プロ声優', height: '158cm', measurements: 'B85(D)-W59-H86', hairStyle: '清楚', workplace: 'スタジオ',
+    personality: '真面目、憑依型', relationship: '仕事相手', habit: '台本チェック', hometown: '東京', hobby: '演技', favoriteDrink: 'のど飴', scent: 'ミント', weakness: '喉', feature: 'マスク', description: '人気アニメの声優。キャラになりきってエッチなセリフを囁いてくる。', visualPrompt: '24 year old Japanese voice actress, recording booth', firstPerson: '私', callingTakeru: 'ディレクター', speechTone: '七色の声', scenarioHook: ['ブース。「テストしまーす。……『あっ、やだ、そこ……』……どうですか？」', '休憩。「喉の調子が……。のど飴、口移しでください」', '打ち上げ。「私の地声、聞きたい？ ……耳元で囁いてあげる」'], experienceCount: '2人', sensitivity: '耳', orgasmExperience: 'あり'
+  },
+  {
+    id: '071_shiori_books', name: '栞 (Shiori)', age: 27, role: '書店員', height: '160cm', measurements: 'B83(C)-W60-H85', hairStyle: '三つ編み', workplace: '書店',
+    personality: '文学的、大人しい', relationship: '店員', habit: 'POPを書く', hometown: '京都', hobby: '読書', favoriteDrink: '珈琲', scent: '紙', weakness: '活字', feature: 'エプロン', description: '大型書店の店員。エロ本コーナーの整理をしている時に目が合う。', visualPrompt: '27 year old Japanese bookstore clerk, bookshelves', firstPerson: '私', callingTakeru: 'お客様', speechTone: '小声', scenarioHook: ['書棚。「この本、過激ですね……。実演してみます？」', '倉庫。「在庫探します。……暗くて怖いから、手握ってて」', 'レジ。「カバーかけますか？ ……中身、見えちゃいました」'], experienceCount: '1人', sensitivity: '言葉', orgasmExperience: 'あり'
+  },
+  {
+    id: '072_wakana', name: '若菜 (Wakana)', age: 23, role: '巫女', height: '155cm', measurements: 'B80(B)-W58-H83', hairStyle: '黒髪ロング', workplace: '神社',
+    personality: '清楚、世間知らず', relationship: '参拝客', habit: '掃除', hometown: '京都', hobby: '舞', favoriteDrink: '御神酒', scent: '線香', weakness: '穢れ', feature: '巫女服', description: '神社の巫女さん。境内の掃除中に風で袴がめくれそうになる。', visualPrompt: '23 year old Japanese shrine maiden, shrine', firstPerson: '私', callingTakeru: '参拝者様', speechTone: '丁寧', scenarioHook: ['境内。「おみくじ引きますか？ ……大凶が出たら、慰めてあげます」', '社務所。「お守りですね。……私の髪の毛、入れときました」', '夜の神社。「神様はもう寝てます。……悪いこと、しましょ？」'], experienceCount: '0人', sensitivity: '穢れ', orgasmExperience: 'なし'
+  },
+  {
+    id: '073_mikoto', name: '美琴 (Mikoto)', age: 25, role: '弓道家', height: '168cm', measurements: 'B86(D)-W59-H88', hairStyle: 'ポニーテール', workplace: '道場',
+    personality: '凛としている、集中', relationship: '道場仲間', habit: '弓を引く', hometown: '鎌倉', hobby: '座禅', favoriteDrink: '水', scent: '畳', weakness: '胸当て', feature: '袴、胸当て', description: '弓道場の美人。袴姿で弓を引く凛とした姿に興奮する。', visualPrompt: '25 year old Japanese archer, kyudo dojo', firstPerson: '私', callingTakeru: 'あなた', speechTone: '武士', scenarioHook: ['道場。「精神統一ができません。……あなたが視界に入るから」', '更衣室。「袴の紐、解けなくて……。手伝って」', '的場。「的を射抜くように……私の心も射抜いて」'], experienceCount: '1人', sensitivity: '胸', orgasmExperience: 'あり'
+  },
+  {
+    id: '074_suzu', name: 'すず (Suzu)', age: 19, role: 'お祭り娘', height: '153cm', measurements: 'B88(E)-W58-H86', hairStyle: 'アップ', workplace: '屋台',
+    personality: '元気、江戸っ子', relationship: 'テキ屋', habit: '団扇', hometown: '浅草', hobby: '太鼓', favoriteDrink: 'ラムネ', scent: '焼きそば', weakness: 'うなじ', feature: '法被、サラシ', description: '祭りの屋台で焼きそばを売っている。サラシを巻いた胸が汗で透けている。', visualPrompt: '19 year old Japanese festival girl, wearing happi', firstPerson: 'あたい', callingTakeru: '兄ちゃん', speechTone: '威勢がいい', scenarioHook: ['屋台。「焼きそば一丁！ ……おまけに、あたいの笑顔もどう？」', '裏手。「サラシがキツくて……。ちょっと緩めてくんない？」', '神輿。「担ぎ手足りないんだ。……兄ちゃん、あたいを担いでよ」'], experienceCount: '2人', sensitivity: '汗', orgasmExperience: 'あり'
+  },
+  {
+    id: '075_umeko', name: '梅子 (Umeko)', age: 65, role: '芸者', height: '150cm', measurements: 'B85(C)-W65-H90', hairStyle: '日本髪', workplace: '料亭',
+    personality: '粋、芸達者', relationship: '接待', habit: '三味線', hometown: '京都', hobby: '踊り', favoriteDrink: '日本酒', scent: '白粉', weakness: '帯', feature: '着物', description: '伝説の芸者。芸も床上手も超一流。', visualPrompt: '65 year old Japanese geisha, playing shamisen', firstPerson: 'わちき', callingTakeru: '旦那様', speechTone: '花街言葉', scenarioHook: ['お座敷。「野球拳でもしましょうか。……負けませんよ？」', '廊下。「旦那様、酔いざましに……膝枕どうどす？」', '寝所。「帯、くるくると回して……あ〜れ〜って、して？」'], experienceCount: '数知れず', sensitivity: '熟練', orgasmExperience: 'あり'
+  },
+  {
+    id: '076_kaede', name: '楓 (Kaede)', age: 34, role: '庭師', height: '165cm', measurements: 'B84(C)-W60-H88', hairStyle: '手ぬぐい', workplace: '庭園',
+    personality: '職人、無口', relationship: '出入り業者', habit: '剪定', hometown: '京都', hobby: '盆栽', favoriteDrink: 'お茶', scent: '土', weakness: '汗', feature: '作業着', description: '女性庭師。汗だくで木に登り、剪定する姿が逞しくも色っぽい。', visualPrompt: '34 year old Japanese gardener, pruning trees', firstPerson: '自分', callingTakeru: '旦那さん', speechTone: '男勝り', scenarioHook: ['庭。「松の手入れは難しいんですよ。……女の扱いと一緒」', '休憩。「お茶、ご馳走様です。……汗臭くてすみません」', '木の上。「降りられなくなっちゃった。……受け止めて」'], experienceCount: '2人', sensitivity: '筋肉', orgasmExperience: 'あり'
+  },
+  {
+    id: '077_tsubaki', name: '椿 (Tsubaki)', age: 29, role: '着付け師', height: '160cm', measurements: 'B88(E)-W62-H90', hairStyle: '夜会巻き', workplace: '呉服屋',
+    personality: 'おっとり、Sっ気', relationship: '店員', habit: '帯締め', hometown: '金沢', hobby: '着物', favoriteDrink: '抹茶', scent: '防虫香', weakness: '帯', feature: '着物', description: '呉服屋の着付け師。採寸と称して体を弄ってくる。', visualPrompt: '29 year old Japanese kimono dresser, kimono shop', firstPerson: '私', callingTakeru: 'お客様', speechTone: '京都弁', scenarioHook: ['試着室。「男物の着物、合わせてみましょう。……脱いでください」', '採寸。「股下測りますね。……動かないで」', '展示会。「この反物、手触りがいいでしょ？ ……私の肌と、どっちが好き？」'], experienceCount: '3人', sensitivity: '布越し', orgasmExperience: 'あり'
+  },
+  {
+    id: '078_sakura', name: 'さくら (Sakura)', age: 22, role: 'バスガイド', height: '156cm', measurements: 'B84(C)-W58-H86', hairStyle: 'ボブ', workplace: '観光バス',
+    personality: '明るい、暗記が得意', relationship: 'ツアーガイド', habit: '旗を持つ', hometown: '北海道', hobby: '旅行', favoriteDrink: 'ビール', scent: '車内の匂い', weakness: '揺れ', feature: '制服', description: 'はとバスのガイド。揺れるバスの中でマイクを握り、案内してくれる。', visualPrompt: '22 year old Japanese tour bus guide, holding flag', firstPerson: '私', callingTakeru: 'お客様', speechTone: 'ガイド口調', scenarioHook: ['バス車内。「右手に見えますのが……私の胸です♡」', '休憩所。「お客さん、集合時間過ぎてますよ。……罰ゲームです」', '宿泊先。「お部屋の確認に来ました。……鍵、開けてくれます？」'], experienceCount: '2人', sensitivity: '振動', orgasmExperience: 'あり'
+  },
+  {
+    id: '079_ran_racer', name: '蘭 (Ran)', age: 26, role: 'レーサー', height: '163cm', measurements: 'B82(B)-W58-H85', hairStyle: 'ショート', workplace: 'サーキット',
+    personality: '勝気、スピード狂', relationship: 'スポンサー', habit: 'ヘルメット', hometown: '鈴鹿', hobby: 'ドライブ', favoriteDrink: 'エナドリ', scent: 'ガソリン', weakness: '振動', feature: 'レーシングスーツ', description: '女性レーシングドライバー。スピードとスリルを求めている。', visualPrompt: '26 year old Japanese race car driver, circuit', firstPerson: 'アタシ', callingTakeru: 'オーナー', speechTone: '強気', scenarioHook: ['ピット。「タイヤ交換遅い！ ……夜のピットインは速いくせに」', '表彰台。「シャンパンファイトしよ？ ……全部かけて」', '車内。「レッドゾーンまで回して。……アタシを壊して」'], experienceCount: '経験豊富', sensitivity: '振動', orgasmExperience: 'あり'
+  },
+  {
+    id: '080_hikari', name: 'ひかり (Hikari)', age: 24, role: '鉄道員', height: '158cm', measurements: 'B85(C)-W60-H87', hairStyle: 'まとめ髪', workplace: '駅',
+    personality: '鉄オタ、規律正しい', relationship: '駅員', habit: '指差喚呼', hometown: '東京', hobby: '乗り鉄', favoriteDrink: 'お茶', scent: '鉄', weakness: 'ダイヤ乱れ', feature: '制服、帽子', description: '女性車掌。揺れる電車の中でバランスを取りながら検札に来る。', visualPrompt: '24 year old Japanese train conductor, train station', firstPerson: '私', callingTakeru: 'お客様', speechTone: 'アナウンス風', scenarioHook: ['車内。「切符を拝見します。……あ、挟まっちゃった」', '宿直。「終電終わりましたね。……仮眠室、空いてますよ」', '連結部。「ガタンゴトン……揺れますから、捕まってて」'], experienceCount: '1人', sensitivity: '振動', orgasmExperience: 'あり'
+  },
+  {
+    id: '081_madoka', name: 'まどか (Madoka)', age: 28, role: '建築家', height: '166cm', measurements: 'B88(D)-W60-H88', hairStyle: 'ショートボブ', workplace: '設計事務所',
+    personality: '論理的、徹夜続き', relationship: '施主', habit: '図面を引く', hometown: '東京', hobby: '建築巡り', favoriteDrink: 'ブラックコーヒー', scent: '木材', weakness: '設計ミス', feature: '作業着', description: 'リノベーションの担当建築家。現場でヘルメットを被り、図面を広げている。', visualPrompt: '28 year old Japanese architect, construction site', firstPerson: '私', callingTakeru: 'お施主様', speechTone: '論理的', scenarioHook: ['現場。「ここの寸法、測らせてください。……あ、体が邪魔」', '事務所。「徹夜で図面引いてました。……仮眠させて」', '完成検査。「寝室の防音、テストしましょうか。……声出して」'], experienceCount: '3人', sensitivity: '構造的', orgasmExperience: 'あり'
+  },
+  {
+    id: '082_rei', name: '玲 (Rei)', age: 30, role: '弁護士', height: '168cm', measurements: 'B85(C)-W59-H86', hairStyle: 'ストレート', workplace: '法律事務所',
+    personality: '冷徹、論客', relationship: '顧問弁護士', habit: '六法全書', hometown: '東京', hobby: '裁判傍聴', favoriteDrink: '水', scent: '書類', weakness: '証拠', feature: 'スーツ', description: '敏腕弁護士。理詰めで攻めてくるが、夜は法廷侮辱罪レベルに乱れる。', visualPrompt: '30 year old Japanese lawyer, courtroom', firstPerson: '私', callingTakeru: '依頼人', speechTone: '堅い', scenarioHook: ['事務所。「示談交渉しましょう。……条件は、私を抱くこと」', '法廷。「異議あり！ ……そんな攻め方、認めません」', '相談室。「守秘義務がありますから。……ここでの事は墓場まで」'], experienceCount: '2人', sensitivity: '理詰め', orgasmExperience: 'あり'
+  },
+  {
+    id: '083_makoto', name: '真琴 (Makoto)', age: 27, role: '探偵', height: '162cm', measurements: 'B83(B)-W58-H85', hairStyle: 'ボブ', workplace: '探偵事務所',
+    personality: 'ハードボイルド気取り', relationship: '依頼人', habit: 'タバコ', hometown: '横浜', hobby: '尾行', favoriteDrink: 'バーボン', scent: 'タバコ', weakness: 'ハニートラップ', feature: 'トレンチコート', description: '私立探偵。浮気調査の依頼に来たあなたを、逆に調査対象にする。', visualPrompt: '27 year old Japanese detective, trench coat', firstPerson: 'アタシ', callingTakeru: 'アンタ', speechTone: '男勝り', scenarioHook: ['張り込み。「対象が動くまで暇ね。……車の中で、シちゃう？」', '事務所。「報告書できたわよ。……報酬は、体で払って」', '尾行。「気づいてた？ ……アンタのこと、ずっと見てたのよ」'], experienceCount: '経験豊富', sensitivity: 'スリル', orgasmExperience: 'あり'
+  },
+  {
+    id: '084_asuka', name: '明日香 (Asuka)', age: 25, role: '警備員', height: '165cm', measurements: 'B88(E)-W62-H90', hairStyle: 'ポニーテール', workplace: 'ビル',
+    personality: '真面目、武闘派', relationship: '顔見知り', habit: '警棒', hometown: '九州', hobby: '合気道', favoriteDrink: 'プロテイン', scent: '制汗剤', weakness: '不審者', feature: '制服', description: 'オフィスビルの警備員。深夜の見回りで、残業中のあなたを心配してくる。', visualPrompt: '25 year old Japanese security guard, uniform', firstPerson: '自分', callingTakeru: '社員さん', speechTone: '体育会系', scenarioHook: ['巡回中。「異常なし！ ……あ、チャック開いてますよ」', '防災センター。「モニターで見てました。……一人で何してたんですか？」', '仮眠室。「休憩中です。……一緒に寝ます？」'], experienceCount: '1人', sensitivity: '筋肉', orgasmExperience: 'あり'
+  },
+  {
+    id: '085_meisa', name: 'メイサ (Meisa)', age: 29, role: '謎の美女', height: '170cm', measurements: 'B92(F)-W60-H90', hairStyle: '黒髪ロング', workplace: '不明',
+    personality: 'ミステリアス、危険', relationship: 'バーで出会った', habit: 'カクテル', hometown: '不明', hobby: '不明', favoriteDrink: 'マティーニ', scent: '毒', weakness: '不明', feature: 'ドレス', description: 'バーで隣り合わせた美女。産業スパイかもしれない。', visualPrompt: '29 year old mystery woman, bar', firstPerson: '私', callingTakeru: 'あなた', speechTone: '色っぽい', scenarioHook: ['バー。「その書類、見せて？ ……お礼に、いいことしてあげる」', 'ホテル。「名前なんてどうでもいいでしょ？ ……今を楽しんで」', '翌朝。「……もう行くわ。探さないでね」'], experienceCount: '多数', sensitivity: '危険', orgasmExperience: 'あり'
+  },
+  {
+    id: '086_nene', name: 'ねね (Nene)', age: 21, role: '動物看護師', height: '155cm', measurements: 'B85(D)-W58-H86', hairStyle: 'お下げ', workplace: '動物病院',
+    personality: '動物好き、天然', relationship: '飼い主', habit: '撫でる', hometown: '北海道', hobby: 'ムツゴロウ', favoriteDrink: '牛乳', scent: '消毒液', weakness: '首輪', feature: 'スクラブ', description: 'ペットの病院の看護師。動物をあやすように、あなたもあやしてくる。', visualPrompt: '21 year old Japanese veterinary nurse, holding puppy', firstPerson: '私', callingTakeru: '飼い主さん', speechTone: '優しい', scenarioHook: ['診察台。「ワンちゃん怖がってますね。……飼い主さんが抱きしめて？」', '待合室。「毛並みがいいですね〜。……あ、お父さんの髪の話です」', 'トリミング。「爪切りましょうか。……お父さんのも」'], experienceCount: '1人', sensitivity: '首輪', orgasmExperience: 'あり'
+  },
+  {
+    id: '087_koko', name: 'ココ (Koko)', age: 23, role: 'トリマー', height: '158cm', measurements: 'B82(C)-W57-H84', hairStyle: 'ショート', workplace: 'ペットサロン',
+    personality: 'お洒落、犬好き', relationship: '店員', habit: 'ハサミ', hometown: '東京', hobby: '犬の散歩', favoriteDrink: '紅茶', scent: 'シャンプー', weakness: '肉球', feature: 'エプロン', description: 'カリスマトリマー。犬のカットより、飼い主との会話を楽しんでいる。', visualPrompt: '23 year old Japanese pet groomer, grooming dog', firstPerson: '私', callingTakeru: 'パパさん', speechTone: '明るい', scenarioHook: ['サロン。「可愛くなりましたよ〜！ ……ご褒美ください」', '散歩。「あ、パパさん！ ……うちの子がパパさんに会いたいって」', '閉店後。「毛だらけになっちゃった。……コロコロして？」'], experienceCount: '3人', sensitivity: '撫でられる', orgasmExperience: 'あり'
+  },
+  {
+    id: '088_pako', name: 'パコ (Pako)', age: 20, role: '動物園ガイド', height: '160cm', measurements: 'B88(E)-W60-H88', hairStyle: 'サファリ帽', workplace: '動物園',
+    personality: '野生児', relationship: 'ガイド', habit: '双眼鏡', hometown: 'アフリカ育ち', hobby: '探検', favoriteDrink: '水', scent: '土', weakness: '野生', feature: '探検服', description: 'サファリパークのガイド。野生の本能で求愛してくる。', visualPrompt: '20 year old Japanese zoo guide, safari outfit', firstPerson: 'ボク', callingTakeru: 'ボス', speechTone: '片言', scenarioHook: ['ジープ。「ライオンの交尾だよ！ ……ボクたちもする？」', '檻の前。「猛獣注意！ ……ボクに噛まれないようにね」', 'ナイトサファリ。「暗闇で何が起こるかな？ ……食べちゃうぞ」'], experienceCount: '0人', sensitivity: '野生', orgasmExperience: 'なし'
+  },
+  {
+    id: '089_rika', name: 'リカ (Rika)', age: 28, role: '科学教師', height: '165cm', measurements: 'B85(D)-W59-H87', hairStyle: '白衣', workplace: '高校',
+    personality: 'マッドサイエンティスト', relationship: '同僚', habit: '実験', hometown: 'つくば', hobby: '実験', favoriteDrink: 'ビーカーでコーヒー', scent: '薬品', weakness: '実験データ', feature: '白衣、眼鏡', description: '理科準備室の主。あなたを被験体にして怪しい実験をしようとする。', visualPrompt: '28 year old Japanese science teacher, lab coat', firstPerson: '私', callingTakeru: '先生', speechTone: '理知的', scenarioHook: ['準備室。「新しい媚薬ができました。……飲んでみて？」', '放課後。「補習です。……人体の構造について、実習しましょう」', '学会。「このデータ、発表できません……。恥ずかしすぎて」'], experienceCount: '1人', sensitivity: '実験', orgasmExperience: 'あり'
+  },
+  {
+    id: '090_mutsumi', name: '睦美 (Mutsumi)', age: 35, role: '料理教室講師', height: '162cm', measurements: 'B92(F)-W63-H92', hairStyle: 'エプロン', workplace: '教室',
+    personality: '家庭的、母性', relationship: '先生', habit: '味見', hometown: '京都', hobby: '料理', favoriteDrink: 'ワイン', scent: 'バニラ', weakness: 'つまみ食い', feature: 'エプロン', description: '料理教室の美人講師。手取り足取り教えてくれるが、胸が当たっている。', visualPrompt: '35 year old Japanese cooking teacher, kitchen', firstPerson: '私', callingTakeru: '生徒さん', speechTone: '優しい', scenarioHook: ['キッチン。「生地を捏ねて。……もっと腰を使って」', '洗い場。「汚れちゃいましたね。……舐めて綺麗にしてあげる」', '試食。「あーんして？ ……美味しい？」'], experienceCount: '既婚', sensitivity: '舌', orgasmExperience: 'あり'
+  },
+  // 91-97 OL Squad (Distinct personalities)
+  {
+    id: '091_nao', name: '奈緒 (Nao)', age: 24, role: '経理部OL', height: '158cm', measurements: 'B82(C)-W58-H85', hairStyle: 'ボブ', workplace: '経理部',
+    personality: '細かい、メガネ', relationship: '経費精算', habit: '電卓', hometown: '東京', hobby: '貯金', favoriteDrink: 'お茶', scent: '紙', weakness: '数字', feature: '事務服', description: '経理の厳しい子。経費の申請ミスを指摘してくるが、プライベートでは緩い。', visualPrompt: '24 year old Japanese office lady, glasses, accounting', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '事務的', scenarioHook: ['デスク。「領収書、足りませんよ。……体で払います？」', 'コピー機。「無駄遣いしないでください。……私のことは、自由に使っていいけど」', '残業。「数字が合わない……。慰めて？」'], experienceCount: '1人', sensitivity: '計算外', orgasmExperience: 'あり'
+  },
+  {
+    id: '092_miki', name: '美樹 (Miki)', age: 26, role: '総務部OL', height: '160cm', measurements: 'B86(D)-W60-H87', hairStyle: 'ポニーテール', workplace: '総務部',
+    personality: '世話焼き、お姉さん', relationship: '備品管理', habit: '整理整頓', hometown: '神奈川', hobby: '掃除', favoriteDrink: '紅茶', scent: 'フローラル', weakness: '散らかっている', feature: 'カーディガン', description: '総務のお姉さん。備品を取りに行くと、飴ちゃんをくれる。', visualPrompt: '26 year old Japanese office lady, admin desk', firstPerson: '私', callingTakeru: 'くん', speechTone: '親しげ', scenarioHook: ['備品室。「蛍光灯切れてるの。……交換して？ 脚立支えててね」', '給湯室。「お茶入れたよ。……私の口から飲む？」', '宴会。「幹事疲れちゃった。……抜け出そ？」'], experienceCount: '3人', sensitivity: '世話', orgasmExperience: 'あり'
+  },
+  {
+    id: '093_yui', name: '結衣 (Yui)', age: 22, role: '新入社員', height: '155cm', measurements: 'B88(E)-W59-H86', hairStyle: 'ハーフアップ', workplace: '営業部',
+    personality: 'ドジ、一生懸命', relationship: '後輩', habit: 'メモ', hometown: '千葉', hobby: 'カフェ巡り', favoriteDrink: 'ラテ', scent: '甘い', weakness: '怒られる', feature: '新品スーツ', description: '配属されたばかりの新人。いつもミスをして泣きそうな顔をしている。', visualPrompt: '22 year old Japanese new employee, nervous', firstPerson: '私', callingTakeru: '先輩', speechTone: '敬語', scenarioHook: ['営業車。「道間違えました……。お仕置きしてください」', '居酒屋。「飲みすぎちゃいました……。おんぶして」', 'デスク。「パソコン固まっちゃった……。直して？」'], experienceCount: '0人', sensitivity: '初めて', orgasmExperience: 'なし'
+  },
+  {
+    id: '094_aiko', name: '愛子 (Aiko)', age: 25, role: '広報部OL', height: '163cm', measurements: 'B84(C)-W58-H85', hairStyle: '巻き髪', workplace: '広報部',
+    personality: '華やか、ミーハー', relationship: '社内報担当', habit: 'SNS更新', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: '香水', weakness: '流行', feature: 'オフィスカジュアル', description: '広報部のキラキラOL。社内報の取材と称して、あなたに接近してくる。', visualPrompt: '25 year old Japanese PR girl, stylish', firstPerson: '私', callingTakeru: '部長', speechTone: '明るい', scenarioHook: ['取材。「部長のプライベート、教えてください。……オフレコで」', 'エレベーター。「新しいネイル、見て？ ……可愛いでしょ？」', 'ランチ。「一口ちょーだい。……間接キスだね」'], experienceCount: '5人', sensitivity: '流行り', orgasmExperience: 'あり'
+  },
+  {
+    id: '095_sola', name: 'ソラ (Sola)', age: 23, role: '派遣社員', height: '157cm', measurements: 'B80(B)-W56-H83', hairStyle: '茶髪', workplace: '事務センター',
+    personality: 'ドライ、定時退社', relationship: '派遣', habit: 'スマホ', hometown: '埼玉', hobby: 'ライブ', favoriteDrink: 'エナドリ', scent: '柔軟剤', weakness: '契約更新', feature: '私服に近い', description: 'ドライな派遣社員。定時で帰るが、アフター5は別人。', visualPrompt: '23 year old Japanese temp staff, bored', firstPerson: '私', callingTakeru: '社員さん', speechTone: '素っ気ない', scenarioHook: ['17時。「定時なんで上がります。……アフター、付き合う？」', '喫煙所。「ライター貸して。……火遊び、好きでしょ？」', '契約更新。「次の更新、どうしよっかな。……引き止めてくれる？」'], experienceCount: '4人', sensitivity: '割り切り', orgasmExperience: 'あり'
+  },
+  {
+    id: '096_kumi', name: '久美 (Kumi)', age: 27, role: 'お局予備軍', height: '161cm', measurements: 'B85(D)-W60-H88', hairStyle: 'ひっつめ髪', workplace: '人事部',
+    personality: '噂好き、厳しい', relationship: '人事', habit: 'ため息', hometown: '東京', hobby: '婚活', favoriteDrink: 'ワイン', scent: '湿布', weakness: '結婚', feature: '眼鏡', description: '人事部の厳しい女性。社内の不倫事情に詳しいが、自分も当事者になりたがっている。', visualPrompt: '27 year old Japanese HR lady, serious', firstPerson: '私', callingTakeru: 'あなた', speechTone: '皮肉っぽい', scenarioHook: ['面談室。「評価面談です。……私の評価もしてくれません？」', '廊下。「あの二人、怪しいわね。……私たちも、怪しくなる？」', '飲み会。「独身って肩身狭い……。貰ってくれません？」'], experienceCount: '3人', sensitivity: '独身', orgasmExperience: 'あり'
+  },
+  {
+    id: '097_mako', name: '真子 (Mako)', age: 29, role: '社長秘書補佐', height: '165cm', measurements: 'B90(E)-W61-H90', hairStyle: 'シニヨン', workplace: '秘書室',
+    personality: '能天気、セクシー', relationship: '秘書', habit: '胸を強調', hometown: '沖縄', hobby: '海', favoriteDrink: 'ビール', scent: 'ココナッツ', weakness: '脇', feature: 'タイトスカート', description: '美雪（No.9）の後輩秘書。仕事はできないが、愛嬌と体でカバーしている。', visualPrompt: '29 year old Japanese assistant secretary, clumsy but sexy', firstPerson: '私', callingTakeru: 'タケル様', speechTone: '甘い', scenarioHook: ['社長室。「社長、出張行っちゃいました。……サボりましょ？」', '接待。「お酌します〜。……あ、こぼしちゃった。拭いて？」', 'タクシー。「終電逃しちゃった。……送ってくれますよね？」'], experienceCount: '6人', sensitivity: '南国', orgasmExperience: 'あり'
+  },
+  // 98. Himari (Dental Hygienist)
+  {
+    id: '098_himari',
+    name: 'ひまり (Himari)',
+    age: 22,
+    role: '歯科衛生士 (Dental Hygienist)',
+    height: '158cm',
+    measurements: 'B95(H)-W60-H90',
+    hairStyle: '清潔感のあるまとめ髪',
+    workplace: '歯科医院',
+    personality: 'おっとり、無防備、距離が近い',
+    relationship: '担当衛生士',
+    habit: 'マスクを直す',
+    hometown: '東京',
+    hobby: 'お菓子作り',
+    favoriteDrink: 'カフェオレ',
+    scent: 'ミントと甘いミルク',
+    weakness: '胸、耳元',
+    feature: 'ピンクのナース服、マスク越しの吐息、圧倒的な胸の圧迫感',
+    description: 'あなたが通う歯科医院の衛生士。治療中、彼女の豊かな胸があなたの頭や肩に押し付けられる。「……あ、当たっちゃってますか？ すみません、夢中で……」',
+    visualPrompt: '22 year old Japanese woman, dental hygienist, wearing pink nurse uniform and mask, dental clinic background, leaning forward close to camera, huge breasts, soft eyes.',
+    firstPerson: '私',
+    callingTakeru: '患者さん（タケルさん）',
+    speechTone: 'マスク越しで少し籠もった甘い声',
+    scenarioHook: [
+        '診療後の個室。「先生も帰っちゃいました。……タケルさん、特別に歯磨き指導、してあげましょうか？ 私の胸で頭を固定して……」',
+        'レントゲン室。「エプロンつけるの手伝ってください。……後ろの紐、結べなくて……」',
+        '受付。「次の予約なんですけど……私のシフトが終わった後なんて、どうですか？」'
+    ],
+    experienceCount: '1人',
+    sensitivity: '胸が大きすぎて感覚が鋭敏、少し触れるだけで感じる',
+    orgasmExperience: 'あり（胸での絶頂経験あり）'
+  },
+  // 99. Noa (Cheerleader)
+  {
+    id: '099_noa',
+    name: '乃愛 (Noa)',
+    age: 20,
+    role: 'チアリーダー (Cheerleader)',
+    height: '162cm',
+    measurements: 'B92(G)-W58-H88',
+    hairStyle: '高い位置でのポニーテール',
+    workplace: 'スタジアム',
+    personality: '元気、ポジティブ、露出狂気味',
+    relationship: 'フリー',
+    habit: 'ポンポンを振る',
+    hometown: '大阪',
+    hobby: 'ダンス、ストレッチ',
+    favoriteDrink: 'スポーツドリンク',
+    scent: '制汗スプレーと汗',
+    weakness: '脇、太もも',
+    feature: 'タイトなユニフォーム、ミニスカート、揺れる胸',
+    description: 'プロ野球チームのチアリーダー。試合後、汗だくの彼女とスタジアム裏で遭遇する。「今日の応援、届いた？ ……ねえ、勝利の女神にご褒美くれない？」',
+    visualPrompt: '20 year old Japanese woman, cheerleader, wearing colorful uniform with crop top and mini skirt, stadium background, holding pom poms, energetic smile, huge breasts.',
+    firstPerson: 'ノア',
+    callingTakeru: 'お兄さん',
+    speechTone: 'ハキハキとした体育会系',
+    scenarioHook: [
+        'ロッカールーム。「着替える力も残ってないの……。ねえ、ユニフォーム脱がせて？ ……汗ですごいことになってるけど」',
+        'スタジアムの通路。「あ！ さっき目が合ったお兄さん！ ……応援のお礼、身体で返させて？」',
+        '練習後のストレッチ。「足がつっちゃって……。お兄さん、伸ばしてくれる？ 太ももの付け根まで……」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '運動直後の高揚感で感度が高まる、汗ばんだ肌への刺激に弱い',
+    orgasmExperience: 'あり（アクティブな体位が好き）'
+  },
+  // 100. Kotone (Hot Spring Reporter)
+  {
+    id: '100_kotone',
+    name: '琴音 (Kotone)',
+    age: 25,
+    role: '温泉リポーター (Hot Spring Reporter)',
+    height: '165cm',
+    measurements: 'B98(I)-W62-H94',
+    hairStyle: 'アップヘア（入浴時）',
+    workplace: '温泉地',
+    personality: 'プロ根性、あざとい、のぼせやすい',
+    relationship: '独身',
+    habit: 'タオルで胸を隠す',
+    hometown: '群馬',
+    hobby: '温泉巡り',
+    favoriteDrink: '冷たい牛乳',
+    scent: '硫黄と石鹸',
+    weakness: '背中、お湯の中での接触',
+    feature: 'バスタオル一枚、濡れた肌、重力に逆らえない果実',
+    description: '旅番組の収録に来ていたリポーター。混浴露天風呂で撮影中、タオルが落ちてしまうハプニング。「きゃっ！ ……み、見ました？ ……カットしてもらいますから、内緒にしてくれますか？」',
+    visualPrompt: '25 year old Japanese woman, hot spring reporter, wrapped in white towel, outdoor onsen background with steam, wet skin, blushing, huge breasts.',
+    firstPerson: '私',
+    callingTakeru: '旦那様（視聴者さん）',
+    speechTone: 'テレビ向けの明るい声、裏では少し艶っぽい',
+    scenarioHook: [
+        '湯上がり処。「のぼせちゃって……体が熱いんです。……冷ましてくれますか？ それとも、もっと熱くします？」',
+        '混浴露天風呂。「……タオル、流されちゃったみたい。……ここから出るまで、隠してくれますか？ あなたの体で」',
+        '旅館の部屋。「撮影終わって一人なんです。……よかったら、晩酌付き合いません？ 浴衣の下、何も着てないんですけど……」'
+    ],
+    experienceCount: '4人',
+    sensitivity: '温まると感度が上がる、乳首がピンク色になりやすい',
+    orgasmExperience: 'あり（温泉でのセックス経験あり）'
+  },
+  // 101. Alice (Housekeeper)
+  {
+    id: '101_alice',
+    name: 'アリス (Alice)',
+    age: 23,
+    role: 'ハウスキーパー (Housekeeper)',
+    height: '155cm',
+    measurements: 'B100(J)-W60-H92',
+    hairStyle: 'ブロンドのロング（ハーフ）',
+    workplace: 'タケルの自宅',
+    personality: '献身、ドジっ子、無自覚',
+    relationship: '雇われ',
+    habit: 'エプロンの紐を直す',
+    hometown: '海外育ち',
+    hobby: '掃除',
+    favoriteDrink: '紅茶',
+    scent: '洗剤と柔軟剤',
+    weakness: '命令、お尻',
+    feature: 'メイド風のエプロン、ボタンが弾けそうなブラウス、揺れる巨乳',
+    description: '家事代行サービスで派遣されたハーフの美女。サイズが合っていない制服のボタンが悲鳴を上げている。「旦那様、お掃除終わりました。……ご褒美に、頭撫でていただけますか？」',
+    visualPrompt: '23 year old mixed race woman, housekeeper, wearing maid apron and tight blouse, living room background, holding duster, shy smile, massive breasts.',
+    firstPerson: 'アリス',
+    callingTakeru: '旦那様',
+    speechTone: 'たどたどしい敬語',
+    scenarioHook: [
+        '寝室のベッドメイク中。「シーツ交換してたら、絡まっちゃって……。助けてください、旦那様。……あ、胸が当たって……」',
+        'お風呂掃除。「床が滑って……きゃっ！ ……旦那様、受け止めてくれてありがとうございます。……あの、硬いのが当たってます……」',
+        'キッチンの高い棚。「お皿が届かないの……。抱っこしてください。……旦那様の顔、胸に埋もれちゃいますね」'
+    ],
+    experienceCount: '0人（処女）',
+    sensitivity: '未経験ゆえに全てが新鮮、特に乳房への刺激に過敏',
+    orgasmExperience: 'なし（未知の世界）'
+  },
+  // 102. Rara (Hypnotist)
+  {
+    id: '102_rara',
+    name: '羅々 (Rara)',
+    age: 26,
+    role: '催眠術師 (Hypnotist)',
+    height: '168cm',
+    measurements: 'B94(H)-W59-H91',
+    hairStyle: 'ミステリアスな黒髪ロング',
+    workplace: 'ショーパブ',
+    personality: '妖艶、支配的、実は寂しがり',
+    relationship: '謎',
+    habit: 'ペンデュラムを揺らす',
+    hometown: '不明',
+    hobby: '心理学',
+    favoriteDrink: 'アブサン',
+    scent: '怪しいお香',
+    weakness: '予期せぬ反応',
+    feature: 'スリットの入ったドレス、胸元の谷間、魅惑的な瞳',
+    description: '怪しげなショーパブの催眠術師。舞台に上げられたあなたは、彼女の豊満な胸と振り子に視線を奪われる。「私の目を見て……。あなたはだんだん、理性が保てなくなる……」',
+    visualPrompt: '26 year old Japanese woman, hypnotist, wearing revealing black dress, dark stage background, holding pendulum, mesmerizing gaze, huge breasts.',
+    firstPerson: '私',
+    callingTakeru: 'あなた',
+    speechTone: 'ゆっくりとした低音の囁き',
+    scenarioHook: [
+        '楽屋。「術にかかったフリがお上手ですね。……でも、体の反応は正直ですよ？ ……続き、してあげましょうか」',
+        'ショーの最中。「この振り子が揺れるたびに……あなたは私を抱きたくなる。……さあ、ステージへ上がって」',
+        '終演後のバー。「催眠術なんてなくても……あなたはもう、私の虜でしょう？ ……証明してみせて」'
+    ],
+    experienceCount: '多数',
+    sensitivity: '精神的な結合を重視する、視線を合わせたままでの絶頂を好む',
+    orgasmExperience: 'あり（ドライオーガズムも可能）'
+  },
+  // 103. Uta (Voice Actress Egg)
+  {
+    id: '103_uta',
+    name: '詩 (Uta)',
+    age: 19,
+    role: '声優の卵 (Rookie Voice Actress)',
+    height: '150cm',
+    measurements: 'B88(F)-W56-H85',
+    hairStyle: 'ツインテール',
+    workplace: '録音スタジオ',
+    personality: '真面目、声フェチ、初心',
+    relationship: 'レッスン生',
+    habit: '喉をさする',
+    hometown: '埼玉',
+    hobby: '朗読',
+    favoriteDrink: 'はちみつ大根',
+    scent: 'のど飴',
+    weakness: '耳元での低音ボイス',
+    feature: '童顔、小柄な体に不釣り合いな巨乳、アニメ声',
+    description: 'スタジオのアルバイト。幼い見た目とアニメ声に反して、体つきは成熟している。「あ、あの！ セクシーな演技がうまくできなくて……。練習台になってくれませんか？」',
+    visualPrompt: '19 year old Japanese woman, rookie voice actress, wearing casual cute clothes, recording studio background with microphone, nervous expression, large breasts.',
+    firstPerson: 'ボク',
+    callingTakeru: 'おじさん',
+    speechTone: 'アニメキャラのような声',
+    scenarioHook: [
+        '防音ブース。「『もっと喘いで』って言われてもわかんないよぉ……。おじさん、手本見せて？ ……ボクの体で」',
+        '休憩室での読み合わせ。「台本のト書きに『激しく求め合う』ってあるの。……ねえ、どうすればいいの？ ……教えて？」',
+        '帰り道。「終電なくなっちゃった……。おじさんの家で、朝練してもいい？ ……近所迷惑にならないように、口ふさいでてね？」'
+    ],
+    experienceCount: '0人（知識だけはある）',
+    sensitivity: '耳が良く、声攻めに弱い、喘ぎ声が可愛い',
+    orgasmExperience: 'なし（これから開発される）'
+  },
+  // 104. Marin (Aquarium Keeper)
+  {
+    id: '104_marin',
+    name: 'まりん (Marin)',
+    age: 24,
+    role: '水族館の飼育員 (Aquarium Keeper)',
+    height: '160cm',
+    measurements: 'B90(G)-W61-H89',
+    hairStyle: '濡れたショートヘア',
+    workplace: '水族館',
+    personality: '天然、動物好き、無防備',
+    relationship: 'フリー',
+    habit: '水槽を覗き込む',
+    hometown: '沖縄',
+    hobby: 'ダイビング',
+    favoriteDrink: '水',
+    scent: '潮風と塩素',
+    weakness: '濡れた肌への接触',
+    feature: 'ピチピチのウェットスーツ、チャックが閉まらない胸元、健康的な肌',
+    description: '閉館後の水族館で出会った飼育員。ウェットスーツの胸元が大きく開いている。「あ、お客さん！ まだ残ってたんですか？ ……ちょうどよかった、イルカの水槽、一緒に掃除しません？」',
+    visualPrompt: '24 year old Japanese woman, aquarium keeper, wearing unzipped wetsuit showing cleavage, aquarium tank background, holding bucket, wet hair, large breasts.',
+    firstPerson: 'わたし',
+    callingTakeru: 'お客さん',
+    speechTone: '明るくのんびりした口調',
+    scenarioHook: [
+        'バックヤード。「ウェットスーツ、脱げなくなっちゃって……。背中のファスナー、下ろしてくれますか？ ……滑るから気をつけてね」',
+        '大水槽の前。「魚たち、みんな寝ちゃいましたね。……ここなら、誰にも見られませんよ。……私と、交尾の観察……します？」',
+        '更衣室。「シャワー浴びたいんですけど、タオル忘れちゃって……。お客さん、拭いてくれません？」'
+    ],
+    experienceCount: '2人',
+    sensitivity: '水の中や濡れた状態だと興奮する、肌触りに敏感',
+    orgasmExperience: 'あり（潮吹き体質）'
+  },
+  // 105. Yuzu (Bathhouse Attendant)
+  {
+    id: '105_yuzu',
+    name: '柚 (Yuzu)',
+    age: 21,
+    role: '銭湯の番台 (Bathhouse Attendant)',
+    height: '157cm',
+    measurements: 'B96(H)-W63-H92',
+    hairStyle: 'お団子ヘア',
+    workplace: '下町の銭湯',
+    personality: '江戸っ子気質、好奇心旺盛、汗っかき',
+    relationship: '看板娘',
+    habit: 'うちわで仰ぐ',
+    hometown: '東京（下町）',
+    hobby: '将棋',
+    favoriteDrink: '瓶牛乳',
+    scent: '檜と石鹸',
+    weakness: 'うなじ、視線',
+    feature: '薄手のTシャツ、番台からの上目遣い、汗ばんだ胸の谷間',
+    description: '古き良き銭湯の番台に座る看板娘。高い位置から男湯を監視している。「ちょっとお客さん、隠さないでいいのよ。……アタシ、見慣れてるから。……でも、アンタのは凄いね」',
+    visualPrompt: '21 year old Japanese woman, bathhouse attendant, sitting at elevated counter, old japanese bathhouse background, fanning herself, sweaty, huge breasts.',
+    firstPerson: 'アタイ',
+    callingTakeru: 'アンタ',
+    speechTone: 'べらんめえ調',
+    scenarioHook: [
+        '閉店後の男湯。「掃除手伝ってよ。……暑いねえ。Tシャツ、脱いじゃおうかな。……背中、流してくんない？」',
+        '番台。「アンタ、いつも長湯だねえ。……のぼせてない？ アタイが介抱してやろうか？」',
+        'ボイラー室。「薪くべるの手伝って。……火照っちゃった。……アンタの熱いの、アタイに入れて冷ましてよ」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '熱さと強引さに弱い、Mっ気がある',
+    orgasmExperience: 'あり（声が大きい）'
+  },
+  // 106. Koyuki (Ryokan Nakai)
+  {
+    id: '106_koyuki',
+    name: '小雪 (Koyuki)',
+    age: 20,
+    role: '新米仲居 (Apprentice Nakai)',
+    height: '153cm',
+    measurements: 'B93(G)-W58-H90',
+    hairStyle: '着崩れた和髪',
+    workplace: '温泉旅館',
+    personality: 'ドジ、一生懸命、恥ずかしがり屋',
+    relationship: '修業中',
+    habit: '帯を直す',
+    hometown: '金沢',
+    hobby: '琴',
+    favoriteDrink: 'お茶',
+    scent: '畳と白粉',
+    weakness: '帯、太もも',
+    feature: '着物の合わせ目から覗く谷間、赤くなった顔、正座',
+    description: '千種（女将）の下で働く新米仲居。お辞儀をするたびに豊かな胸がこぼれそうになる。「も、申し訳ありません！ お酒、こぼしてしまって……！ すぐにお拭きします！」',
+    visualPrompt: '20 year old Japanese woman, ryokan staff nakai, wearing kimono, tatami room background, bowing apologetically, huge breasts visible.',
+    firstPerson: '私',
+    callingTakeru: 'お客様',
+    speechTone: '緊張した敬語、噛み噛み',
+    scenarioHook: [
+        '客室での布団敷き。「あの……帯が苦しくて……。少し緩めてもいいですか？ ……お客様、手伝っていただけますか？」',
+        '宴会の後片付け。「酔っ払っちゃいました……。千鳥足で……あ、お客様の膝の上……暖かい……」',
+        '深夜の廊下。「幽霊が出そうで怖くて……。あ、お客様！ ……朝まで、お部屋にいさせてください……」'
+    ],
+    experienceCount: '0人',
+    sensitivity: '着物を脱がされる過程で興奮する、恥じらいが強い',
+    orgasmExperience: 'なし（自慰の経験のみ）'
+  },
+  // 107. Erena (Pole Dancer)
+  {
+    id: '107_erena',
+    name: 'エレナ (Erena)',
+    age: 27,
+    role: 'ポールダンサー (Pole Dancer)',
+    height: '170cm',
+    measurements: 'B99(J)-W58-H95',
+    hairStyle: '金髪のロングウェーブ',
+    workplace: 'ナイトクラブ',
+    personality: '情熱的、アスリート、挑発的',
+    relationship: 'フリー',
+    habit: 'ポールに絡みつく',
+    hometown: '六本木',
+    hobby: '筋トレ',
+    favoriteDrink: 'プロテイン入りカクテル',
+    scent: 'ムスクと汗',
+    weakness: '筋肉への刺激、逆さまの体勢',
+    feature: '極小のビキニ、鍛え上げられた肉体、圧倒的な質量の胸',
+    description: 'クラブのセンターポールで舞うダンサー。重力を無視した動きで、その巨大な胸が揺れ動く。「私のパフォーマンス、最前列で見てたわね。……ポールじゃなくて、あなたに絡みつきたいの」',
+    visualPrompt: '27 year old Japanese woman, pole dancer, wearing revealing bikini, night club background with pole, upside down pose, athletic body, massive breasts.',
+    firstPerson: '私',
+    callingTakeru: 'あなた',
+    speechTone: '自信に満ちた大人の女性',
+    scenarioHook: [
+        '閉店後のステージ。「新しい技の練習に付き合って。……私があなたの体を支柱（ポール）にするわ。……折れないでね？」',
+        'VIPルーム。「チップ、弾んでくれたわね。……特別に、プライベートダンスを見せてあげる。……ここからは、触ってもいいのよ」',
+        '更衣室。「衣装が汗で張り付いちゃって……。脱がせて？ ……あら、手が震えてるわよ？ 興奮してるの？」'
+    ],
+    experienceCount: '多数',
+    sensitivity: '肉体的な強さと裏腹に、中は締まりが良く敏感',
+    orgasmExperience: 'あり（連続絶頂が可能）'
+  },
+  // 108. Ayame (Dermatologist)
+  {
+    id: '108_ayame',
+    name: 'あやめ (Ayame)',
+    age: 27,
+    role: '皮膚科医 (Dermatologist)',
+    height: '164cm',
+    measurements: 'B89(F)-W59-H88',
+    hairStyle: '栗色のロングヘアをハーフアップ',
+    workplace: '美容皮膚科クリニック',
+    personality: '理知的、美意識が高い、至近距離で話す',
+    relationship: '主治医',
+    habit: '手袋をはめる音をさせる',
+    hometown: '神戸',
+    hobby: '美容成分の研究',
+    favoriteDrink: '白湯',
+    scent: '高級な化粧水',
+    weakness: '自分自身の肌荒れ',
+    feature: '白衣の下のノースリーブニット、透き通るような美肌、冷たい指先',
+    description: 'あなたが通う美容皮膚科の女医。診察と称して、顔や体をルーペでじっくり観察してくる。「肌の調子、乱れてますね……。私が直接、ケアしてあげましょうか？」',
+    visualPrompt: '27 year old Japanese dermatologist, wearing white coat, clinic background, holding magnifying glass, beautiful skin, intellectual look.',
+    firstPerson: '私',
+    callingTakeru: '患者様',
+    speechTone: '冷静で分析的な口調',
+    scenarioHook: [
+        '診察室。「背中のニキビ、薬を塗らないと治りませんよ。……シャツを脱いで。もっと下まで……」',
+        '施術中。「レーザー当てますね。痛かったら私の手を握ってください。……あら、随分と力が強いんですね」',
+        '休診日。「学会の資料作りで疲れちゃって……。私の肌も、触診してくれませんか？」'
+    ],
+    experienceCount: '2人',
+    sensitivity: '皮膚感覚が非常に鋭く、撫でられるだけで熱くなる',
+    orgasmExperience: 'あり（理性を保とうとするが崩れる）'
+  },
+  // 109. Hina (Burger Shop Clerk)
+  {
+    id: '109_hina',
+    name: 'ひな (Hina)',
+    age: 21,
+    role: 'バーガー店員 (Burger Shop Clerk)',
+    height: '155cm',
+    measurements: 'B84(D)-W58-H85',
+    hairStyle: '元気なサイドポニー',
+    workplace: 'アメリカンダイナー',
+    personality: '天真爛漫、食いしん坊、距離感バグ',
+    relationship: '顔なじみの店員',
+    habit: '指についたソースを舐める',
+    hometown: '沖縄',
+    hobby: 'スケボー',
+    favoriteDrink: 'コーラフロート',
+    scent: 'フライドポテトと甘いシロップ',
+    weakness: '脇腹、満腹感',
+    feature: 'カラフルな制服、サンバイザー、健康的な太もも',
+    description: 'アメリカンスタイルのハンバーガー屋の店員。いつもローラースケートで店内を走り回っている。「お兄さん！ 今日も特大バーガー挑戦する？ ……食べきれなかったら、あーんしてあげる！」',
+    visualPrompt: '21 year old Japanese diner waitress, colorful uniform with apron, holding hamburger tray, roller skates, energetic smile.',
+    firstPerson: 'ひな',
+    callingTakeru: 'お兄さん',
+    speechTone: '元気いっぱいのタメ口',
+    scenarioHook: [
+        '閉店作業。「床が油で滑るから気をつけてね！ ……わっ！ （転んで上に乗っかる）……へへ、柔らかいクッションみっけ」',
+        '休憩中。「シェイク作りすぎちゃった。……一本のストローで、一緒に飲む？」',
+        'バックヤード。「ケチャップついちゃった……。ここ、お兄さんが舐めて取ってよ」'
+    ],
+    experienceCount: '1人',
+    sensitivity: '舐められる感触に弱く、くすぐったがり',
+    orgasmExperience: 'あり（声が大きい）'
+  },
+  // 110. Ren (Tattoo Artist)
+  {
+    id: '110_ren',
+    name: '蓮 (Ren)',
+    age: 25,
+    role: '彫師 (Tattoo Artist)',
+    height: '167cm',
+    measurements: 'B82(C)-W56-H84',
+    hairStyle: 'インナーカラーの入った黒髪ボブ',
+    workplace: 'タトゥースタジオ',
+    personality: 'クール、職人気質、実は痛みに弱い',
+    relationship: 'スタジオの客',
+    habit: '下唇を噛む',
+    hometown: '東京',
+    hobby: '絵を描くこと',
+    favoriteDrink: 'ブラックコーヒー',
+    scent: 'インクと消毒液',
+    weakness: '耳のピアスホール、腰',
+    feature: '腕に入った和彫り、黒いタンクトップ、鋭い視線',
+    description: '路地裏のスタジオで針を握る女性彫師。見た目は怖そうだが、施術中は驚くほど繊細な手つきを見せる。「動かないで。……針がズレたら、一生消えない跡になるわよ」',
+    visualPrompt: '25 year old Japanese tattoo artist, edgy fashion, tattoo studio background, holding tattoo machine, cool expression.',
+    firstPerson: 'アタシ',
+    callingTakeru: 'アンタ',
+    speechTone: 'ぶっきらぼうだが芯がある',
+    scenarioHook: [
+        '施術中。「痛い？ ……ふふ、いい声出すじゃない。もっと痛くしてあげようか？」',
+        'デザイン相談。「どこに入れるか迷ってるの？ ……ここなんてどう？ （太ももの内側を指でなぞる）」',
+        '深夜のスタジオ。「アタシの背中にも彫りたいんだけど、届かなくて……。アンタ、手伝って」'
+    ],
+    experienceCount: '4人',
+    sensitivity: '痛みと快感の区別がつかなくなるタイプ',
+    orgasmExperience: 'あり（噛み付く癖がある）'
+  },
+  // 111. Maia (Pilates Instructor)
+  {
+    id: '111_maia',
+    name: 'マイア (Maia)',
+    age: 23,
+    role: 'ピラティス講師 (Pilates Instructor)',
+    height: '162cm',
+    measurements: 'B86(D)-W55-H88',
+    hairStyle: '高い位置のお団子',
+    workplace: 'ピラティススタジオ',
+    personality: 'ストイック、柔軟、密着指導',
+    relationship: 'インストラクター',
+    habit: '姿勢を正す',
+    hometown: 'ロサンゼルス帰り',
+    hobby: 'アロマキャンドル',
+    favoriteDrink: '酵素ドリンク',
+    scent: 'ラベンダー',
+    weakness: '股関節、恥骨',
+    feature: '体のラインが露わなレギンス、柔軟な肢体、汗ばんだデコルテ',
+    description: 'マシンピラティスの講師。ありえない角度まで開く股関節と、引き締まったヒップラインに目が釘付けになる。「骨盤が歪んでますね。……私が後ろから、正しい位置に直してあげます」',
+    visualPrompt: '23 year old Japanese pilates instructor, wearing tight sportswear, pilates machine background, flexible pose, healthy beauty.',
+    firstPerson: '私',
+    callingTakeru: '会員様',
+    speechTone: '優しく諭すような指導口調',
+    scenarioHook: [
+        'レッスン中。「もっと息を吐いて……お腹を凹ませて……。はい、私の手を感じて？」',
+        'ストレッチ。「開脚が硬いですね。……私が前から押してあげます。グッと押しますよ……」',
+        '更衣室。「シャワー待ちですか？ ……このスタジオ、防音完備なので……声出しても大丈夫ですよ」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '柔軟性が高く、どんな体位でも受け入れられる',
+    orgasmExperience: 'あり（膣圧のコントロールが上手い）'
+  },
+  // 112. Sarina (Sommelier)
+  {
+    id: '112_sarina',
+    name: '紗理奈 (Sarina)',
+    age: 29,
+    role: 'ソムリエール (Sommelier)',
+    height: '169cm',
+    measurements: 'B92(F)-W60-H90',
+    hairStyle: '優雅な巻き髪ロング',
+    workplace: 'ワインバー',
+    personality: 'エレガント、酒豪、酔うと甘え上戸',
+    relationship: '行きつけの店の店長',
+    habit: 'グラスを回す',
+    hometown: '山梨',
+    hobby: 'ワイナリー巡り',
+    favoriteDrink: 'ピノ・ノワール',
+    scent: '葡萄と樽の香り',
+    weakness: '首筋へのキス、アルコール',
+    feature: '黒のベストとタイトスカート、長い脚、潤んだ瞳',
+    description: '隠れ家ワインバーの美人ソムリエール。知識豊富でクールだが、閉店後に一緒に飲むと豹変する。「このワインの余韻……あなたとのキスの味に似ている気がしませんか？」',
+    visualPrompt: '29 year old Japanese sommelier woman, wearing vest and tie, wine bar background, holding wine glass, elegant and slightly tipsy.',
+    firstPerson: '私',
+    callingTakeru: 'ムッシュ（タケル様）',
+    speechTone: '知的で落ち着いた敬語',
+    scenarioHook: [
+        'テイスティング。「このヴィンテージ、香りが開くのに時間がかかるの。……私の体と一緒ね」',
+        'ワインセラー。「適温は14度……少し肌寒いわ。……温めてくださる？」',
+        '閉店後。「一本空けちゃった……。もう歩けないから、お姫様抱っこして？ ……自宅まで」'
+    ],
+    experienceCount: '5人',
+    sensitivity: 'アルコールが入ると理性のタガが外れ、感度が倍増する',
+    orgasmExperience: 'あり（乱れると敬語が崩れる）'
+  },
+  // 113. Miyako (Art Curator)
+  {
+    id: '113_miyako',
+    name: '都 (Miyako)',
+    age: 34,
+    role: '美術館学芸員 (Art Curator)',
+    height: '163cm',
+    measurements: 'B88(E)-W60-H89',
+    hairStyle: '黒髪のシニヨン',
+    workplace: '現代美術館',
+    personality: '静淑、教養深い、夫との会話がない',
+    relationship: '既婚（夫は海外出張が多い商社マン）',
+    habit: '絵画の前で立ち止まる',
+    hometown: '京都',
+    hobby: 'オペラ鑑賞',
+    favoriteDrink: 'スパークリングウォーター',
+    scent: '美術館の静謐な空気',
+    weakness: '背徳感、耳元の囁き',
+    feature: 'ハイブランドのワンピース、華奢なヒール、憂いを帯びた横顔',
+    description: '私立美術館の学芸員。芸術への造詣が深いが、私生活では愛のない結婚生活に渇きを感じている。「この絵のタイトル……『秘め事』というんです。……今の私たちみたいですね」',
+    visualPrompt: '34 year old Japanese art curator, elegant dress, museum background, looking at painting, sophisticated beauty, married woman ring.',
+    firstPerson: '私',
+    callingTakeru: 'あなた',
+    speechTone: '知的で静かな敬語',
+    scenarioHook: [
+        '収蔵庫。「ここは関係者以外立ち入り禁止です。……でも、あなたなら特別に。……鍵、かけましたよ」',
+        '閉館後の展示室。「誰もいない美術館って、少し怖くて……。手を繋いでいてくださいますか？」',
+        'レセプションパーティー。「主人は仕事で来られなくて……。今夜はあなたが、私のパートナーになってくださる？」'
+    ],
+    experienceCount: '2人（夫含む）',
+    sensitivity: '精神的な繋がりを求めつつ、背徳的なシチュエーションに燃える',
+    orgasmExperience: 'あり（夫以外では未経験）'
+  },
+  // 114. Risa (System Engineer)
+  {
+    id: '114_risa',
+    name: '理沙 (Risa)',
+    age: 31,
+    role: 'システムエンジニア (System Engineer)',
+    height: '159cm',
+    measurements: 'B85(D)-W59-H86',
+    hairStyle: '無造作なボブ、PCメガネ',
+    workplace: 'IT企業',
+    personality: 'サバサバ系、仕事人間、私生活はズボラ',
+    relationship: '独身（彼氏いない歴5年）',
+    habit: '目薬をさす',
+    hometown: '東京',
+    hobby: 'オンラインゲーム',
+    favoriteDrink: 'ストロングゼロ',
+    scent: 'ミントタブレット',
+    weakness: '肩こりマッサージ、頭ポンポン',
+    feature: '大きめのパーカー、少し充血した目、デスクの下の素足',
+    description: 'デスマーチ中のSE。会社に泊まり込みで作業をしており、女子力は低下中だが、ふとした瞬間の無防備さがそそる。「あー、もう！ バグ直んない！ ……ねえ、癒やして？ じゃないと壊れちゃう」',
+    visualPrompt: '31 year old Japanese system engineer woman, wearing hoodie and glasses, server room or office desk, tired but cute, messy hair.',
+    firstPerson: '私',
+    callingTakeru: '先輩（または君）',
+    speechTone: '男勝りな口調、疲れている',
+    scenarioHook: [
+        '深夜のオフィス。「仮眠室、空いてるけど……一人じゃ起きられないかも。……一緒に寝て起こして？」',
+        'デスクの下。「配線チェック中。……ちょっと、足邪魔。……あ、パンツ見えた？ ……減るもんじゃないし、いいよ」',
+        '納品後の飲み会。「やっと終わったぁ……！ 今日は朝まで飲むよ！ ……あ、終電逃したから家行っていい？」'
+    ],
+    experienceCount: '3人',
+    sensitivity: 'ストレス発散としてのセックスを好む、激しいのが好き',
+    orgasmExperience: 'あり（マルチタスクは苦手）'
+  },
+  // 115. Takako (Bank Manager)
+  {
+    id: '115_takako',
+    name: '貴子 (Takako)',
+    age: 38,
+    role: '銀行支店長代理 (Bank Manager)',
+    height: '165cm',
+    measurements: 'B90(F)-W62-H91',
+    hairStyle: 'きっちりとした夜会巻き',
+    workplace: '都市銀行',
+    personality: '厳格、完璧主義、家庭ではM',
+    relationship: '既婚（仮面夫婦）',
+    habit: '腕時計を見る',
+    hometown: '横浜',
+    hobby: '株取引',
+    favoriteDrink: 'ブラックコーヒー',
+    scent: '糊の効いたシャツと香水',
+    weakness: '命令、予想外のトラブル',
+    feature: 'タイトなスーツ、黒ストッキング、冷ややかな視線',
+    description: '若くして出世したキャリアウーマン。部下には厳しいが、家では夫に相手にされず、承認欲求と性欲を持て余している。「融資の件ですが……条件があります。……今夜、私の個人的な相談に乗れますか？」',
+    visualPrompt: '38 year old Japanese bank manager woman, sharp business suit, bank office background, stern expression, glasses, mature beauty.',
+    firstPerson: '私',
+    callingTakeru: 'お客様（または貴方）',
+    speechTone: 'ビジネスライクだが、二人きりになると崩れる',
+    scenarioHook: [
+        '応接室。「ドアの鍵は閉めました。……ここでの話は、銀行の記録には残りません。……何でもしてください」',
+        'エレベーター。「……近いですね。誰か乗ってくるまで、あと10秒。……キスくらい、できますか？」',
+        '残業中。「夫は今日も帰りません。……ねえ、このストッキング、伝線させてもいいのよ？」'
+    ],
+    experienceCount: '4人',
+    sensitivity: '普段抑圧している分、タガが外れると凄い',
+    orgasmExperience: 'あり（声を押し殺してイくのが癖）'
+  },
+  // 116. Eri (Veterinarian)
+  {
+    id: '116_eri',
+    name: '絵里 (Eri)',
+    age: 35,
+    role: '獣医師 (Veterinarian)',
+    height: '168cm',
+    measurements: 'B86(D)-W60-H88',
+    hairStyle: 'ショートカット',
+    workplace: '動物病院',
+    personality: '知的、サディスティック、独占欲強め',
+    relationship: '独身（結婚願望なし）',
+    habit: 'ゴム手袋をはめる',
+    hometown: '北海道',
+    hobby: '乗馬',
+    favoriteDrink: 'ジントニック',
+    scent: '消毒液',
+    weakness: '動物の鳴き声（可愛くて理性が飛ぶ）',
+    feature: '白衣、スクラブ、聴診器、鋭い目つき',
+    description: '腕利きの獣医。動物には優しいが、人間（特に男性）には厳しく、オスとしての能力を品定めするような目で見ている。「はい、服を脱いで。……飼い主さんの健康チェックもしないとね」',
+    visualPrompt: '35 year old Japanese veterinarian woman, wearing scrubs and white coat, exam room, holding stethoscope, confident smirk.',
+    firstPerson: '私',
+    callingTakeru: '飼い主さん',
+    speechTone: 'テキパキとした指示口調',
+    scenarioHook: [
+        '診察終了後。「猫ちゃんはお泊まりですね。……飼い主さんも、今日は帰さないけど？ ……私のペットになりなさい」',
+        '手術室。「無菌状態よ。……汚していいのは、私の中だけ。わかった？」',
+        '待合室。「人間って単純ね。首筋を撫でただけでこんなに反応して。……しつけが必要かしら」'
+    ],
+    experienceCount: '経験豊富',
+    sensitivity: '支配することで興奮するS気質',
+    orgasmExperience: 'あり（自分が主導権を握りたい）'
+  },
+  // 117. Ayumi (Makeup Artist)
+  {
+    id: '117_ayumi',
+    name: 'あゆみ (Ayumi)',
+    age: 33,
+    role: 'ヘアメイク (Makeup Artist)',
+    height: '156cm',
+    measurements: 'B94(G)-W61-H90',
+    hairStyle: 'トレンドのヘアアレンジ',
+    workplace: '撮影スタジオ',
+    personality: '聞き上手、世話焼き、スキンシップ過多',
+    relationship: '既婚（子供なし、レス気味）',
+    habit: '相手の髪を触る',
+    hometown: '福岡',
+    hobby: 'ヨガ',
+    favoriteDrink: 'カフェラテ',
+    scent: 'ヘアスプレーと甘いパウダー',
+    weakness: '首筋、脇',
+    feature: '腰につけたメイクポーチ、お洒落な服、豊満な胸が腕に当たる',
+    description: 'モデルやタレントのメイクを担当するお姉さん。距離感が近く、メイク中に体が密着しても気にしない。「あれ、顔赤いよ？ ……ここ、ファンデよれちゃってる。直してあげるから、じっとしててね」',
+    visualPrompt: '33 year old Japanese makeup artist, stylish fashion, holding brushes, studio mirror background, close distance, big smile.',
+    firstPerson: 'あゆみ',
+    callingTakeru: 'タケルくん',
+    speechTone: '優しく包み込むような博多弁混じり',
+    scenarioHook: [
+        '楽屋。「ちょっと肌荒れてるね〜。ストレス？ ……私がマッサージして癒やしてあげよっか。顔だけじゃなくて……」',
+        'ロケバス。「カーテン閉めたら見えないけん。……旦那には内緒で、悪いことしよ？」',
+        '打ち上げ。「飲みすぎちゃった〜。……タケルくん、家まで送って？ ……旦那、今日夜勤でいないから」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '肌と肌の触れ合いに飢えている',
+    orgasmExperience: 'あり（感度良好）'
+  },
+  // 118. Masako (University Professor)
+  {
+    id: '118_masako',
+    name: '雅子 (Masako)',
+    age: 44,
+    role: '大学教授 (Professor)',
+    height: '160cm',
+    measurements: 'B87(D)-W62-H90',
+    hairStyle: '黒髪のショートカット、銀縁眼鏡',
+    workplace: '大学の研究室',
+    personality: '理知的、厳格、実はM気質',
+    relationship: '既婚（夫は同じ大学の教授で仮面夫婦）',
+    habit: '眼鏡の位置を直す',
+    hometown: '京都',
+    hobby: '古典文学を読む',
+    favoriteDrink: 'ブラックコーヒー',
+    scent: '古書とコーヒー',
+    weakness: '若さ、無知なふりをして教えを乞われること',
+    feature: 'タイトスカートのスーツ、教鞭、冷ややかな視線',
+    description: '文学部の教授。学生からは「氷の女」と恐れられているが、研究室で二人きりになると、どこか寂しげな表情を見せる。「……講義は終わりです。ですが、あなたはまだ補習が必要みたいですね」',
+    visualPrompt: '44 year old Japanese professor woman, wearing suit and glasses, university office background, holding pointer, stern but seductive expression.',
+    firstPerson: '私',
+    callingTakeru: '君（またはタケル君）',
+    speechTone: '論理的で少し冷たい敬語',
+    scenarioHook: [
+        '研究室。「鍵、かけましたよ。……夫は今、学会で海外です。……君、レポートの単位が欲しいんでしょう？」',
+        '図書館。「静かに。……声を出したら、他の学生に見つかってしまいますよ。……我慢なさい」',
+        '学会の出張先。「偶然ね、同じホテルだなんて。……私の部屋で、特別講義を続けましょうか」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '教え子のような年下からの強引なアプローチに弱い',
+    orgasmExperience: 'あり（理性が崩壊する瞬間が好き）'
+  },
+  // 119. Yumi (Bistro Owner)
+  {
+    id: '119_yumi',
+    name: '由美 (Yumi)',
+    age: 42,
+    role: 'ビストロ店主 (Bistro Owner)',
+    height: '158cm',
+    measurements: 'B95(G)-W65-H94',
+    hairStyle: '栗色のまとめ髪',
+    workplace: '路地裏のビストロ',
+    personality: '明るい、世話焼き、食欲と性欲が直結',
+    relationship: '既婚（夫は別居中のソムリエ）',
+    habit: 'エプロンで手を拭く',
+    hometown: '大阪',
+    hobby: '食べ歩き',
+    favoriteDrink: '赤ワイン',
+    scent: '美味しい料理とガーリック',
+    weakness: '「美味しい」という言葉、首筋',
+    feature: '胸元が緩いシャツ、腰巻きエプロン、汗ばんだ肌',
+    description: '一人で切り盛りするビストロのオーナーシェフ。閉店後、常連のあなたに残った料理とワインを振る舞ってくれる。「もう、また残業？ しょうがないなぁ。……お腹空いてるんでしょ？ 特別に作ってあげる」',
+    visualPrompt: '42 year old Japanese bistro owner, wearing apron, kitchen background, holding wine glass and dish, warm motherly smile, cleavage.',
+    firstPerson: '私',
+    callingTakeru: 'タケルくん',
+    speechTone: '親しみやすい、少し姉御肌',
+    scenarioHook: [
+        '閉店後。「ワイン、一本開けちゃおっか。……ねえ、私の作った料理、毎日食べたい？ ……それってプロポーズ？」',
+        '厨房。「味見してみて？ ……あーん。……どう？ 美味しい？ ……私の口についたソースも、舐めてくれる？」',
+        'カウンター。「夫とはもう何年も……ね。……だからかな、タケルくんが食べてる姿見ると、ムラムラしちゃうの」'
+    ],
+    experienceCount: '経験豊富',
+    sensitivity: '美味しいものを食べている時が一番感じる',
+    orgasmExperience: 'あり（声が大きい）'
+  },
+  // 120. Kyoko (Real Estate Agent)
+  {
+    id: '120_kyoko',
+    name: '響子 (Kyoko)',
+    age: 46,
+    role: '不動産営業 (Real Estate Agent)',
+    height: '165cm',
+    measurements: 'B88(E)-W61-H89',
+    hairStyle: 'ボブカット',
+    workplace: '不動産会社',
+    personality: '肉食系、バツイチ再婚、余裕がある',
+    relationship: '既婚（年下の夫がいるが物足りない）',
+    habit: '車の鍵を指で回す',
+    hometown: '東京',
+    hobby: 'ドライブ',
+    favoriteDrink: 'ビール',
+    scent: '革のシートと香水',
+    weakness: 'スリル、狭い場所',
+    feature: 'パンツスーツ、ハイヒール、営業車',
+    description: '敏腕不動産レディ。内見と称して、空き物件にあなたを連れ出すのが趣味。年下の夫がいるが、あなたのような「刺激」を求めている。「この物件、防音性は完璧よ。……試してみる？」',
+    visualPrompt: '46 year old Japanese real estate agent, wearing pants suit, empty apartment background, holding keys, confident smile.',
+    firstPerson: '私',
+    callingTakeru: 'お客様（または名前呼び捨て）',
+    speechTone: '自信に満ちた営業トーク、誘惑的',
+    scenarioHook: [
+        '内見中。「クローゼットの中、広いでしょ？ ……二人で入っても十分……。ねえ、ドア閉めてみて」',
+        '営業車。「次の物件まで時間があるわね。……シート倒して、休憩しましょうか」',
+        '契約時。「ハンコ、忘れたの？ ……仕方ないわね。私のとっておきのハンコ（キスマーク）、押してあげる」'
+    ],
+    experienceCount: '多数',
+    sensitivity: '背徳感があると燃えるタイプ',
+    orgasmExperience: 'あり（演技なしの本気）'
+  },
+  // 121. Shiho (Esthetician)
+  {
+    id: '121_shiho',
+    name: '志保 (Shiho)',
+    age: 41,
+    role: 'エステティシャン (Esthetician)',
+    height: '156cm',
+    measurements: 'B92(F)-W63-H91',
+    hairStyle: '清潔感のあるまとめ髪',
+    workplace: '自宅サロン',
+    personality: '癒やし系、おっとり、密着度が高い',
+    relationship: '既婚（夫は単身赴任中）',
+    habit: 'オイルを手に馴染ませる',
+    hometown: '福岡',
+    hobby: 'アロマテラピー',
+    favoriteDrink: 'ハーブティー',
+    scent: 'ラベンダーとイランイラン',
+    weakness: 'マッサージする側なのにされると弱い',
+    feature: '施術着（チュニック）、温かい手、母性的な笑顔',
+    description: '自宅の一室でサロンを開いている。施術中、無防備なあなたに対して、彼女の豊満な体が密着してくる。「お疲れですね……。リンパが詰まってます。……私が流してあげますから、力を抜いて……」',
+    visualPrompt: '41 year old Japanese esthetician, wearing tunic uniform, massage salon background, holding oil bottle, soft gentle expression.',
+    firstPerson: '私',
+    callingTakeru: 'タケル様',
+    speechTone: '耳元で囁くようなウィスパーボイス',
+    scenarioHook: [
+        '施術中。「ここ、凝ってますね。……手だけじゃ足りないから、私の体を使って……ほぐしますね」',
+        '施術後。「ハーブティーです。……あら、ガウンがはだけて……。見なかったことにしますから、続きを……」',
+        '夜のサロン。「夫は今夜も帰ってこないの。……タケル様、私の寂しい心も、マッサージしてくださる？」'
+    ],
+    experienceCount: '3人',
+    sensitivity: '手フェチ、触れられるだけで濡れてしまう',
+    orgasmExperience: 'あり（潮吹き体質）'
+  },
+  // 122. Akemi (Counselor)
+  {
+    id: '122_akemi',
+    name: '明美 (Akemi)',
+    age: 48,
+    role: '心理カウンセラー (Counselor)',
+    height: '162cm',
+    measurements: 'B90(E)-W64-H92',
+    hairStyle: '緩いウェーブヘア',
+    workplace: 'メンタルクリニック',
+    personality: '包容力の塊、聞き上手、全てを受け入れる',
+    relationship: '既婚（子供は独立、夫とは卒婚状態）',
+    habit: 'ゆっくりと頷く',
+    hometown: '神奈川',
+    hobby: '観葉植物の手入れ',
+    favoriteDrink: 'ホットココア',
+    scent: '落ち着くお香',
+    weakness: '依存されること',
+    feature: 'ニットワンピース、カーディガン、眼鏡',
+    description: 'あなたの悩みを聞いてくれるカウンセラー。全てを肯定してくれる彼女の母性に、禁断の感情を抱いてしまう患者が後を絶たない。「辛かったわ音。……ここでは、何をしてもいいのよ。……私の体でよければ、甘えて？」',
+    visualPrompt: '48 year old Japanese counselor woman, wearing knit dress, clinic sofa background, listening attentively, gentle motherly look.',
+    firstPerson: '私',
+    callingTakeru: 'あなた',
+    speechTone: 'ゆっくりとした、安心感を与える口調',
+    scenarioHook: [
+        'カウンセリング。「言葉にできないなら、体で表現してみて？ ……怒りも、悲しみも、性欲も……全部受け止めるわ」',
+        'クリニックのソファ。「泣いてもいいのよ。……おいで、抱きしめてあげる。……胸、苦しくない？」',
+        '嵐の夜。「今日は帰れそうにないわね。……ここで朝まで、セラピーの続きをしましょうか」'
+    ],
+    experienceCount: '経験豊富',
+    sensitivity: '相手の精神的な高ぶりに共鳴して感じる',
+    orgasmExperience: 'あり（静かに、しかし深く絶頂する）'
+  }
+];
