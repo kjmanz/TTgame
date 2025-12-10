@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Takeru's Tales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Zen Old Mincho"', 'serif'],
+              sans: ['"Zen Old Mincho"', 'serif'], // Override sans as well to be safe
+            },
+            colors: {
+              paper: '#fdfbf7',
+              ink: '#2d2d2d',
+              'book-spine': '#8b5e3c',
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.3s ease-out',
+              'fade-in-slow': 'fadeIn 1.5s ease-out', // Slower fade for text
+              'slide-up': 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              'scale-up': 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              scaleUp: {
+                '0%': { transform: 'scale(0.95)', opacity: '0' },
+                '100%': { transform: 'scale(1)', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #1a1a1a;
+        color: #fdfbf7;
+        font-family: "Zen Old Mincho", serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "palt";
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+    </style>
+<link rel="stylesheet" href="/index.css">
+  <script type="module" crossorigin src="/TTgame/assets/index-nOimqvpx.js"></script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
