@@ -4,6 +4,7 @@ const API_KEY_STORAGE_KEY = 'openrouter_api_key';
 const XAI_API_KEY_STORAGE_KEY = 'xai_api_key';
 const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
+const IMAGE_STYLE_STORAGE_KEY = 'image_style';
 
 // 利用可能な文章生成モデル一覧
 // ※推奨モデルのみに絞っています
@@ -35,6 +36,20 @@ export const AVAILABLE_IMAGE_MODELS = [
     name: 'Grok 2 Image',
     description: 'xAI画像生成（要xAI APIキー）',
     price: '$0.01/枚'
+  }
+];
+
+// 画像スタイル選択肢
+export const AVAILABLE_IMAGE_STYLES = [
+  {
+    id: 'photorealistic',
+    name: '実写風',
+    description: 'フォトリアリスティック、写真のような画像'
+  },
+  {
+    id: 'anime',
+    name: 'アニメ風',
+    description: 'アニメ・イラスト調の画像'
   }
 ];
 
@@ -76,6 +91,14 @@ export const getStoredImageModel = (): string => {
 
 export const setStoredImageModel = (modelId: string): void => {
   localStorage.setItem(IMAGE_MODEL_STORAGE_KEY, modelId);
+};
+
+export const getStoredImageStyle = (): string => {
+  return localStorage.getItem(IMAGE_STYLE_STORAGE_KEY) || AVAILABLE_IMAGE_STYLES[0].id;
+};
+
+export const setStoredImageStyle = (styleId: string): void => {
+  localStorage.setItem(IMAGE_STYLE_STORAGE_KEY, styleId);
 };
 
 const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {

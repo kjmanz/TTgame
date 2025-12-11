@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import {
     AVAILABLE_TEXT_MODELS,
     AVAILABLE_IMAGE_MODELS,
+    AVAILABLE_IMAGE_STYLES,
     getStoredModel,
     setStoredModel,
     getStoredImageModel,
     setStoredImageModel,
+    getStoredImageStyle,
+    setStoredImageStyle,
     getStoredXaiApiKey,
     setStoredXaiApiKey
 } from './ApiKeyScreen';
@@ -17,6 +20,7 @@ interface ModelSelectorProps {
 const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [textModel, setTextModel] = useState(getStoredModel());
     const [imageModel, setImageModel] = useState(getStoredImageModel());
+    const [imageStyle, setImageStyle] = useState(getStoredImageStyle());
     const [xaiApiKey, setXaiApiKey] = useState(getStoredXaiApiKey() || '');
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
@@ -30,6 +34,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
 
         setStoredModel(textModel);
         setStoredImageModel(imageModel);
+        setStoredImageStyle(imageStyle);
         if (xaiApiKey.trim()) {
             setStoredXaiApiKey(xaiApiKey);
         }
@@ -94,6 +99,28 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                             {AVAILABLE_IMAGE_MODELS.find(m => m.id === imageModel)?.description}
                         </p>
                     </div>
+
+                    {imageModel !== 'none' && (
+                        <div>
+                            <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
+                                🎨 画像スタイル
+                            </label>
+                            <select
+                                value={imageStyle}
+                                onChange={(e) => setImageStyle(e.target.value)}
+                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                            >
+                                {AVAILABLE_IMAGE_STYLES.map((style) => (
+                                    <option key={style.id} value={style.id} className="bg-[#1a1a1d] text-gray-100">
+                                        {style.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <p className="text-xs text-gray-500 mt-1">
+                                {AVAILABLE_IMAGE_STYLES.find(s => s.id === imageStyle)?.description}
+                            </p>
+                        </div>
+                    )}
 
                     {imageModel === 'grok-2-image-1212' && (
                         <div>

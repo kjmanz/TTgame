@@ -398,17 +398,19 @@ ${(chapter === 1 && part <= 2) ? `
     }
 };
 
-import { getStoredImageModel, getStoredXaiApiKey } from "../components/ApiKeyScreen";
+import { getStoredImageModel, getStoredXaiApiKey, getStoredImageStyle } from "../components/ApiKeyScreen";
 
 // 画像モデルはlocalStorageから取得
 const getImageModel = () => getStoredImageModel();
+const getImageStyle = () => getStoredImageStyle();
 
 // xAI API URL
 const XAI_API_URL = 'https://api.x.ai/v1/images/generations';
 
-// 実写風画像生成
+// 画像生成
 export const generateSceneImage = async (character: Character, sceneText: string): Promise<string | null> => {
     const imageModel = getImageModel();
+    const imageStyle = getImageStyle();
 
     // 画像生成が無効化されている場合
     if (imageModel === 'none') {
@@ -416,8 +418,23 @@ export const generateSceneImage = async (character: Character, sceneText: string
         return null;
     }
 
-    // キャラクターの特徴と場面から実写風プロンプトを生成
-    const imagePrompt = `
+    // スタイルに応じたプロンプトを生成
+    let imagePrompt: string;
+
+    if (imageStyle === 'anime') {
+        // アニメ風プロンプト
+        imagePrompt = `
+Anime style illustration, high quality, detailed.
+Japanese anime girl, ${character.age} years old appearance.
+Physical description: ${character.feature}, ${character.height}.
+Hair: ${character.hairStyle}.
+Scene context: ${sceneText.slice(0, 300)}.
+Style: Japanese anime, light novel illustration, detailed eyes, soft shading.
+Quality: High resolution, professional anime artwork, vibrant colors.
+`.trim();
+    } else {
+        // 実写風プロンプト（デフォルト）
+        imagePrompt = `
 Photorealistic, high quality photograph, cinematic lighting.
 Japanese woman, ${character.age} years old.
 Physical description: ${character.feature}, ${character.height}.
@@ -427,8 +444,9 @@ Style: Professional photography, natural lighting, detailed skin texture, realis
 Camera: 85mm lens, shallow depth of field, soft bokeh background.
 Quality: 8K, ultra detailed, masterpiece.
 `.trim();
+    }
 
-    console.log("Generating image with prompt:", imagePrompt);
+    console.log(`Generating ${imageStyle} image with prompt:`, imagePrompt);
 
     // xAI Grok 2 Image の場合
     if (imageModel === 'grok-2-image-1212') {
