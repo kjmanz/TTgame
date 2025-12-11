@@ -48,9 +48,14 @@ export const AVAILABLE_IMAGE_STYLES = [
     description: 'フォトリアリスティック、写真のような画像'
   },
   {
-    id: 'anime',
-    name: 'アニメ風',
-    description: 'アニメ・イラスト調の画像'
+    id: 'realistic_anime',
+    name: 'リアル系アニメ',
+    description: '写実的なアニメ風、CG・3Dアニメ調'
+  },
+  {
+    id: 'illustration_anime',
+    name: 'イラスト系アニメ',
+    description: '2Dイラスト・手描き風アニメ調'
   }
 ];
 

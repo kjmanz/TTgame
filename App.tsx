@@ -543,7 +543,7 @@ function App() {
     setState(prev => ({ ...prev, currentPhase: 'EXTRACTING_SCENES', sceneCandidates: null }));
 
     try {
-      const imageStyle = getStoredImageStyle() as 'photorealistic' | 'anime';
+      const imageStyle = getStoredImageStyle() as 'photorealistic' | 'realistic_anime' | 'illustration_anime';
       const scenes = await extractImageScenes(
         state.selectedCharacter,
         state.currentSegment.text,

@@ -729,9 +729,12 @@ export const generateSceneImage = async (character: Character, sceneText: string
     // シーンテキストを短く切り取る（100文字程度）
     const shortScene = sceneText.slice(0, 100).replace(/\n/g, ' ');
 
-    if (imageStyle === 'anime') {
-        // アニメ風プロンプト（短縮版）- 女性単体にフォーカス
-        imagePrompt = `Anime illustration, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Anime style, detailed eyes, vibrant colors. Focus on the woman, no other people.`;
+    if (imageStyle === 'realistic_anime') {
+        // リアル系アニメ風プロンプト - CGアニメ・3Dアニメ調
+        imagePrompt = `High quality realistic anime, 3D CG anime style, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI. Focus on the woman, no other people.`;
+    } else if (imageStyle === 'illustration_anime') {
+        // イラスト系アニメ風プロンプト - 2Dイラスト・手描き風
+        imagePrompt = `Beautiful 2D anime illustration, hand-drawn style, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style. Focus on the woman, no other people.`;
     } else {
         // 実写風プロンプト（短縮版）- 女性単体にフォーカス
         imagePrompt = `Photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, 8K, cinematic lighting. Focus on the woman, no other people.`;
@@ -979,16 +982,24 @@ Quality: 8K, ultra detailed, masterpiece.
 export const extractImageScenes = async (
     character: Character,
     storyText: string,
-    imageStyle: 'photorealistic' | 'anime'
+    imageStyle: 'photorealistic' | 'realistic_anime' | 'illustration_anime'
 ): Promise<SceneCandidate[]> => {
     const apiKey = getStoredApiKey();
     if (!apiKey) {
         throw new Error("APIキーが設定されていません");
     }
 
-    const stylePromptPart = imageStyle === 'anime'
-        ? 'anime illustration style, detailed anime eyes, vibrant colors'
-        : 'photorealistic photograph, 8K, cinematic lighting, professional photography';
+    let stylePromptPart: string;
+    if (imageStyle === 'realistic_anime') {
+        // リアル系アニメ - CGアニメ・3Dアニメ調
+        stylePromptPart = 'high quality realistic anime, 3D CG anime style, semi-realistic, volumetric lighting, studio quality CGI';
+    } else if (imageStyle === 'illustration_anime') {
+        // イラスト系アニメ - 2Dイラスト・手描き風
+        stylePromptPart = 'beautiful 2D anime illustration, hand-drawn style, vibrant anime colors, detailed anime eyes, cel shading';
+    } else {
+        // 実写風
+        stylePromptPart = 'photorealistic photograph, 8K, cinematic lighting, professional photography';
+    }
 
     const systemPrompt = `
 You are an expert at extracting visual scenes from erotic/adult literature for image generation.
