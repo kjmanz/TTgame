@@ -294,6 +294,8 @@ ${(chapter === 1 && part <= 2) ? `
             : `第1章 Part1を開始してください。導入として、以下の設定を使ってください: ${selectedScenario}
             日付設定：現在の日時（例：◯月◯日）
             時刻設定：現在の時刻（例：18:30）
+            
+            IMPORTANT: Even for this introductory part, you MUST generate "scenes" in the JSON output. Include 4 SFW/NSFW scenes that capture the visual atmosphere or character introduction.
             `;
 
         messages.push({
@@ -543,6 +545,8 @@ ${(chapter === 1 && part <= 2) ? `
             : `第1章 Part1を開始してください。導入として、以下の設定を使ってください: ${selectedScenario}
             日付設定：現在の日時（例：◯月◯日）
             時刻設定：現在の時刻（例：18:30）
+            
+            IMPORTANT: Even for this introductory part, you MUST generate "scenes" in the JSON output. Include 4 SFW/NSFW scenes that capture the visual atmosphere or character introduction.
             `;
 
         messages.push({
