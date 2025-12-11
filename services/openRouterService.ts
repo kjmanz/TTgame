@@ -418,35 +418,26 @@ export const generateSceneImage = async (character: Character, sceneText: string
         return null;
     }
 
-    // スタイルに応じたプロンプトを生成
+    // スタイルに応じたプロンプトを生成（xAI Grok 2 Imageは最大1024文字）
     let imagePrompt: string;
 
+    // シーンテキストを短く切り取る（100文字程度）
+    const shortScene = sceneText.slice(0, 100).replace(/\n/g, ' ');
+
     if (imageStyle === 'anime') {
-        // アニメ風プロンプト
-        imagePrompt = `
-Anime style illustration, high quality, detailed.
-Japanese anime girl, ${character.age} years old appearance.
-Physical description: ${character.feature}, ${character.height}.
-Hair: ${character.hairStyle}.
-Scene context: ${sceneText.slice(0, 300)}.
-Style: Japanese anime, light novel illustration, detailed eyes, soft shading.
-Quality: High resolution, professional anime artwork, vibrant colors.
-`.trim();
+        // アニメ風プロンプト（短縮版）
+        imagePrompt = `Anime illustration, Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Anime style, detailed eyes, vibrant colors.`;
     } else {
-        // 実写風プロンプト（デフォルト）
-        imagePrompt = `
-Photorealistic, high quality photograph, cinematic lighting.
-Japanese woman, ${character.age} years old.
-Physical description: ${character.feature}, ${character.height}.
-Hair: ${character.hairStyle}.
-Scene context: ${sceneText.slice(0, 300)}.
-Style: Professional photography, natural lighting, detailed skin texture, realistic.
-Camera: 85mm lens, shallow depth of field, soft bokeh background.
-Quality: 8K, ultra detailed, masterpiece.
-`.trim();
+        // 実写風プロンプト（短縮版）
+        imagePrompt = `Photo, Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, 8K, cinematic lighting.`;
     }
 
-    console.log(`Generating ${imageStyle} image with prompt:`, imagePrompt);
+    // 1024文字以内に確実に収める
+    if (imagePrompt.length > 1000) {
+        imagePrompt = imagePrompt.slice(0, 1000);
+    }
+
+    console.log(`Generating ${imageStyle} image with prompt (${imagePrompt.length} chars):`, imagePrompt);
 
     // xAI Grok 2 Image の場合
     if (imageModel === 'grok-2-image-1212') {
