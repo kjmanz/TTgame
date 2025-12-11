@@ -169,6 +169,8 @@ const BASE_SYSTEM_INSTRUCTION = `
 - **各シーンは、画像生成AIのための高品質な英語プロンプト（imagePrompt）を含めてください。**
 - **imagePromptの必須キーワード**: "masterpiece, best quality, ultra detailed, 8k, perfect anatomy, mature female features, adult proportions".
 - **重要**: 場面転換や重要なアクション（キス、愛撫、挿入、絶頂など）を優先的にシーン化してください。
+- **視点（POV）の絶対ルール**: すべてのシーンは**「主人公（タケル）の視点（POV）」**から見た構図にしてください。
+- **imagePromptの必須キーワード（追加）**: "POV, first-person perspective, looking at viewer, from protagonist's eyes".
 `;
 
 interface OpenRouterMessage {
@@ -749,13 +751,13 @@ export const generateSceneImage = async (character: Character, sceneText: string
 
     if (imageStyle === 'realistic_anime') {
         // リアル系アニメ風プロンプト - CGアニメ・3Dアニメ調
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
     } else if (imageStyle === 'illustration_anime') {
         // イラスト系アニメ風プロンプト - 2Dイラスト・手描き風
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
     } else {
         // 実写風プロンプト（短縮版）- 女性単体にフォーカス
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
     }
 
     // 1024文字以内に確実に収める
@@ -1034,6 +1036,7 @@ RULES:
 8. **IMPORTANT: Focus on ONE Japanese woman as the main subject.**
 9. **IMPORTANT: Male character should be at most ONE person, or preferably not visible in the image.**
 10. **IMPORTANT: If a male is included, use terms like "male hand", "male figure partially visible", or POV perspective instead of showing full male body.**
+11. **IMPORTANT: All scenes MUST be POV (first-person perspective) from the protagonist's eyes.**
 
 Output format:
 {
