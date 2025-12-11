@@ -8,15 +8,15 @@ interface Props {
 }
 
 const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
-  // Extract numeric ID from character.id (e.g., "1_character" -> "1")
-  const numericId = character.id.split('_')[0];
+  // Extract numeric ID from character.id (e.g., "001_misaki" -> "1")
+  // Remove leading zeros using parseInt
+  const numericId = parseInt(character.id.split('_')[0], 10).toString();
   // Use relative path that works with Vite/GitHub Pages
   const imageUrl = `./characters/${numericId}.jpg`;
 
   return (
     <div
-      onClick={() => onSelect(character)}
-      className="group relative bg-[#fcfaf5] rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-900/30 flex flex-col h-full border border-gray-200/60"
+      className="group relative bg-[#fcfaf5] rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-900/30 flex flex-col h-full border border-gray-200/60"
     >
       {/* Character Portrait Image */}
       <div className="relative w-full aspect-[3/4] bg-gray-200 overflow-hidden">
@@ -86,14 +86,17 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
           </p>
         </div>
 
-        {/* CTA */}
+        {/* CTA Button - Only this triggers selection */}
         <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-center">
-          <span className="relative inline-flex items-center justify-center gap-2 text-xs font-bold text-gray-400 group-hover:text-indigo-800 transition-colors uppercase tracking-[0.2em] duration-300">
+          <button
+            onClick={() => onSelect(character)}
+            className="relative inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-indigo-800 to-purple-800 text-white text-xs font-bold uppercase tracking-[0.15em] rounded-lg shadow-lg hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl transition-all duration-300 active:scale-95"
+          >
             Select Story
             <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </span>
+          </button>
         </div>
       </div>
     </div>
@@ -101,3 +104,4 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
 };
 
 export default CharacterCard;
+
