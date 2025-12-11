@@ -5,7 +5,7 @@ import CharacterCard from './components/CharacterCard';
 import StoryReader from './components/StoryReader';
 import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
-import { generateStorySegment, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
+import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
 
 const SAVE_KEY = 'takeru_tales_save_data_v2';
 
@@ -21,6 +21,7 @@ const getInitialState = (hasApiKey: boolean): StoryState => ({
   currentSummary: "", // Initialize summary
   generatedImageUrl: null,
   sceneCandidates: null,
+  streamingText: null,
   error: null
 });
 
@@ -158,13 +159,14 @@ function App() {
     clearError();
 
     // 1. Immediately reset state to avoid stale data
-    // 2. Set phase to loading for the new character
+    // 2. Set phase to streaming for the new character
     const freshState = getInitialState(true);
 
     setState({
       ...freshState,
-      currentPhase: 'LOADING_STORY',
+      currentPhase: 'STREAMING',
       selectedCharacter: char,
+      streamingText: '',
     });
 
     // 3. Clear the old save data immediately to enforce "only latest is saved"
@@ -175,64 +177,70 @@ function App() {
       console.warn("Could not clear old save", e);
     }
 
-    // 4. Generate Chapter 1, Part 1
-    // Pass null for location to let AI decide initial setting
-    // Pass empty summary for start
-    generateStorySegment(char, 1, 1, [], null, "")
-      .then(result => {
-        const newSegment: StorySegment = {
-          chapter: 1,
-          part: 1,
-          text: result.text,
-          location: result.location,
-          date: result.date, // New
-          time: result.time, // New
-          choices: result.choices,
-          isChapterEnd: result.isChapterEnd,
-          summary: result.summary // Get summary
-        };
+    // 4. Generate Chapter 1, Part 1 with streaming
+    try {
+      const result = await generateStorySegmentStreaming(
+        char, 1, 1, [], null, "",
+        (streamingText) => {
+          // Update streaming text progressively
+          setState(prev => ({
+            ...prev,
+            streamingText: streamingText
+          }));
+        }
+      );
 
-        setState(prev => ({
-          ...prev,
-          currentPhase: 'READING',
-          currentSegment: newSegment,
-          currentLocation: result.location,
-          currentSummary: result.summary, // Update summary state
-          history: [
-            // Store metadata in the initial model history item
-            {
-              role: 'model',
-              parts: [{ text: result.text }],
-              meta: {
-                chapter: 1,
-                part: 1,
-                location: result.location,
-                date: result.date, // New
-                time: result.time, // New
-                choices: result.choices,
-                isChapterEnd: result.isChapterEnd,
-                imageUrl: null,
-                summary: result.summary // Store summary in history for undo
-              }
+      const newSegment: StorySegment = {
+        chapter: 1,
+        part: 1,
+        text: result.text,
+        location: result.location,
+        date: result.date,
+        time: result.time,
+        choices: result.choices,
+        isChapterEnd: result.isChapterEnd,
+        summary: result.summary
+      };
+
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'READING',
+        currentSegment: newSegment,
+        currentLocation: result.location,
+        currentSummary: result.summary,
+        streamingText: null,
+        history: [
+          {
+            role: 'model',
+            parts: [{ text: result.text }],
+            meta: {
+              chapter: 1,
+              part: 1,
+              location: result.location,
+              date: result.date,
+              time: result.time,
+              choices: result.choices,
+              isChapterEnd: result.isChapterEnd,
+              imageUrl: null,
+              summary: result.summary
             }
-          ]
-        }));
+          }
+        ]
+      }));
 
-        // 生成完了後、画面上部へスクロール
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(err => {
-        console.error(err);
-        const errorMessage = err instanceof Error ? err.message : "物語の開始に失敗しました。";
-        setState(prev => ({
-          ...prev,
-          currentPhase: 'SELECTION',
-          error: errorMessage
-        }));
-        // Capture the retry action
-        setRetryAction(() => () => handleSelectCharacter(char));
-      });
-  }, [clearError]); // Depend on clearError only, recursion handled by closure
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : "物語の開始に失敗しました。";
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'SELECTION',
+        streamingText: null,
+        error: errorMessage
+      }));
+      setRetryAction(() => () => handleSelectCharacter(char));
+    }
+  }, [clearError]);
 
   // Make a choice and continue story
   const handleChoice = useCallback(async (choice: string) => {
@@ -252,14 +260,14 @@ function App() {
     if (nextChapter > 5) {
       if (confirm("物語が完結しました。最初の画面に戻りますか？")) {
         setState(getInitialState(true));
-        localStorage.removeItem(SAVE_KEY); // Clear save on completion
+        localStorage.removeItem(SAVE_KEY);
         setSaveDataInfo(null);
         return;
       }
       return;
     }
 
-    setState(prev => ({ ...prev, currentPhase: 'LOADING_STORY' }));
+    setState(prev => ({ ...prev, currentPhase: 'STREAMING', streamingText: '' }));
 
     try {
       // Construct history for the model
@@ -268,13 +276,19 @@ function App() {
         { role: 'user', parts: [{ text: `【タケルの選択・発言】: ${choice}` }] }
       ];
 
-      const result = await generateStorySegment(
+      const result = await generateStorySegmentStreaming(
         state.selectedCharacter,
         nextChapter,
         nextPart,
         currentHistory,
         state.currentLocation,
-        state.currentSummary, // Pass the accumulated summary
+        state.currentSummary,
+        (streamingText) => {
+          setState(prev => ({
+            ...prev,
+            streamingText: streamingText
+          }));
+        },
         choice
       );
 
@@ -283,8 +297,8 @@ function App() {
         part: nextPart,
         text: result.text,
         location: result.location,
-        date: result.date, // New
-        time: result.time, // New
+        date: result.date,
+        time: result.time,
         choices: result.choices,
         isChapterEnd: result.isChapterEnd,
         summary: result.summary
@@ -296,8 +310,9 @@ function App() {
         currentSegment: newSegment,
         currentChapter: nextChapter,
         currentPart: nextPart,
-        currentLocation: result.location, // Update location
-        currentSummary: result.summary, // Update summary
+        currentLocation: result.location,
+        currentSummary: result.summary,
+        streamingText: null,
         generatedImageUrl: newSegment.isChapterEnd ? null : prev.generatedImageUrl,
         history: [
           ...currentHistory,
@@ -308,27 +323,26 @@ function App() {
               chapter: nextChapter,
               part: nextPart,
               location: result.location,
-              date: result.date, // New
-              time: result.time, // New
+              date: result.date,
+              time: result.time,
               choices: result.choices,
               isChapterEnd: result.isChapterEnd,
               imageUrl: newSegment.isChapterEnd ? null : prev.generatedImageUrl,
-              summary: result.summary // Store summary for undo
+              summary: result.summary
             }
           }
         ]
       }));
 
-      // 生成完了後、画面上部へスクロール
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       setState(prev => ({
         ...prev,
         currentPhase: 'READING',
+        streamingText: null,
         error: "続きを生成できませんでした。NGワード等が含まれている可能性があります。"
       }));
-      // Capture retry action - using a closure to keep the 'choice' and 'state' valid
       setRetryAction(() => () => handleChoice(choice));
     }
   }, [state, clearError]);
@@ -709,7 +723,7 @@ function App() {
           </div>
         )}
 
-        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE' || state.currentPhase === 'EXTRACTING_SCENES' || state.currentPhase === 'SELECTING_SCENE') && state.selectedCharacter && (
+        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'STREAMING' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE' || state.currentPhase === 'EXTRACTING_SCENES' || state.currentPhase === 'SELECTING_SCENE') && state.selectedCharacter && (
           <StoryReader
             character={state.selectedCharacter}
             segment={state.currentSegment || { chapter: 1, part: 1, text: '', location: '', date: '', time: '', choices: [], isChapterEnd: false, summary: '' }}
@@ -718,6 +732,8 @@ function App() {
             onUndo={handleUndo}
             onRegenerate={handleRegenerate}
             isLoading={state.currentPhase === 'LOADING_STORY'}
+            isStreaming={state.currentPhase === 'STREAMING'}
+            streamingText={state.streamingText}
             isGeneratingImage={state.currentPhase === 'LOADING_IMAGE'}
             isEditingImage={state.currentPhase === 'EDITING_IMAGE'}
             isExtractingScenes={state.currentPhase === 'EXTRACTING_SCENES'}

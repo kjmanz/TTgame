@@ -9,6 +9,8 @@ interface Props {
   onUndo: () => void;
   onRegenerate: () => void;
   isLoading: boolean;
+  isStreaming: boolean;
+  streamingText: string | null;
   generatedImageUrl: string | null;
   onGenerateImage: () => void;
   onEditImage: (prompt: string) => void;
@@ -29,6 +31,8 @@ const StoryReader: React.FC<Props> = ({
   onUndo,
   onRegenerate,
   isLoading,
+  isStreaming,
+  streamingText,
   generatedImageUrl,
   onGenerateImage,
   onEditImage,
@@ -403,10 +407,22 @@ const StoryReader: React.FC<Props> = ({
           <div ref={textRef} className="flex-1 overflow-y-auto p-6 md:p-12 lg:p-16 relative scroll-smooth pb-40">
 
             {/* INITIAL LOADING */}
-            {isInitialLoad ? (
+            {isInitialLoad && !isStreaming ? (
               <div className="flex flex-col items-center justify-center h-full min-h-[40vh] space-y-6 opacity-60">
                 <div className="w-px h-20 bg-gradient-to-b from-transparent via-gray-400 to-transparent animate-pulse"></div>
                 <p className="text-gray-500 font-serif text-sm tracking-[0.2em] animate-pulse">WRITING STORY...</p>
+              </div>
+            ) : isStreaming && streamingText !== null ? (
+              /* STREAMING TEXT DISPLAY */
+              <div className="max-w-3xl mx-auto">
+                <div className="drop-shadow-sm">
+                  {renderFormattedText(streamingText, true)}
+                  {/* Blinking cursor indicator */}
+                  <span className="inline-block w-2 h-5 bg-indigo-600 ml-1 animate-pulse align-text-bottom"></span>
+                </div>
+                <div className="flex justify-center my-6">
+                  <p className="text-xs text-gray-400 tracking-wider animate-pulse">執筆中...</p>
+                </div>
               </div>
             ) : (
               <div className="max-w-3xl mx-auto">

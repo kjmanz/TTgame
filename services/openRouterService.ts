@@ -403,6 +403,263 @@ ${(chapter === 1 && part <= 2) ? `
     }
 };
 
+// ストリーミング版の物語生成
+export const generateStorySegmentStreaming = async (
+    character: Character,
+    chapter: number,
+    part: number,
+    history: HistoryItem[],
+    currentLocation: string | null,
+    currentSummary: string,
+    onTextChunk: (text: string) => void,
+    userChoice?: string
+): Promise<{
+    text: string;
+    location: string;
+    date: string;
+    time: string;
+    choices: string[];
+    isChapterEnd: boolean;
+    summary: string;
+}> => {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("APIキーが設定されていません");
+    }
+
+    const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+【現在執筆中のキャラクター】
+名前: ${character.name}
+年齢: ${character.age}
+役割: ${character.role}
+身体的特徴: ${character.feature} / ${character.height} / ${character.measurements}
+性格: ${character.personality}
+弱点・性感帯: ${character.weakness}
+話し方・口調: ${character.speechTone}
+一人称: ${character.firstPerson}
+主人公(タケル)への呼び方: ${character.callingTakeru}
+経験人数: ${character.experienceCount || '不明'}
+感度・反応の特徴: ${character.sensitivity || '通常'}
+絶頂経験: ${character.orgasmExperience || '不明'}
+
+【キャラクター反応のリアリティ指示（最重要）】
+**このキャラクターの年齢（${character.age}歳）、経験（${character.experienceCount || '不明'}）、性格（${character.personality}）を必ず反映させてください。**
+
+1. **年齢による反応の違い**:
+   - 10代後半〜20代前半: 初々しい、恥ずかしがる、声を抑えようとする、「ダメ」「恥ずかしい」が多い
+   - 20代後半〜30代: 素直に感じる、声が出やすい、少し余裕がある
+   - 40代以上: 熟練した反応、体の使い方を知っている、低い声で感じる
+
+2. **経験による反応の違い**:
+   - 処女・経験少ない: 痛がる、怖がる、「初めて」「怖い」「痛い」、体が硬い
+   - 経験あり: 自然に体が反応する、積極的になれる
+   - 経験豊富: 余裕がある、自分から求める、テクニックがある
+
+3. **性感帯の設定を活用**:
+   - 弱点（${character.weakness}）を責められた時は特に大きく反応させてください
+   - 感度の特徴（${character.sensitivity || '通常'}）も反映させてください
+
+4. **セリフの口調**:
+   - 「${character.speechTone}」の口調を維持してください
+   - 一人称「${character.firstPerson}」を使ってください
+   - 主人公を「${character.callingTakeru}」と呼んでください
+
+**【絶対禁止：呼び方のルール】**
+- **女性が主人公を「お前」と呼ぶことは絶対に禁止です。**
+- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。
+- 「あなた」「きみ」程度は許容しますが、「お前」「てめえ」などは絶対にNGです。
+
+
+【コンテキスト情報】
+現在の章: 第${chapter}章
+パート: ${part}
+**直前の場所**: ${currentLocation || "不明"}
+**ユーザーが選択した直近の行動**: ${userChoice || "特になし（物語の開始、または継続）"}
+これまでのあらすじ: ${currentSummary || "物語は始まったばかりです。"}
+
+【執筆指示】
+1. 上記の「ユーザーが選択した直近の行動」を確認してください。
+2. JSONの \`location\` フィールドには、移動後の新しい場所を出力してください。
+3. 絶頂シーンを描く場合は、単調な「あ」の連呼を避け、リアルな喘ぎ（オホ声、呼吸音、嗚咽）で表現してください。
+4. 必ずJSON形式で出力してください。
+
+**【最最重要・絶対遵守】文字数ルール**
+- **出力テキストは「必ず3000文字以上」にしてください。**
+- **現在Part${part}ですが、Part1でもPart50でも、常に同じ3000文字以上を維持してください。**
+- **話が進むにつれて文字数が減る傾向がありますが、それは絶対に禁止です。**
+- **文字数が足りない場合**: 擬音を大量に追加、喘ぎ声を詳細に、身体の反応を細かく、心理描写を追加。
+
+**【最重要・選択肢ルール】**
+- **5つの選択肢は、現在の状況に合わせて毎回新しく生成してください。**
+- **前回と同じ選択肢を繰り返すことは禁止です。**
+- **現在の場面に最も適切な具体的アクションを提案してください。**
+
+${(chapter === 1 && part <= 2) ? `
+6. **【序盤の特別制限（重要）】現在は物語の導入部（Part${part}）です。**
+   - **性的な接触（キス、愛撫、性行為）はまだ描写しないでください。**
+   - **【絶対禁止】「今日は解散する」「別れて家に帰る」「そのまま眠る」という展開はシステムエラーとみなします。絶対にNGです。**
+   - **【必須展開】** このパートの最後は、次のパートで**「確実に行為が始まる状況」**を確定させて終わらせてください。
+   - **場所の誘導**: ホテルや自宅などの「密室」だけでなく、人気のない公園の茂み、暗い路地裏、車内、公衆トイレなど、**「二人きりで行為に及べる場所（屋外含む）」**へ足を踏み入れ、逃げ場をなくしてください。
+   - 擬音は「心臓の音（ドクン）」「衣擦れの音」「吐息」「夜の環境音（風の音、虫の声）」などを使用してください。
+` : ""}
+`;
+
+    const messages: OpenRouterMessage[] = [
+        { role: 'system', content: systemInstruction }
+    ];
+
+    for (const item of history) {
+        messages.push({
+            role: item.role === 'user' ? 'user' : 'assistant',
+            content: item.parts[0].text
+        });
+    }
+
+    if (history.length === 0) {
+        const randomScenarioIndex = Math.floor(Math.random() * character.scenarioHook.length);
+        const selectedScenario = character.scenarioHook[randomScenarioIndex];
+
+        const startPrompt = userChoice
+            ? userChoice
+            : `第1章 Part1を開始してください。導入として、以下の設定を使ってください: ${selectedScenario}
+            日付設定：現在の日時（例：◯月◯日）
+            時刻設定：現在の時刻（例：18:30）
+            `;
+
+        messages.push({
+            role: 'user',
+            content: startPrompt
+        });
+    }
+
+    try {
+        const response = await fetch(OPENROUTER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.origin,
+                'X-Title': "Takeru's Tales"
+            },
+            body: JSON.stringify({
+                model: getTextModel(),
+                messages: messages,
+                temperature: 0.85,
+                max_tokens: 16000,
+                stream: true  // Enable streaming
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("OpenRouter API error:", response.status, errorData);
+
+            if (response.status === 401) {
+                throw new Error("APIキーが無効です。正しいキーを設定してください。");
+            } else if (response.status === 402) {
+                throw new Error("API料金が不足しています。OpenRouterでクレジットを追加してください。");
+            } else if (response.status === 429) {
+                throw new Error("レート制限に達しました。しばらく待ってから再試行してください。");
+            } else {
+                throw new Error(`APIエラー (${response.status}): ${errorData?.error?.message || JSON.stringify(errorData)}`);
+            }
+        }
+
+        // Process streaming response
+        const reader = response.body?.getReader();
+        if (!reader) {
+            throw new Error("ストリーミングレスポンスの読み取りに失敗しました");
+        }
+
+        const decoder = new TextDecoder();
+        let fullContent = "";
+        let buffer = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+
+            // Process complete SSE messages
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || ""; // Keep incomplete line in buffer
+
+            for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                    const data = line.slice(6);
+                    if (data === '[DONE]') continue;
+
+                    try {
+                        const parsed = JSON.parse(data);
+                        const delta = parsed.choices?.[0]?.delta?.content;
+                        if (delta) {
+                            fullContent += delta;
+                            onTextChunk(fullContent);
+                        }
+                    } catch {
+                        // Ignore parse errors for incomplete chunks
+                    }
+                }
+            }
+        }
+
+        console.log("Streaming complete. Full content length:", fullContent.length);
+
+        // Parse the final JSON from the complete response
+        let jsonText = fullContent;
+        const jsonMatch = fullContent.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            jsonText = jsonMatch[0];
+        }
+
+        jsonText = jsonText
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/\s*```$/i, "")
+            .trim();
+
+        let parsed;
+        try {
+            parsed = JSON.parse(jsonText);
+        } catch {
+            console.log("JSON parse failed, using raw text as story content");
+            const cleanText = fullContent
+                .replace(/^```[\s\S]*?```/gm, "")
+                .replace(/^#+\s+/gm, "")
+                .trim();
+
+            if (cleanText.length > 100) {
+                parsed = {
+                    text: cleanText,
+                    location: currentLocation || "不明",
+                    date: "",
+                    time: "",
+                    choices: ["続ける", "場面を変える", "激しくする", "ゆっくり焦らす", "別の行動をとる"],
+                    isChapterEnd: false,
+                    summary: currentSummary || ""
+                };
+            } else {
+                throw new Error("ストリーミングレスポンスの解析に失敗しました");
+            }
+        }
+
+        return {
+            text: parsed.text || "",
+            location: parsed.location || currentLocation || "不明",
+            date: parsed.date || "",
+            time: parsed.time || "",
+            choices: parsed.choices || ["続ける"],
+            isChapterEnd: parsed.isChapterEnd || false,
+            summary: parsed.summary || currentSummary || ""
+        };
+    } catch (error) {
+        console.error("Streaming story generation failed:", error);
+        throw error;
+    }
+};
+
 import { getStoredImageModel, getStoredXaiApiKey, getStoredImageStyle } from "../components/ApiKeyScreen";
 
 // 画像モデルはlocalStorageから取得
