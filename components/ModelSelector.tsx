@@ -10,7 +10,9 @@ import {
     getStoredImageStyle,
     setStoredImageStyle,
     getStoredXaiApiKey,
-    setStoredXaiApiKey
+    setStoredXaiApiKey,
+    getStoredApiKey,
+    setStoredApiKey
 } from './ApiKeyScreen';
 
 interface ModelSelectorProps {
@@ -22,16 +24,28 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [imageModel, setImageModel] = useState(getStoredImageModel());
     const [imageStyle, setImageStyle] = useState(getStoredImageStyle());
     const [xaiApiKey, setXaiApiKey] = useState(getStoredXaiApiKey() || '');
+    const [apiKey, setApiKey] = useState(getStoredApiKey() || '');
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
 
     const handleSave = () => {
+        // Validate OpenRouter API key
+        if (!apiKey.trim()) {
+            setError('OpenRouter APIキーを入力してください');
+            return;
+        }
+        if (!apiKey.startsWith('sk-or-')) {
+            setError('有効なOpenRouter APIキーを入力してください（sk-or-で始まる必要があります）');
+            return;
+        }
+
         // Validate xAI API key if Grok 2 Image is selected
         if (imageModel === 'grok-2-image-1212' && !xaiApiKey.trim()) {
             setError('Grok 2 Imageを使用するには、xAI APIキーが必要です');
             return;
         }
 
+        setStoredApiKey(apiKey);
         setStoredModel(textModel);
         setStoredImageModel(imageModel);
         setStoredImageStyle(imageStyle);
@@ -59,7 +73,28 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                     </button>
                 </div>
 
-                <div className="space-y-5">
+                <div className="space-y-5 max-h-[60vh] overflow-y-auto">
+                    <div>
+                        <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
+                            🔑 OpenRouter API Key
+                        </label>
+                        <input
+                            type="password"
+                            value={apiKey}
+                            onChange={(e) => setApiKey(e.target.value)}
+                            placeholder="sk-or-v1-..."
+                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                        />
+                        <a
+                            href="https://openrouter.ai/keys"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-indigo-400 hover:text-indigo-300 underline mt-1 inline-block"
+                        >
+                            OpenRouter APIキーを取得 →
+                        </a>
+                    </div>
+
                     <div>
                         <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
                             📝 文章生成モデル
