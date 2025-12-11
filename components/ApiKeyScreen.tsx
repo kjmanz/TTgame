@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const API_KEY_STORAGE_KEY = 'openrouter_api_key';
+const XAI_API_KEY_STORAGE_KEY = 'xai_api_key';
 const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 
@@ -22,13 +23,18 @@ export const AVAILABLE_TEXT_MODELS = [
 ];
 
 // 利用可能な画像生成モデル一覧
-// ※注意: OpenRouterの画像生成モデルはNSFWコンテンツを生成できないため無効化推奨
 export const AVAILABLE_IMAGE_MODELS = [
   {
     id: 'none',
     name: '画像生成を無効化',
-    description: 'NSFW画像は生成不可のため無効化',
+    description: '画像生成しない',
     price: '無料'
+  },
+  {
+    id: 'grok-2-image-1212',
+    name: 'Grok 2 Image',
+    description: 'xAI画像生成（要xAI APIキー）',
+    price: '$0.01/枚'
   }
 ];
 
@@ -46,6 +52,14 @@ export const setStoredApiKey = (key: string): void => {
 
 export const clearStoredApiKey = (): void => {
   localStorage.removeItem(API_KEY_STORAGE_KEY);
+};
+
+export const getStoredXaiApiKey = (): string | null => {
+  return localStorage.getItem(XAI_API_KEY_STORAGE_KEY);
+};
+
+export const setStoredXaiApiKey = (key: string): void => {
+  localStorage.setItem(XAI_API_KEY_STORAGE_KEY, key);
 };
 
 export const getStoredModel = (): string => {
@@ -66,6 +80,7 @@ export const setStoredImageModel = (modelId: string): void => {
 
 const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
   const [apiKey, setApiKey] = useState('');
+  const [xaiApiKey, setXaiApiKey] = useState('');
   const [selectedModel, setSelectedModel] = useState(AVAILABLE_TEXT_MODELS[0].id);
   const [selectedImageModel, setSelectedImageModel] = useState(AVAILABLE_IMAGE_MODELS[0].id);
   const [error, setError] = useState('');
@@ -86,6 +101,11 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
     if (savedImageModel) {
       setSelectedImageModel(savedImageModel);
     }
+    // Load xAI API key
+    const savedXaiKey = getStoredXaiApiKey();
+    if (savedXaiKey) {
+      setXaiApiKey(savedXaiKey);
+    }
   }, [onApiKeySet]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,12 +113,18 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
     setError('');
 
     if (!apiKey.trim()) {
-      setError('APIキーを入力してください');
+      setError('OpenRouter APIキーを入力してください');
       return;
     }
 
     if (!apiKey.startsWith('sk-or-')) {
       setError('有効なOpenRouter APIキーを入力してください（sk-or-で始まる必要があります）');
+      return;
+    }
+
+    // Validate xAI API key if Grok 2 Image is selected
+    if (selectedImageModel === 'grok-2-image-1212' && !xaiApiKey.trim()) {
+      setError('Grok 2 Imageを使用するには、xAI APIキーが必要です');
       return;
     }
 
@@ -119,6 +145,9 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
       setStoredApiKey(apiKey);
       setStoredModel(selectedModel);
       setStoredImageModel(selectedImageModel);
+      if (xaiApiKey.trim()) {
+        setStoredXaiApiKey(xaiApiKey);
+      }
       onApiKeySet();
     } catch (err) {
       setError('APIキーの検証に失敗しました。正しいキーを入力してください。');
@@ -138,14 +167,14 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
             API設定
           </h1>
           <p className="text-gray-500 text-sm leading-relaxed">
-            OpenRouter APIキーと使用するモデルを設定してください。
+            APIキーと使用するモデルを設定してください。
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label htmlFor="apiKey" className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
-              OpenRouter API Key
+              OpenRouter API Key（必須）
             </label>
             <input
               type="password"
@@ -156,6 +185,24 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
               className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
               disabled={isLoading}
             />
+          </div>
+
+          <div>
+            <label htmlFor="xaiApiKey" className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
+              xAI API Key（画像生成用・任意）
+            </label>
+            <input
+              type="password"
+              id="xaiApiKey"
+              value={xaiApiKey}
+              onChange={(e) => setXaiApiKey(e.target.value)}
+              placeholder="xai-..."
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+              disabled={isLoading}
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              ※ Grok 2 Image使用時のみ必要
+            </p>
           </div>
 
           <div>
@@ -175,9 +222,6 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
                 </option>
               ))}
             </select>
-            <p className="text-xs text-gray-500 mt-1">
-              ※ Dolphin 3.0 (無料・無検閲) がおすすめ
-            </p>
           </div>
 
           <div>
@@ -193,12 +237,12 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
             >
               {AVAILABLE_IMAGE_MODELS.map((model) => (
                 <option key={model.id} value={model.id} className="bg-[#1a1a1d] text-gray-100">
-                  {model.name} - {model.description}
+                  {model.name}
                 </option>
               ))}
             </select>
             <p className="text-xs text-gray-500 mt-1">
-              ※ FLUX 1.1 Pro (高品質・無検閲) がおすすめ
+              {selectedImageModel === 'grok-2-image-1212' && '※ xAI APIキーが必要です'}
             </p>
           </div>
 
@@ -217,14 +261,22 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
           </button>
         </form>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex flex-col gap-2 text-center">
           <a
             href="https://openrouter.ai/keys"
             target="_blank"
             rel="noopener noreferrer"
             className="text-indigo-400 hover:text-indigo-300 text-sm underline underline-offset-4 transition-colors"
           >
-            APIキーを取得する →
+            OpenRouter APIキーを取得 →
+          </a>
+          <a
+            href="https://console.x.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-400 hover:text-indigo-300 text-sm underline underline-offset-4 transition-colors"
+          >
+            xAI APIキーを取得 →
           </a>
         </div>
       </div>
@@ -233,3 +285,4 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
 };
 
 export default ApiKeyScreen;
+

@@ -5,7 +5,9 @@ import {
     getStoredModel,
     setStoredModel,
     getStoredImageModel,
-    setStoredImageModel
+    setStoredImageModel,
+    getStoredXaiApiKey,
+    setStoredXaiApiKey
 } from './ApiKeyScreen';
 
 interface ModelSelectorProps {
@@ -15,11 +17,22 @@ interface ModelSelectorProps {
 const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [textModel, setTextModel] = useState(getStoredModel());
     const [imageModel, setImageModel] = useState(getStoredImageModel());
+    const [xaiApiKey, setXaiApiKey] = useState(getStoredXaiApiKey() || '');
     const [saved, setSaved] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSave = () => {
+        // Validate xAI API key if Grok 2 Image is selected
+        if (imageModel === 'grok-2-image-1212' && !xaiApiKey.trim()) {
+            setError('Grok 2 Imageを使用するには、xAI APIキーが必要です');
+            return;
+        }
+
         setStoredModel(textModel);
         setStoredImageModel(imageModel);
+        if (xaiApiKey.trim()) {
+            setStoredXaiApiKey(xaiApiKey);
+        }
         setSaved(true);
         setTimeout(() => {
             onClose();
@@ -81,7 +94,38 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                             {AVAILABLE_IMAGE_MODELS.find(m => m.id === imageModel)?.description}
                         </p>
                     </div>
+
+                    {imageModel === 'grok-2-image-1212' && (
+                        <div>
+                            <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
+                                🔑 xAI API Key（画像生成用）
+                            </label>
+                            <input
+                                type="password"
+                                value={xaiApiKey}
+                                onChange={(e) => setXaiApiKey(e.target.value)}
+                                placeholder="xai-..."
+                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                            />
+                            <p className="text-xs text-gray-500 mt-1">
+                                <a
+                                    href="https://console.x.ai/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-indigo-400 hover:text-indigo-300 underline"
+                                >
+                                    xAI APIキーを取得 →
+                                </a>
+                            </p>
+                        </div>
+                    )}
                 </div>
+
+                {error && (
+                    <div className="mt-4 bg-red-900/20 border border-red-900/50 text-red-200 p-3 rounded-lg text-sm">
+                        ⚠️ {error}
+                    </div>
+                )}
 
                 <div className="mt-6 flex gap-3">
                     <button
@@ -109,3 +153,4 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
 };
 
 export default ModelSelector;
+

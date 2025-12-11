@@ -398,10 +398,13 @@ ${(chapter === 1 && part <= 2) ? `
     }
 };
 
-import { getStoredImageModel } from "../components/ApiKeyScreen";
+import { getStoredImageModel, getStoredXaiApiKey } from "../components/ApiKeyScreen";
 
 // 画像モデルはlocalStorageから取得
 const getImageModel = () => getStoredImageModel();
+
+// xAI API URL
+const XAI_API_URL = 'https://api.x.ai/v1/images/generations';
 
 // 実写風画像生成
 export const generateSceneImage = async (character: Character, sceneText: string): Promise<string | null> => {
@@ -411,11 +414,6 @@ export const generateSceneImage = async (character: Character, sceneText: string
     if (imageModel === 'none') {
         console.log("Image generation is disabled");
         return null;
-    }
-
-    const apiKey = getStoredApiKey();
-    if (!apiKey) {
-        throw new Error("APIキーが設定されていません");
     }
 
     // キャラクターの特徴と場面から実写風プロンプトを生成
@@ -431,6 +429,17 @@ Quality: 8K, ultra detailed, masterpiece.
 `.trim();
 
     console.log("Generating image with prompt:", imagePrompt);
+
+    // xAI Grok 2 Image の場合
+    if (imageModel === 'grok-2-image-1212') {
+        return generateImageWithXai(imagePrompt);
+    }
+
+    // OpenRouter経由の場合（現在は使用しない）
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("APIキーが設定されていません");
+    }
 
     try {
         const response = await fetch(OPENROUTER_API_URL, {
@@ -478,7 +487,7 @@ Quality: 8K, ultra detailed, masterpiece.
                 return content;
             }
             // その他のフォーマットの場合、URLを探す
-            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp)/i);
+            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+(png|jpg|jpeg|webp)/i);
             if (urlMatch) {
                 return urlMatch[0];
             }
@@ -496,6 +505,60 @@ Quality: 8K, ultra detailed, masterpiece.
         return null;
     } catch (error) {
         console.error("Image generation failed:", error);
+        throw error;
+    }
+};
+
+// xAI API で画像生成
+const generateImageWithXai = async (prompt: string): Promise<string | null> => {
+    const xaiApiKey = getStoredXaiApiKey();
+    if (!xaiApiKey) {
+        throw new Error("xAI APIキーが設定されていません。設定画面でxAI APIキーを入力してください。");
+    }
+
+    try {
+        const response = await fetch(XAI_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${xaiApiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'grok-2-image-1212',
+                prompt: prompt,
+                n: 1,
+                response_format: 'url'
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("xAI Image generation API error:", response.status, errorData);
+
+            if (response.status === 401) {
+                throw new Error("xAI APIキーが無効です。正しいキーを入力してください。");
+            }
+            if (response.status === 402) {
+                throw new Error("xAI API料金が不足しています。");
+            }
+            throw new Error(`xAI画像生成エラー (${response.status}): ${errorData?.error?.message || "不明なエラー"}`);
+        }
+
+        const data = await response.json();
+        console.log("xAI Image generation response:", data);
+
+        // 画像URLを取得
+        if (data.data?.[0]?.url) {
+            return data.data[0].url;
+        }
+        if (data.data?.[0]?.b64_json) {
+            return `data:image/png;base64,${data.data[0].b64_json}`;
+        }
+
+        console.warn("No image found in xAI response:", data);
+        return null;
+    } catch (error) {
+        console.error("xAI Image generation failed:", error);
         throw error;
     }
 };
