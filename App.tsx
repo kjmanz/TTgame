@@ -167,7 +167,7 @@ function App() {
 
     setState({
       ...freshState,
-      currentPhase: useStreaming ? 'STREAMING' : 'LOADING',
+      currentPhase: useStreaming ? 'STREAMING' : 'LOADING_STORY',
       selectedCharacter: char,
       streamingText: useStreaming ? '' : null,
     });
@@ -282,7 +282,7 @@ function App() {
 
     setState(prev => ({
       ...prev,
-      currentPhase: useStreaming ? 'STREAMING' : 'LOADING',
+      currentPhase: useStreaming ? 'STREAMING' : 'LOADING_STORY',
       streamingText: useStreaming ? '' : null
     }));
 
