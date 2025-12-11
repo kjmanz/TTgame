@@ -232,7 +232,8 @@ function App() {
               choices: result.choices,
               isChapterEnd: result.isChapterEnd,
               imageUrl: null,
-              summary: result.summary
+              summary: result.summary,
+              scenes: result.scenes
             }
           }
         ]
@@ -361,7 +362,8 @@ function App() {
               choices: result.choices,
               isChapterEnd: result.isChapterEnd,
               imageUrl: newSegment.isChapterEnd ? null : prev.generatedImageUrl,
-              summary: result.summary
+              summary: result.summary,
+              scenes: result.scenes
             }
           }
         ]
@@ -423,7 +425,8 @@ function App() {
           time: restoredMeta.time || "", // Restore time
           choices: restoredMeta.choices,
           isChapterEnd: restoredMeta.isChapterEnd,
-          summary: restoredMeta.summary || ""
+          summary: restoredMeta.summary || "",
+          scenes: restoredMeta.scenes // Restore scenes
         },
         currentPhase: 'READING',
         error: null
@@ -515,7 +518,8 @@ function App() {
               choices: result.choices,
               isChapterEnd: result.isChapterEnd,
               imageUrl: prev.generatedImageUrl, // Keep image
-              summary: result.summary
+              summary: result.summary,
+              scenes: result.scenes
             }
           }
         ]
@@ -541,6 +545,16 @@ function App() {
     clearError();
 
     setState(prev => ({ ...prev, currentPhase: 'EXTRACTING_SCENES', sceneCandidates: null }));
+
+    // OPTIMIZATION: If scenes are already generated with the story, use them immediately!
+    if (state.currentSegment.scenes && state.currentSegment.scenes.length > 0) {
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'SELECTING_SCENE',
+        sceneCandidates: state.currentSegment!.scenes! // Use the pre-calculated scenes
+      }));
+      return;
+    }
 
     try {
       const imageStyle = getStoredImageStyle() as 'photorealistic' | 'realistic_anime' | 'illustration_anime';

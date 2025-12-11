@@ -153,8 +153,22 @@ const BASE_SYSTEM_INSTRUCTION = `
   "time": "物語内の時刻（例: 20:30）",
   "choices": ["選択肢1", "選択肢2", "選択肢3", "選択肢4", "選択肢5"],
   "isChapterEnd": false,
-  "summary": "ここまでの物語の要約"
+  "summary": "ここまでの物語の要約",
+  "scenes": [
+    {
+      "id": 1,
+      "description": "シーンの説明（日本語）",
+      "imagePrompt": "solo Japanese mature woman, masterpiece, best quality, ultra detailed, 8k, [scene description]",
+      "isNsfw": true/false
+    }
+  ]
 }
+
+**【シーン抽出（Scene Extraction）のルール】**
+- **物語の内容に合わせた「4つの視覚的なシーン」を必ず作成してください。**
+- **各シーンは、画像生成AIのための高品質な英語プロンプト（imagePrompt）を含めてください。**
+- **imagePromptの必須キーワード**: "masterpiece, best quality, ultra detailed, 8k, perfect anatomy, mature female features, adult proportions".
+- **重要**: 場面転換や重要なアクション（キス、愛撫、挿入、絶頂など）を優先的にシーン化してください。
 `;
 
 interface OpenRouterMessage {
@@ -395,7 +409,8 @@ ${(chapter === 1 && part <= 2) ? `
             time: parsed.time || "",
             choices: parsed.choices || ["続ける"],
             isChapterEnd: parsed.isChapterEnd || false,
-            summary: parsed.summary || currentSummary || ""
+            summary: parsed.summary || currentSummary || "",
+            scenes: parsed.scenes || []
         };
     } catch (error) {
         console.error("Story generation failed:", error);
@@ -421,6 +436,7 @@ export const generateStorySegmentStreaming = async (
     choices: string[];
     isChapterEnd: boolean;
     summary: string;
+    scenes: SceneCandidate[];
 }> => {
     const apiKey = getStoredApiKey();
     if (!apiKey) {
@@ -681,7 +697,8 @@ ${(chapter === 1 && part <= 2) ? `
                     time: "",
                     choices: ["続ける", "場面を変える", "激しくする", "ゆっくり焦らす", "別の行動をとる"],
                     isChapterEnd: false,
-                    summary: currentSummary || ""
+                    summary: currentSummary || "",
+                    scenes: []
                 };
             } else {
                 throw new Error("ストリーミングレスポンスの解析に失敗しました");
@@ -695,7 +712,8 @@ ${(chapter === 1 && part <= 2) ? `
             time: parsed.time || "",
             choices: parsed.choices || ["続ける"],
             isChapterEnd: parsed.isChapterEnd || false,
-            summary: parsed.summary || currentSummary || ""
+            summary: parsed.summary || currentSummary || "",
+            scenes: parsed.scenes || []
         };
     } catch (error) {
         console.error("Streaming story generation failed:", error);

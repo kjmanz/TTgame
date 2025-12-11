@@ -48,6 +48,7 @@ export interface HistoryItem {
     choices: string[];
     isChapterEnd: boolean;
     imageUrl: string | null;
+    scenes?: SceneCandidate[]; // Pre-calculated scene candidates
     summary: string | null; // Stores the summary at this point in time
   };
 }
@@ -61,6 +62,7 @@ export interface StorySegment {
   time: string; // Added time
   choices: string[];
   isChapterEnd: boolean;
+  scenes?: SceneCandidate[]; // Pre-calculated scene candidates
   summary: string; // AI generated summary of the story so far + this segment
 }
 
