@@ -730,11 +730,11 @@ export const generateSceneImage = async (character: Character, sceneText: string
     const shortScene = sceneText.slice(0, 100).replace(/\n/g, ' ');
 
     if (imageStyle === 'anime') {
-        // アニメ風プロンプト（短縮版）
-        imagePrompt = `Anime illustration, Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Anime style, detailed eyes, vibrant colors.`;
+        // アニメ風プロンプト（短縮版）- 女性単体にフォーカス
+        imagePrompt = `Anime illustration, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Anime style, detailed eyes, vibrant colors. Focus on the woman, no other people.`;
     } else {
-        // 実写風プロンプト（短縮版）
-        imagePrompt = `Photo, Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, 8K, cinematic lighting.`;
+        // 実写風プロンプト（短縮版）- 女性単体にフォーカス
+        imagePrompt = `Photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, 8K, cinematic lighting. Focus on the woman, no other people.`;
     }
 
     // 1024文字以内に確実に収める
@@ -1002,6 +1002,9 @@ RULES:
 5. The woman in the scene is ALWAYS Japanese.
 6. Be explicit in NSFW prompts when the scene content is sexual.
 7. Each scene should be visually distinct.
+8. **IMPORTANT: Focus on ONE Japanese woman as the main subject.**
+9. **IMPORTANT: Male character should be at most ONE person, or preferably not visible in the image.**
+10. **IMPORTANT: If a male is included, use terms like "male hand", "male figure partially visible", or POV perspective instead of showing full male body.**
 
 Output format:
 {
@@ -1009,7 +1012,7 @@ Output format:
     {
       "id": 1,
       "description": "シーンの説明（日本語）",
-      "imagePrompt": "English prompt for image generation, Japanese woman, ${stylePromptPart}",
+      "imagePrompt": "solo Japanese woman, ${stylePromptPart}, [scene description focusing on the woman]",
       "isNsfw": true/false
     }
   ]
@@ -1025,7 +1028,7 @@ Appearance: ${character.hairStyle}, ${character.feature || ''}, ${character.heig
 Story text:
 ${storyText.slice(0, 6000)}
 
-Extract 10 visual scenes from this story. Include NSFW scenes if the content is sexual.
+Extract 10 visual scenes from this story. Focus on the woman as the main subject. Male character should be minimally visible or use POV perspective. Include NSFW scenes if the content is sexual.
 `;
 
     try {
