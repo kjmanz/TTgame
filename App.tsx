@@ -3,7 +3,7 @@ import { CHARACTERS } from './constants';
 import { Character, StoryState, StorySegment, HistoryItem, SceneCandidate } from './types';
 import CharacterCard from './components/CharacterCard';
 import StoryReader from './components/StoryReader';
-import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle } from './components/ApiKeyScreen';
+import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
 import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
 
@@ -158,15 +158,18 @@ function App() {
   const handleSelectCharacter = useCallback(async (char: Character) => {
     clearError();
 
+    // Check streaming mode preference
+    const useStreaming = getStoredStreamingMode();
+
     // 1. Immediately reset state to avoid stale data
-    // 2. Set phase to streaming for the new character
+    // 2. Set phase based on streaming mode
     const freshState = getInitialState(true);
 
     setState({
       ...freshState,
-      currentPhase: 'STREAMING',
+      currentPhase: useStreaming ? 'STREAMING' : 'LOADING',
       selectedCharacter: char,
-      streamingText: '',
+      streamingText: useStreaming ? '' : null,
     });
 
     // 3. Clear the old save data immediately to enforce "only latest is saved"
@@ -177,18 +180,25 @@ function App() {
       console.warn("Could not clear old save", e);
     }
 
-    // 4. Generate Chapter 1, Part 1 with streaming
+    // 4. Generate Chapter 1, Part 1
     try {
-      const result = await generateStorySegmentStreaming(
-        char, 1, 1, [], null, "",
-        (streamingText) => {
-          // Update streaming text progressively
-          setState(prev => ({
-            ...prev,
-            streamingText: streamingText
-          }));
-        }
-      );
+      let result;
+
+      if (useStreaming) {
+        // Streaming mode: show text progressively
+        result = await generateStorySegmentStreaming(
+          char, 1, 1, [], null, "",
+          (streamingText) => {
+            setState(prev => ({
+              ...prev,
+              streamingText: streamingText
+            }));
+          }
+        );
+      } else {
+        // Batch mode: wait for complete generation
+        result = await generateStorySegment(char, 1, 1, [], null, "");
+      }
 
       const newSegment: StorySegment = {
         chapter: 1,
@@ -247,6 +257,9 @@ function App() {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
 
+    // Check streaming mode preference
+    const useStreaming = getStoredStreamingMode();
+
     // Determine next chapter and part
     let nextChapter = state.currentChapter;
     let nextPart = state.currentPart + 1;
@@ -267,7 +280,11 @@ function App() {
       return;
     }
 
-    setState(prev => ({ ...prev, currentPhase: 'STREAMING', streamingText: '' }));
+    setState(prev => ({
+      ...prev,
+      currentPhase: useStreaming ? 'STREAMING' : 'LOADING',
+      streamingText: useStreaming ? '' : null
+    }));
 
     try {
       // Construct history for the model
@@ -276,21 +293,37 @@ function App() {
         { role: 'user', parts: [{ text: `【タケルの選択・発言】: ${choice}` }] }
       ];
 
-      const result = await generateStorySegmentStreaming(
-        state.selectedCharacter,
-        nextChapter,
-        nextPart,
-        currentHistory,
-        state.currentLocation,
-        state.currentSummary,
-        (streamingText) => {
-          setState(prev => ({
-            ...prev,
-            streamingText: streamingText
-          }));
-        },
-        choice
-      );
+      let result;
+
+      if (useStreaming) {
+        // Streaming mode: show text progressively
+        result = await generateStorySegmentStreaming(
+          state.selectedCharacter,
+          nextChapter,
+          nextPart,
+          currentHistory,
+          state.currentLocation,
+          state.currentSummary,
+          (streamingText) => {
+            setState(prev => ({
+              ...prev,
+              streamingText: streamingText
+            }));
+          },
+          choice
+        );
+      } else {
+        // Batch mode: wait for complete generation
+        result = await generateStorySegment(
+          state.selectedCharacter,
+          nextChapter,
+          nextPart,
+          currentHistory,
+          state.currentLocation,
+          state.currentSummary,
+          choice
+        );
+      }
 
       const newSegment: StorySegment = {
         chapter: nextChapter,

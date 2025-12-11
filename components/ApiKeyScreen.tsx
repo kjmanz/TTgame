@@ -5,6 +5,7 @@ const XAI_API_KEY_STORAGE_KEY = 'xai_api_key';
 const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 const IMAGE_STYLE_STORAGE_KEY = 'image_style';
+const STREAMING_MODE_STORAGE_KEY = 'streaming_mode';
 
 // 利用可能な文章生成モデル一覧
 // ※推奨モデルのみに絞っています
@@ -101,11 +102,22 @@ export const setStoredImageStyle = (styleId: string): void => {
   localStorage.setItem(IMAGE_STYLE_STORAGE_KEY, styleId);
 };
 
+// Streaming mode: true = streaming display, false = batch display
+export const getStoredStreamingMode = (): boolean => {
+  const stored = localStorage.getItem(STREAMING_MODE_STORAGE_KEY);
+  return stored === null ? true : stored === 'true'; // default is streaming mode
+};
+
+export const setStoredStreamingMode = (enabled: boolean): void => {
+  localStorage.setItem(STREAMING_MODE_STORAGE_KEY, enabled.toString());
+};
+
 const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
   const [apiKey, setApiKey] = useState('');
   const [xaiApiKey, setXaiApiKey] = useState('');
   const [selectedModel, setSelectedModel] = useState(AVAILABLE_TEXT_MODELS[0].id);
   const [selectedImageModel, setSelectedImageModel] = useState(AVAILABLE_IMAGE_MODELS[0].id);
+  const [streamingMode, setStreamingMode] = useState(true);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -129,6 +141,8 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
     if (savedXaiKey) {
       setXaiApiKey(savedXaiKey);
     }
+    // Load streaming mode preference
+    setStreamingMode(getStoredStreamingMode());
   }, [onApiKeySet]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -168,6 +182,7 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
       setStoredApiKey(apiKey);
       setStoredModel(selectedModel);
       setStoredImageModel(selectedImageModel);
+      setStoredStreamingMode(streamingMode);
       if (xaiApiKey.trim()) {
         setStoredXaiApiKey(xaiApiKey);
       }
@@ -267,6 +282,41 @@ const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {
             <p className="text-xs text-gray-500 mt-1">
               {selectedImageModel === 'grok-2-image-1212' && '※ xAI APIキーが必要です'}
             </p>
+          </div>
+
+          {/* Streaming Mode Toggle */}
+          <div>
+            <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+              ⚡ テキスト表示モード
+            </label>
+            <div className="flex gap-4">
+              <label className={`flex-1 flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${streamingMode ? 'bg-indigo-900/30 border-indigo-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                <input
+                  type="radio"
+                  name="streamingMode"
+                  checked={streamingMode}
+                  onChange={() => setStreamingMode(true)}
+                  className="w-4 h-4 text-indigo-500"
+                />
+                <div>
+                  <p className="font-medium text-white text-sm">リアルタイム</p>
+                  <p className="text-xs text-gray-400">文字が流れるように表示</p>
+                </div>
+              </label>
+              <label className={`flex-1 flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${!streamingMode ? 'bg-indigo-900/30 border-indigo-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                <input
+                  type="radio"
+                  name="streamingMode"
+                  checked={!streamingMode}
+                  onChange={() => setStreamingMode(false)}
+                  className="w-4 h-4 text-indigo-500"
+                />
+                <div>
+                  <p className="font-medium text-white text-sm">一括表示</p>
+                  <p className="text-xs text-gray-400">生成完了後に表示</p>
+                </div>
+              </label>
+            </div>
           </div>
 
           {error && (
