@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { CHARACTERS } from './constants';
-import { Character, StoryState, StorySegment, HistoryItem } from './types';
+import { Character, StoryState, StorySegment, HistoryItem, SceneCandidate } from './types';
 import CharacterCard from './components/CharacterCard';
 import StoryReader from './components/StoryReader';
-import ApiKeyScreen, { getStoredApiKey } from './components/ApiKeyScreen';
+import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
-import { generateStorySegment, generateSceneImage, editSceneImage } from './services/openRouterService';
+import { generateStorySegment, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
 
 const SAVE_KEY = 'takeru_tales_save_data_v2';
 
@@ -20,6 +20,7 @@ const getInitialState = (hasApiKey: boolean): StoryState => ({
   currentLocation: null,
   currentSummary: "", // Initialize summary
   generatedImageUrl: null,
+  sceneCandidates: null,
   error: null
 });
 
@@ -487,18 +488,45 @@ function App() {
     }
   }, [state, clearError]);
 
-  // Generate Image
+  // Generate Image - Now extracts scenes first for selection
   const handleGenerateImage = useCallback(async () => {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
 
-    setState(prev => ({ ...prev, currentPhase: 'LOADING_IMAGE' }));
+    setState(prev => ({ ...prev, currentPhase: 'EXTRACTING_SCENES', sceneCandidates: null }));
 
     try {
-      const imageUrl = await generateSceneImage(
+      const imageStyle = getStoredImageStyle() as 'photorealistic' | 'anime';
+      const scenes = await extractImageScenes(
         state.selectedCharacter,
-        state.currentSegment.text
+        state.currentSegment.text,
+        imageStyle
       );
+
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'SELECTING_SCENE',
+        sceneCandidates: scenes
+      }));
+    } catch (err) {
+      console.error(err);
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'READING',
+        sceneCandidates: null,
+        error: "シーンの抽出に失敗しました。"
+      }));
+      setRetryAction(() => () => handleGenerateImage());
+    }
+  }, [state, clearError]);
+
+  // Select a scene and generate image
+  const handleSelectScene = useCallback(async (scene: SceneCandidate) => {
+    clearError();
+    setState(prev => ({ ...prev, currentPhase: 'LOADING_IMAGE', sceneCandidates: null }));
+
+    try {
+      const imageUrl = await generateImageFromScene(scene);
 
       setState(prev => {
         // Update the metadata of the last history item to include the new image url
@@ -516,14 +544,24 @@ function App() {
         };
       });
     } catch (err) {
+      console.error(err);
       setState(prev => ({
         ...prev,
         currentPhase: 'READING',
         error: "画像の生成に失敗しました。"
       }));
-      setRetryAction(() => () => handleGenerateImage());
+      setRetryAction(() => () => handleSelectScene(scene));
     }
-  }, [state, clearError]);
+  }, [clearError]);
+
+  // Cancel scene selection
+  const handleCancelSceneSelection = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      currentPhase: 'READING',
+      sceneCandidates: null
+    }));
+  }, []);
 
   // Edit Image
   const handleEditImage = useCallback(async (prompt: string) => {
@@ -671,7 +709,7 @@ function App() {
           </div>
         )}
 
-        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE') && state.selectedCharacter && (
+        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE' || state.currentPhase === 'EXTRACTING_SCENES' || state.currentPhase === 'SELECTING_SCENE') && state.selectedCharacter && (
           <StoryReader
             character={state.selectedCharacter}
             segment={state.currentSegment || { chapter: 1, part: 1, text: '', location: '', date: '', time: '', choices: [], isChapterEnd: false, summary: '' }}
@@ -682,6 +720,11 @@ function App() {
             isLoading={state.currentPhase === 'LOADING_STORY'}
             isGeneratingImage={state.currentPhase === 'LOADING_IMAGE'}
             isEditingImage={state.currentPhase === 'EDITING_IMAGE'}
+            isExtractingScenes={state.currentPhase === 'EXTRACTING_SCENES'}
+            isSelectingScene={state.currentPhase === 'SELECTING_SCENE'}
+            sceneCandidates={state.sceneCandidates}
+            onSelectScene={handleSelectScene}
+            onCancelSceneSelection={handleCancelSceneSelection}
             generatedImageUrl={state.generatedImageUrl}
             onGenerateImage={handleGenerateImage}
             onEditImage={handleEditImage}

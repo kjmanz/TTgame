@@ -1,4 +1,4 @@
-import { Character, HistoryItem } from "../types";
+import { Character, HistoryItem, SceneCandidate } from "../types";
 import { getStoredApiKey, getStoredModel } from "../components/ApiKeyScreen";
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
@@ -98,6 +98,11 @@ const BASE_SYSTEM_INSTRUCTION = `
 
 7. **擬音（オノマトペ）の多用**:
    - 「ぬるっ」「とろり」「じゅるり」「ずぷっ」「ぬぷり」「ごりっ」「びくんっ」「ぱんっ」「ぐちゅぐちゅ」など、状況に合わせた音を多用してください。
+   - **【最重要・絶対禁止】擬音・効果音はセリフ（「」内）に入れないでください。**
+     - **禁止例**: 「ドクンドクン…心臓が…」「んっ、ぐちゅぐちゅして…」
+     - **正しい例**: 心臓がドクンドクンと高鳴る。「心臓が…止まりそう…」
+   - 擬音は必ず**地の文（ト書き）**に書き、セリフでは感情や言葉のみを表現してください。
+   - 人は普通、自分のセリフの中で「ドクンドクン」「ぐちゅぐちゅ」とは言いません。そのような音は地の文で描写してください。
 
 8. **リアリティと固有名詞の徹底**:
    - 伏せ字禁止。実在する地名や具体的な名称を使用してください。
@@ -665,6 +670,196 @@ Quality: 8K, ultra detailed, masterpiece.
         return null;
     } catch (error) {
         console.error("Image edit failed:", error);
+        throw error;
+    }
+};
+
+// シーン候補抽出関数
+export const extractImageScenes = async (
+    character: Character,
+    storyText: string,
+    imageStyle: 'photorealistic' | 'anime'
+): Promise<SceneCandidate[]> => {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("APIキーが設定されていません");
+    }
+
+    const stylePromptPart = imageStyle === 'anime'
+        ? 'anime illustration style, detailed anime eyes, vibrant colors'
+        : 'photorealistic photograph, 8K, cinematic lighting, professional photography';
+
+    const systemPrompt = `
+You are an expert at extracting visual scenes from erotic/adult literature for image generation.
+Your task is to extract 10 distinct visual scenes from the given story text.
+
+RULES:
+1. Output ONLY valid JSON, no other text.
+2. Extract scenes that would make compelling images.
+3. Include both SFW and NSFW scenes as appropriate to the content.
+4. Generate English prompts optimized for image generation.
+5. The woman in the scene is ALWAYS Japanese.
+6. Be explicit in NSFW prompts when the scene content is sexual.
+7. Each scene should be visually distinct.
+
+Output format:
+{
+  "scenes": [
+    {
+      "id": 1,
+      "description": "シーンの説明（日本語）",
+      "imagePrompt": "English prompt for image generation, Japanese woman, ${stylePromptPart}",
+      "isNsfw": true/false
+    }
+  ]
+}
+
+Generate exactly 10 scenes.
+`;
+
+    const userPrompt = `
+Character: ${character.name}, ${character.age} years old Japanese woman
+Appearance: ${character.hairStyle}, ${character.feature || ''}, ${character.height}, ${character.measurements}
+
+Story text:
+${storyText.slice(0, 6000)}
+
+Extract 10 visual scenes from this story. Include NSFW scenes if the content is sexual.
+`;
+
+    try {
+        const response = await fetch(OPENROUTER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.origin,
+                'X-Title': "Takeru's Tales"
+            },
+            body: JSON.stringify({
+                model: getTextModel(),
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ],
+                temperature: 0.7,
+                max_tokens: 4000,
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("Scene extraction API error:", response.status, errorData);
+            throw new Error(`シーン抽出エラー (${response.status}): ${errorData?.error?.message || "不明なエラー"}`);
+        }
+
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content || "{}";
+
+        // Extract JSON from response
+        let jsonText = content;
+        const jsonMatch = content.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            jsonText = jsonMatch[0];
+        }
+        jsonText = jsonText
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/\s*```$/i, "")
+            .trim();
+
+        const parsed = JSON.parse(jsonText);
+        const scenes: SceneCandidate[] = (parsed.scenes || []).map((s: any, idx: number) => ({
+            id: s.id || idx + 1,
+            description: s.description || `シーン ${idx + 1}`,
+            imagePrompt: s.imagePrompt || '',
+            isNsfw: s.isNsfw || false
+        }));
+
+        // Ensure we have at least some scenes
+        if (scenes.length === 0) {
+            throw new Error("シーンを抽出できませんでした。");
+        }
+
+        return scenes.slice(0, 10);
+    } catch (error) {
+        console.error("Scene extraction failed:", error);
+        throw error;
+    }
+};
+
+// シーン候補から画像を生成
+export const generateImageFromScene = async (
+    scene: SceneCandidate
+): Promise<string | null> => {
+    const imageModel = getImageModel();
+
+    if (imageModel === 'none') {
+        console.log("Image generation is disabled");
+        return null;
+    }
+
+    // Ensure prompt is within limits
+    let imagePrompt = scene.imagePrompt;
+    if (imagePrompt.length > 1000) {
+        imagePrompt = imagePrompt.slice(0, 1000);
+    }
+
+    console.log(`Generating image for scene ${scene.id} with prompt:`, imagePrompt);
+
+    // xAI Grok 2 Image の場合
+    if (imageModel === 'grok-2-image-1212') {
+        return generateImageWithXai(imagePrompt);
+    }
+
+    // OpenRouter経由の場合
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("APIキーが設定されていません");
+    }
+
+    try {
+        const response = await fetch(OPENROUTER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.origin,
+                'X-Title': "Takeru's Tales"
+            },
+            body: JSON.stringify({
+                model: imageModel,
+                messages: [
+                    {
+                        role: 'user',
+                        content: imagePrompt
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("Image generation API error:", response.status, errorData);
+            throw new Error(`画像生成エラー (${response.status}): ${errorData?.error?.message || "不明なエラー"}`);
+        }
+
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
+
+        if (content) {
+            if (content.startsWith('http')) return content;
+            if (content.startsWith('data:image')) return content;
+            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp)/i);
+            if (urlMatch) return urlMatch[0];
+        }
+
+        if (data.data?.[0]?.url) return data.data[0].url;
+        if (data.data?.[0]?.b64_json) return `data:image/png;base64,${data.data[0].b64_json}`;
+
+        return null;
+    } catch (error) {
+        console.error("Image generation failed:", error);
         throw error;
     }
 };

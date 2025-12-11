@@ -64,8 +64,16 @@ export interface StorySegment {
   summary: string; // AI generated summary of the story so far + this segment
 }
 
+// Scene candidate for image generation selection
+export interface SceneCandidate {
+  id: number;
+  description: string;      // Japanese description for user display
+  imagePrompt: string;      // English prompt for image generation
+  isNsfw: boolean;          // NSFW flag
+}
+
 export interface StoryState {
-  currentPhase: 'API_KEY_SETUP' | 'SELECTION' | 'LOADING_STORY' | 'READING' | 'LOADING_IMAGE' | 'EDITING_IMAGE';
+  currentPhase: 'API_KEY_SETUP' | 'SELECTION' | 'LOADING_STORY' | 'READING' | 'LOADING_IMAGE' | 'EDITING_IMAGE' | 'SELECTING_SCENE' | 'EXTRACTING_SCENES';
   selectedCharacter: Character | null;
   history: HistoryItem[];
   currentSegment: StorySegment | null;
@@ -74,5 +82,6 @@ export interface StoryState {
   currentLocation: string | null;
   currentSummary: string; // The rolling summary of the story
   generatedImageUrl: string | null;
+  sceneCandidates: SceneCandidate[] | null; // Scene candidates for image generation
   error: string | null;
 }

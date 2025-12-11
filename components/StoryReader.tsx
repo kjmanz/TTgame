@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Character, StorySegment } from '../types';
+import { Character, StorySegment, SceneCandidate } from '../types';
 
 interface Props {
   character: Character;
@@ -14,6 +14,11 @@ interface Props {
   onEditImage: (prompt: string) => void;
   isGeneratingImage: boolean;
   isEditingImage: boolean;
+  isExtractingScenes: boolean;
+  isSelectingScene: boolean;
+  sceneCandidates: SceneCandidate[] | null;
+  onSelectScene: (scene: SceneCandidate) => void;
+  onCancelSceneSelection: () => void;
 }
 
 const StoryReader: React.FC<Props> = ({
@@ -28,7 +33,12 @@ const StoryReader: React.FC<Props> = ({
   onGenerateImage,
   onEditImage,
   isGeneratingImage,
-  isEditingImage
+  isEditingImage,
+  isExtractingScenes,
+  isSelectingScene,
+  sceneCandidates,
+  onSelectScene,
+  onCancelSceneSelection
 }) => {
   const [customInput, setCustomInput] = useState('');
   const [editPrompt, setEditPrompt] = useState('');
@@ -156,6 +166,98 @@ const StoryReader: React.FC<Props> = ({
             <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
             <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
             <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          </div>
+        </div>
+      )}
+
+      {/* FULLSCREEN LOADING OVERLAY - シーン抽出中 */}
+      {isExtractingScenes && (
+        <div className="fixed inset-0 z-[200] bg-[#0f0f12]/95 backdrop-blur-md flex flex-col items-center justify-center animate-fade-in">
+          <div className="relative mb-8">
+            {/* Outer ring */}
+            <div className="w-24 h-24 rounded-full border-4 border-purple-900/30 flex items-center justify-center">
+              {/* Spinning ring */}
+              <div className="absolute inset-0 w-24 h-24 rounded-full border-4 border-transparent border-t-purple-500 animate-spin"></div>
+              {/* Pulsing inner circle */}
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center animate-pulse">
+                <span className="text-3xl">🔍</span>
+              </div>
+            </div>
+          </div>
+          <h3 className="text-2xl font-serif font-bold text-gray-100 mb-3 tracking-wider">シーンを分析中...</h3>
+          <p className="text-gray-400 text-sm font-serif tracking-widest animate-pulse">EXTRACTING SCENES</p>
+          <div className="mt-8 flex gap-1.5">
+            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          </div>
+        </div>
+      )}
+
+      {/* SCENE SELECTION MODAL */}
+      {isSelectingScene && sceneCandidates && (
+        <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-0 sm:p-4">
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+            onClick={onCancelSceneSelection}
+          />
+
+          <div className="relative bg-[#1a1a1d] w-full max-w-3xl rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[90vh]">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-5 flex justify-between items-center border-b border-purple-500/30">
+              <div>
+                <h3 className="font-serif font-bold text-lg flex items-center gap-2 tracking-widest">
+                  <span>🎨</span> シーンを選択
+                </h3>
+                <p className="text-purple-200/70 text-xs mt-1">画像生成するシーンを選んでください</p>
+              </div>
+              <button
+                onClick={onCancelSceneSelection}
+                className="text-white/50 hover:text-white transition-colors p-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-4 overflow-y-auto bg-gradient-to-b from-[#1a1a1d] to-[#151518]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {sceneCandidates.map((scene) => (
+                  <button
+                    key={scene.id}
+                    onClick={() => onSelectScene(scene)}
+                    className="text-left p-4 rounded-xl bg-[#222228] text-gray-200 border border-white/5 shadow-sm hover:shadow-lg hover:border-purple-500/50 hover:bg-[#2a2a32] active:scale-[0.99] transition-all group relative overflow-hidden"
+                  >
+                    <div className="flex items-start gap-3 relative z-10">
+                      <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-purple-900/50 border border-purple-500/30 text-xs font-serif text-purple-300 group-hover:bg-purple-800 group-hover:text-white transition-colors mt-0.5">
+                        {scene.id}
+                      </span>
+                      <div className="flex-1">
+                        <span className="font-serif text-sm leading-snug block">{scene.description}</span>
+                        {scene.isNsfw && (
+                          <span className="inline-block mt-2 px-2 py-0.5 bg-red-900/50 border border-red-500/30 text-red-300 text-[10px] font-bold rounded tracking-wider">
+                            🔞 NSFW
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-white/5 bg-[#151518]">
+              <button
+                onClick={onCancelSceneSelection}
+                className="w-full py-3 text-gray-400 hover:text-white font-serif text-sm tracking-wider transition-colors"
+              >
+                キャンセル
+              </button>
+            </div>
           </div>
         </div>
       )}
