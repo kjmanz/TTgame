@@ -12,7 +12,9 @@ import {
     getStoredXaiApiKey,
     setStoredXaiApiKey,
     getStoredApiKey,
-    setStoredApiKey
+    setStoredApiKey,
+    getStoredStreamingMode,
+    setStoredStreamingMode
 } from './ApiKeyScreen';
 
 interface ModelSelectorProps {
@@ -25,6 +27,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [imageStyle, setImageStyle] = useState(getStoredImageStyle());
     const [xaiApiKey, setXaiApiKey] = useState(getStoredXaiApiKey() || '');
     const [apiKey, setApiKey] = useState(getStoredApiKey() || '');
+    const [streamingMode, setStreamingMode] = useState(getStoredStreamingMode());
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
 
@@ -53,6 +56,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
         setStoredModel(textModel);
         setStoredImageModel(imageModel);
         setStoredImageStyle(imageStyle);
+        setStoredStreamingMode(streamingMode);
         if (xaiApiKey.trim()) {
             setStoredXaiApiKey(xaiApiKey);
         }
@@ -177,6 +181,41 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                             </p>
                         </div>
                     )}
+
+                    {/* Streaming Mode Toggle */}
+                    <div>
+                        <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+                            ⚡ テキスト表示モード
+                        </label>
+                        <div className="flex gap-3">
+                            <label className={`flex-1 flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${streamingMode ? 'bg-indigo-900/30 border-indigo-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                                <input
+                                    type="radio"
+                                    name="streamingMode"
+                                    checked={streamingMode}
+                                    onChange={() => setStreamingMode(true)}
+                                    className="w-3 h-3 text-indigo-500"
+                                />
+                                <div>
+                                    <p className="font-medium text-white text-xs">リアルタイム</p>
+                                    <p className="text-[10px] text-gray-400">文字が流れるように表示</p>
+                                </div>
+                            </label>
+                            <label className={`flex-1 flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${!streamingMode ? 'bg-indigo-900/30 border-indigo-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                                <input
+                                    type="radio"
+                                    name="streamingMode"
+                                    checked={!streamingMode}
+                                    onChange={() => setStreamingMode(false)}
+                                    className="w-3 h-3 text-indigo-500"
+                                />
+                                <div>
+                                    <p className="font-medium text-white text-xs">一括表示</p>
+                                    <p className="text-[10px] text-gray-400">生成完了後に表示</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
 
                     {imageModel === 'grok-2-image-1212' && (
                         <div>
