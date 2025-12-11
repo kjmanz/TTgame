@@ -3,6 +3,39 @@ import { getStoredApiKey, getStoredModel } from "../components/ApiKeyScreen";
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
+// テキストクリーニング関数: Grokなどのモデルが出力する余計なメタ情報を除去
+const cleanStoryText = (text: string): string => {
+    if (!text) return text;
+
+    let cleaned = text;
+
+    // パターン1: 「◯◯文字書きました」「約◯◯文字です」などの文字数報告
+    cleaned = cleaned.replace(/[（(]?約?\d+[〜~]?\d*文字[書か]?[きい]?[まて]?[しす]?[たい]?[。、．,]?[）)]?/g, '');
+
+    // パターン2: 「以下が物語です」「物語を開始します」などの前置き
+    cleaned = cleaned.replace(/^.*?(以下[がは]?物語|物語を開始|では[、,]?始め|それでは[、,]?物語)[^。]*[。．]\s*/gm, '');
+
+    // パターン3: JSON関連のマーカー
+    cleaned = cleaned.replace(/\[?JSON出力\]?[:：]?\s*/gi, '');
+    cleaned = cleaned.replace(/```json\s*/gi, '');
+    cleaned = cleaned.replace(/```\s*$/gi, '');
+
+    // パターン4: 「以上です」「これで終わりです」などの締めくくり
+    cleaned = cleaned.replace(/\s*[。．]?\s*(以上です|これで[終おお]わり|続きをお[待ま]ち|次の章[はへ]|第\d+章[はへ]続[きく])[^。]*[。．]?\s*$/gm, '');
+
+    // パターン5: 行頭の「※」で始まる注釈行
+    cleaned = cleaned.replace(/^※[^\n]*\n?/gm, '');
+
+    // パターン6: 行頭・行末の余分な空白を整理
+    cleaned = cleaned.replace(/^\s+/gm, '');
+    cleaned = cleaned.replace(/\s+$/gm, '');
+
+    // パターン7: 3つ以上連続する空行を2つに
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+
+    return cleaned.trim();
+};
+
 // モデルはlocalStorageから取得（デフォルト: Dolphin 3.0）
 const getTextModel = () => getStoredModel();
 
@@ -390,7 +423,7 @@ ${(chapter === 1 && part <= 2) ? `
                 // テキストが十分な長さがある場合、それを物語として使用
                 console.log("Using raw text as story content (fallback mode)");
                 parsed = {
-                    text: cleanText,
+                    text: cleanStoryText(cleanText),
                     location: currentLocation || "不明",
                     date: "",
                     time: "",
@@ -407,7 +440,7 @@ ${(chapter === 1 && part <= 2) ? `
 
         // Ensure all required fields exist with defaults
         return {
-            text: parsed.text || "",
+            text: cleanStoryText(parsed.text || ""),
             location: parsed.location || currentLocation || "不明",
             date: parsed.date || "",
             time: parsed.time || "",
@@ -697,7 +730,7 @@ ${(chapter === 1 && part <= 2) ? `
 
             if (cleanText.length > 100) {
                 parsed = {
-                    text: cleanText,
+                    text: cleanStoryText(cleanText),
                     location: currentLocation || "不明",
                     date: "",
                     time: "",
@@ -712,7 +745,7 @@ ${(chapter === 1 && part <= 2) ? `
         }
 
         return {
-            text: parsed.text || "",
+            text: cleanStoryText(parsed.text || ""),
             location: parsed.location || currentLocation || "不明",
             date: parsed.date || "",
             time: parsed.time || "",
