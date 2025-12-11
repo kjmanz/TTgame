@@ -786,15 +786,22 @@ export const generateSceneImage = async (character: Character, sceneText: string
     // シーンテキストを短く切り取る（100文字程度）
     const shortScene = sceneText.slice(0, 100).replace(/\n/g, ' ');
 
+    // キャラクター固有のビジュアル参照を取得
+    const visualRef = character.visualPrompt?.slice(0, 100) || '';
+
+    // 品質向上要素
+    const qualityEnhancers = ', perfect hands, perfect fingers, anatomically correct, sharp focus';
+    const negativeAvoidance = '. Avoid: blurry, low quality, distorted anatomy, extra limbs, deformed hands';
+
     if (imageStyle === 'realistic_anime') {
         // リアル系アニメ風プロンプト - CGアニメ・3Dアニメ調
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     } else if (imageStyle === 'illustration_anime') {
         // イラスト系アニメ風プロンプト - 2Dイラスト・手描き風
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     } else {
         // 実写風プロンプト（短縮版）- 女性単体にフォーカス
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features, POV, first-person perspective, looking at viewer. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     }
 
     // 1024文字以内に確実に収める
@@ -1060,7 +1067,7 @@ export const extractImageScenes = async (
 
     const systemPrompt = `
 You are an expert at extracting visual scenes from erotic/adult literature for image generation.
-Your task is to extract 10 distinct visual scenes from the given story text.
+Your task is to extract 4 distinct visual scenes from the given story text.
 
 RULES:
 1. Output ONLY valid JSON, no other text.
@@ -1087,17 +1094,18 @@ Output format:
   ]
 }
 
-Generate exactly 10 scenes.
+Generate exactly 4 scenes.
 `;
 
     const userPrompt = `
 Character: ${character.name}, ${character.age} years old Japanese woman
 Appearance: ${character.hairStyle}, ${character.feature || ''}, ${character.height}, ${character.measurements}
+Visual reference: ${character.visualPrompt || ''}
 
 Story text:
-${storyText.slice(0, 6000)}
+${storyText.slice(0, 3000)}
 
-Extract 10 visual scenes from this story. Focus on the woman as the main subject. Male character should be minimally visible or use POV perspective. Include NSFW scenes if the content is sexual.
+Extract 4 visual scenes from this story. Focus on the woman as the main subject. Male character should be minimally visible or use POV perspective. Include NSFW scenes if the content is sexual.
 `;
 
     try {
@@ -1154,7 +1162,7 @@ Extract 10 visual scenes from this story. Focus on the woman as the main subject
             throw new Error("シーンを抽出できませんでした。");
         }
 
-        return scenes.slice(0, 10);
+        return scenes.slice(0, 4);
     } catch (error) {
         console.error("Scene extraction failed:", error);
         throw error;
@@ -1172,8 +1180,15 @@ export const generateImageFromScene = async (
         return null;
     }
 
-    // Ensure prompt is within limits
+    // Ensure prompt is within limits and add quality enhancers
     let imagePrompt = scene.imagePrompt;
+
+    // ネガティブプロンプト要素を正方向表現で追加（品質向上）
+    const qualityEnhancers = ', perfect hands, perfect fingers, anatomically correct, sharp focus, high resolution, professional quality';
+    const negativeAvoidance = '. Avoid: blurry, low quality, distorted anatomy, extra limbs, deformed hands, bad proportions, watermark, text';
+
+    imagePrompt = imagePrompt + qualityEnhancers + negativeAvoidance;
+
     if (imagePrompt.length > 1000) {
         imagePrompt = imagePrompt.slice(0, 1000);
     }
