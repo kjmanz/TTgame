@@ -596,13 +596,56 @@ ${(chapter === 1 && part <= 2) ? `
                         const delta = parsed.choices?.[0]?.delta?.content;
                         if (delta) {
                             fullContent += delta;
-                            onTextChunk(fullContent);
+
+                            // Extract and clean the "text" field for display
+                            const cleanedText = extractTextFieldFromStream(fullContent);
+                            if (cleanedText) {
+                                onTextChunk(cleanedText);
+                            }
                         }
                     } catch {
                         // Ignore parse errors for incomplete chunks
                     }
                 }
             }
+        }
+
+        // Helper function to extract only the "text" field content from streaming JSON
+        function extractTextFieldFromStream(content: string): string {
+            // Look for "text": " or "text" : " pattern
+            const textMatch = content.match(/"text"\s*:\s*"/);
+            if (!textMatch) return '';
+
+            // Get everything after "text": "
+            const startIndex = (textMatch.index ?? 0) + textMatch[0].length;
+            let textContent = content.slice(startIndex);
+
+            // Find the closing quote (but not escaped quotes)
+            // Look for the end of the text field (either ", or "} or just truncate at a reasonable point)
+            let endIndex = -1;
+            let i = 0;
+            while (i < textContent.length) {
+                if (textContent[i] === '\\' && i + 1 < textContent.length) {
+                    i += 2; // Skip escaped character
+                    continue;
+                }
+                if (textContent[i] === '"') {
+                    endIndex = i;
+                    break;
+                }
+                i++;
+            }
+
+            if (endIndex !== -1) {
+                textContent = textContent.slice(0, endIndex);
+            }
+
+            // Clean up escape sequences for display
+            return textContent
+                .replace(/\\n/g, '\n')
+                .replace(/\\"/g, '"')
+                .replace(/\\\\/g, '\\')
+                .replace(/\\t/g, '\t');
         }
 
         console.log("Streaming complete. Full content length:", fullContent.length);

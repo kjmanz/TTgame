@@ -417,43 +417,59 @@ const StoryReader: React.FC<Props> = ({
           {/* Paper Texture Overlay (Subtle noise) */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"></div>
 
-          {/* Header (Chapter Info) */}
-          <div className="h-16 border-b border-[#e5e2d0] flex items-center justify-between px-6 bg-[#f7f5ed] relative z-10">
-            <div className="flex flex-col md:flex-row md:items-center gap-0 md:gap-3">
-              <span className="font-serif font-bold text-xl text-[#1a1a1a] tracking-widest">第{segment.chapter}章</span>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] uppercase tracking-wider text-gray-500 border border-gray-300 px-1.5 py-px rounded">Part {segment.part}</span>
-                <div className="flex items-center gap-2 text-[10px] font-serif text-indigo-900 opacity-80">
-                  {segment.location && (
-                    <span className="flex items-center gap-1">
-                      <span className="text-indigo-600">📍</span> {segment.location}
-                    </span>
-                  )}
-                  {(segment.date || segment.time) && (
-                    <span className="flex items-center gap-1 border-l border-gray-300 pl-2">
-                      <span className="text-indigo-600">🕒</span> {segment.date} {segment.time}
-                    </span>
-                  )}
+          {/* Header (Chapter Info) - Redesigned for better visibility */}
+          <div className="border-b border-[#e5e2d0] bg-gradient-to-r from-[#f7f5ed] via-[#fff] to-[#f7f5ed] relative z-10">
+            {/* Top bar with chapter/part */}
+            <div className="flex items-center justify-between px-4 md:px-6 py-3">
+              <div className="flex items-center gap-3">
+                {/* Chapter badge */}
+                <div className="flex items-center gap-2">
+                  <div className="bg-gradient-to-br from-indigo-600 to-purple-700 text-white px-3 py-1.5 rounded-lg shadow-md">
+                    <span className="font-serif font-bold text-sm md:text-base tracking-wide">第{segment.chapter}章</span>
+                  </div>
+                  <div className="bg-gray-800 text-gray-100 px-2.5 py-1 rounded-md text-xs font-bold tracking-wider">
+                    Part {segment.part}
+                  </div>
                 </div>
               </div>
+
+              {/* Action buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={onRegenerate}
+                  disabled={isLoading || history.length < 2}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors disabled:opacity-30"
+                  title="再生成"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                </button>
+                <button
+                  onClick={() => setIsHistoryModalOpen(true)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors"
+                  title="履歴"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={onRegenerate}
-                disabled={isLoading || history.length < 2}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors disabled:opacity-30"
-                title="再生成"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-              </button>
-              <button
-                onClick={() => setIsHistoryModalOpen(true)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors"
-                title="履歴"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-              </button>
-            </div>
+
+            {/* Location/Time bar */}
+            {(segment.location || segment.date || segment.time) && (
+              <div className="flex flex-wrap items-center gap-3 px-4 md:px-6 py-2 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-100/50">
+                {segment.location && (
+                  <div className="flex items-center gap-1.5 text-xs md:text-sm text-indigo-800 font-medium">
+                    <span className="text-indigo-500">📍</span>
+                    <span>{segment.location}</span>
+                  </div>
+                )}
+                {(segment.date || segment.time) && (
+                  <div className="flex items-center gap-1.5 text-xs md:text-sm text-indigo-700">
+                    <span className="text-indigo-500">🕐</span>
+                    <span>{segment.date} {segment.time}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Content Scroll Area */}
