@@ -22,32 +22,13 @@ export const AVAILABLE_TEXT_MODELS = [
 ];
 
 // 利用可能な画像生成モデル一覧
-// ※価格順：安い順に並んでいます
-// ※注意: OpenRouterの画像生成モデルは全てNSFWコンテンツを生成できません
+// ※注意: OpenRouterの画像生成モデルはNSFWコンテンツを生成できないため無効化推奨
 export const AVAILABLE_IMAGE_MODELS = [
   {
     id: 'none',
-    name: '画像生成を無効化（推奨）',
-    description: 'NSFW画像は生成不可のため無効化推奨',
+    name: '画像生成を無効化',
+    description: 'NSFW画像は生成不可のため無効化',
     price: '無料'
-  },
-  {
-    id: 'google/gemini-2.5-flash-image',
-    name: 'Gemini 2.5 Flash Image',
-    description: '最安・高速（NSFW不可）',
-    price: '$0.001/枚'
-  },
-  {
-    id: 'openai/gpt-5-image-mini',
-    name: 'GPT-5 Image Mini',
-    description: '高品質・実写風（NSFW不可）',
-    price: '$1.1/M'
-  },
-  {
-    id: 'openai/gpt-5-image',
-    name: 'GPT-5 Image',
-    description: '最高品質（NSFW不可）',
-    price: '$5/M'
   }
 ];
 
