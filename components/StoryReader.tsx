@@ -49,6 +49,7 @@ const StoryReader: React.FC<Props> = ({
   const [showEditInput, setShowEditInput] = useState(false);
   const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+  const [isImageEnlarged, setIsImageEnlarged] = useState(false);
   const [lastAction, setLastAction] = useState('');
 
   const textRef = useRef<HTMLDivElement>(null);
@@ -97,18 +98,45 @@ const StoryReader: React.FC<Props> = ({
 
   // Helper to split text into paragraphs for better spacing and animation
   // allowAnimation flag controls whether fade-in is used (disable for history)
+  // Mobile optimization: split long paragraphs into smaller chunks (2-3 sentences)
   const renderFormattedText = (text: string, allowAnimation = true) => {
     if (!text) return "読み込みエラーが発生しました。再試行してください。";
 
     // Split by newlines and filter empty lines
-    const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+    const rawParagraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+
+    // For mobile: split long paragraphs into smaller chunks (every 2-3 sentences)
+    const paragraphs: string[] = [];
+    for (const para of rawParagraphs) {
+      // Split by sentence endings (。！？) while keeping the delimiter
+      const sentences = para.split(/(?<=[。！？])/);
+      let chunk = '';
+      let sentenceCount = 0;
+
+      for (const sentence of sentences) {
+        chunk += sentence;
+        sentenceCount++;
+
+        // After every 2-3 sentences, create a new paragraph
+        if (sentenceCount >= 2 && chunk.length > 50) {
+          paragraphs.push(chunk.trim());
+          chunk = '';
+          sentenceCount = 0;
+        }
+      }
+
+      // Add remaining text
+      if (chunk.trim()) {
+        paragraphs.push(chunk.trim());
+      }
+    }
 
     return paragraphs.map((para, idx) => (
       <p
         key={idx}
-        className={`mb-8 md:mb-12 leading-[2.2] md:leading-[2.6] tracking-wider text-justify text-[1.05rem] md:text-xl text-ink/90 font-serif font-medium ${allowAnimation ? 'opacity-0 animate-fade-in-slow' : ''}`}
+        className={`mb-6 md:mb-10 leading-[2.0] md:leading-[2.6] tracking-wider text-justify text-[1rem] md:text-xl text-ink/90 font-serif font-medium ${allowAnimation ? 'opacity-0 animate-fade-in-slow' : ''}`}
         style={allowAnimation ? {
-          animationDelay: `${idx * 0.2}s`,
+          animationDelay: `${idx * 0.15}s`,
           animationFillMode: 'forwards'
         } : {}}
       >
@@ -266,16 +294,42 @@ const StoryReader: React.FC<Props> = ({
         </div>
       )}
 
+      {/* IMAGE ENLARGE MODAL (Mobile tap to view) */}
+      {isImageEnlarged && generatedImageUrl && (
+        <div
+          className="fixed inset-0 z-[300] bg-black/95 flex items-center justify-center p-4 animate-fade-in"
+          onClick={() => setIsImageEnlarged(false)}
+        >
+          <button
+            onClick={() => setIsImageEnlarged(false)}
+            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-10"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img
+            src={generatedImageUrl}
+            alt="Enlarged Scene"
+            className="max-w-full max-h-full object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs">タップして閉じる</p>
+        </div>
+      )}
+
       {/* Left Side: Visuals & Stats (Mobile: Top) */}
       <div className="lg:w-[400px] flex-shrink-0 flex flex-col gap-4 order-1 lg:order-none mb-6 lg:mb-0 lg:sticky lg:top-24 h-fit z-10">
 
-        {/* Image Display Area - Collapsible or smaller on mobile */}
-        <div className="relative w-full aspect-[16/9] lg:aspect-[3/4] bg-[#0f0f12] rounded-lg lg:rounded-xl overflow-hidden shadow-2xl border border-white/5 group">
+        {/* Image Display Area - 3:4 on mobile for portrait optimization */}
+        <div className="relative w-full aspect-[3/4] lg:aspect-[3/4] bg-[#0f0f12] rounded-lg lg:rounded-xl overflow-hidden shadow-2xl border border-white/5 group">
           {generatedImageUrl ? (
             <img
               src={generatedImageUrl}
               alt="Generated Scene"
-              className="w-full h-full object-cover animate-fade-in"
+              loading="lazy"
+              onClick={() => setIsImageEnlarged(true)}
+              className="w-full h-full object-cover animate-fade-in cursor-pointer lg:cursor-default active:scale-[0.98] transition-transform"
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 p-6 text-center bg-gradient-to-b from-[#1a1a1a] to-[#121212]">

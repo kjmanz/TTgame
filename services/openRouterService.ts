@@ -797,7 +797,8 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
         const requestBody = {
             model: 'grok-2-image-1212',
             prompt: prompt,
-            n: 1
+            n: 1,
+            aspect_ratio: '3:4'  // スマホ最適化: 縦長ポートレート
         };
 
         console.log("Request body:", JSON.stringify(requestBody, null, 2));
