@@ -297,9 +297,10 @@ const StoryReader: React.FC<Props> = ({
       {/* IMAGE ENLARGE MODAL (Mobile tap to view) */}
       {isImageEnlarged && generatedImageUrl && (
         <div
-          className="fixed inset-0 z-[300] bg-black/95 flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 z-[300] bg-black/95 flex flex-col items-center justify-center p-4 animate-fade-in"
           onClick={() => setIsImageEnlarged(false)}
         >
+          {/* Close button */}
           <button
             onClick={() => setIsImageEnlarged(false)}
             className="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-10"
@@ -308,13 +309,40 @@ const StoryReader: React.FC<Props> = ({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+
+          {/* Enlarged image */}
           <img
             src={generatedImageUrl}
             alt="Enlarged Scene"
-            className="max-w-full max-h-full object-contain rounded-lg"
+            className="max-w-full max-h-[70vh] object-contain rounded-lg"
             onClick={(e) => e.stopPropagation()}
           />
-          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs">タップして閉じる</p>
+
+          {/* Action buttons in modal */}
+          <div className="flex gap-3 mt-6" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => {
+                setIsImageEnlarged(false);
+                setShowEditInput(true);
+              }}
+              disabled={isEditingImage || isGeneratingImage}
+              className="bg-white/10 backdrop-blur-md text-white px-5 py-2.5 rounded-lg text-sm font-bold tracking-wider hover:bg-white/20 border border-white/20 transition-all"
+            >
+              ✏️ 編集
+            </button>
+            <button
+              onClick={() => {
+                setIsImageEnlarged(false);
+                onGenerateImage();
+              }}
+              disabled={isGeneratingImage || isEditingImage || isLoading}
+              className="bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold tracking-wider hover:bg-indigo-500 border border-indigo-400/30 transition-all shadow-lg"
+            >
+              🔄 再生成
+            </button>
+          </div>
+
+          <p className="mt-4 text-white/40 text-xs">背景タップで閉じる</p>
         </div>
       )}
 
@@ -338,8 +366,8 @@ const StoryReader: React.FC<Props> = ({
             </div>
           )}
 
-          {/* Controls Overlay - More subtle */}
-          <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {/* Controls Overlay - Always visible on mobile, hover on desktop */}
+          <div className="absolute bottom-3 right-3 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
             {generatedImageUrl && (
               <button
                 onClick={() => setShowEditInput(!showEditInput)}
