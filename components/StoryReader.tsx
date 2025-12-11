@@ -150,8 +150,8 @@ const StoryReader: React.FC<Props> = ({
   return (
     <div className="flex flex-col lg:flex-row h-full max-w-7xl mx-auto gap-0 lg:gap-8 pb-32 lg:pb-10 relative">
 
-      {/* FULLSCREEN LOADING OVERLAY - 文章生成中 */}
-      {isLoading && (
+      {/* FULLSCREEN LOADING OVERLAY - 文章生成中 (Bulk Mode Only) */}
+      {isLoading && !isStreaming && (
         <div className="fixed inset-0 z-[200] bg-[#0f0f12]/95 backdrop-blur-md flex flex-col items-center justify-center animate-fade-in">
           <div className="relative mb-8">
             {/* Outer ring */}
