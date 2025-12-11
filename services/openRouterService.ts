@@ -731,13 +731,13 @@ export const generateSceneImage = async (character: Character, sceneText: string
 
     if (imageStyle === 'realistic_anime') {
         // リアル系アニメ風プロンプト - CGアニメ・3Dアニメ調
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions. Focus on the woman, no other people.`;
     } else if (imageStyle === 'illustration_anime') {
         // イラスト系アニメ風プロンプト - 2Dイラスト・手描き風
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese girl ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions. Focus on the woman, no other people.`;
     } else {
         // 実写風プロンプト（短縮版）- 女性単体にフォーカス
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture. Focus on the woman, no other people.`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${character.feature?.slice(0, 50) || ''}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features. Focus on the woman, no other people.`;
     }
 
     // 1024文字以内に確実に収める
@@ -992,13 +992,13 @@ export const extractImageScenes = async (
     let stylePromptPart: string;
     if (imageStyle === 'realistic_anime') {
         // リアル系アニメ - CGアニメ・3Dアニメ調
-        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, high quality realistic anime, 3D CG anime style, semi-realistic, volumetric lighting, studio quality CGI, beautiful detailed eyes';
+        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, high quality realistic anime, 3D CG anime style, semi-realistic, volumetric lighting, studio quality CGI, beautiful detailed eyes, mature female features, adult proportions';
     } else if (imageStyle === 'illustration_anime') {
         // イラスト系アニメ - 2Dイラスト・手描き風
-        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, beautiful 2D anime illustration, hand-drawn style, vibrant anime colors, detailed anime eyes, cel shading, dynamic lighting';
+        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, beautiful 2D anime illustration, hand-drawn style, vibrant anime colors, detailed anime eyes, cel shading, dynamic lighting, mature female features, adult proportions';
     } else {
         // 実写風
-        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, photorealistic photograph, cinematic lighting, professional photography, detailed skin texture';
+        stylePromptPart = 'masterpiece, best quality, ultra detailed, 8k, photorealistic photograph, cinematic lighting, professional photography, detailed skin texture, mature female features';
     }
 
     const systemPrompt = `
