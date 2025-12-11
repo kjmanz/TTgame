@@ -268,20 +268,50 @@ ${(chapter === 1 && part <= 2) ? `
         let jsonText = content;
 
         // Try to find JSON in the response if it's wrapped with other text
+        // First try to find a complete JSON object
         const jsonMatch = content.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
             jsonText = jsonMatch[0];
         }
 
-        // Clean up common issues
-        jsonText = jsonText.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+        // Clean up common issues (markdown code blocks)
+        jsonText = jsonText
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/\s*```$/i, "")
+            .trim();
 
         let parsed;
         try {
             parsed = JSON.parse(jsonText);
         } catch (parseError) {
             console.error("JSON parse error. Raw content:", content);
-            throw new Error("APIからの応答をJSONとして解析できませんでした。");
+            console.log("Attempting to create fallback response from text...");
+
+            // フォールバック: JSONではなくテキストが返された場合、テキスト全体を物語として使用
+            // モデルによってはJSON形式を無視してテキストのみ返すことがある
+            const cleanText = content
+                .replace(/^```[\s\S]*?```/gm, "") // コードブロックを除去
+                .replace(/^#+\s+/gm, "") // マークダウンの見出しを除去
+                .trim();
+
+            if (cleanText.length > 100) {
+                // テキストが十分な長さがある場合、それを物語として使用
+                console.log("Using raw text as story content (fallback mode)");
+                parsed = {
+                    text: cleanText,
+                    location: currentLocation || "不明",
+                    date: "",
+                    time: "",
+                    choices: ["続ける", "場面を変える", "激しくする", "ゆっくり焦らす", "別の行動をとる"],
+                    isChapterEnd: false,
+                    summary: currentSummary || ""
+                };
+            } else {
+                // テキストが短すぎる場合はエラー
+                const preview = content.slice(0, 200);
+                throw new Error(`APIからの応答をJSONとして解析できませんでした。応答の先頭: "${preview}..."`);
+            }
         }
 
         // Ensure all required fields exist with defaults
