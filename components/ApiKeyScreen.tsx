@@ -4,62 +4,20 @@ const API_KEY_STORAGE_KEY = 'openrouter_api_key';
 const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 
-// 利用可能な文章生成モデル一覧（エロ小説向け・無検閲モデル）
-// ※価格順：安い順に並んでいます
+// 利用可能な文章生成モデル一覧
+// ※推奨モデルのみに絞っています
 export const AVAILABLE_TEXT_MODELS = [
   {
-    id: 'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',
-    name: 'Dolphin Venice Edition',
-    description: '無検閲、NSFW対応、おすすめ',
-    price: '無料'
-  },
-  {
-    id: 'gryphe/mythomax-l2-13b',
-    name: 'MythoMax 13B',
-    description: 'ファンタジー・ロマンス特化、無検閲',
-    price: '$0.06/M (最安)'
-  },
-  {
-    id: 'mancer/weaver',
-    name: 'Mancer Weaver',
-    description: 'ロールプレイ・物語向け、無検閲',
-    price: '$0.11/M'
-  },
-  {
-    id: 'neversleep/noromaid-20b',
-    name: 'Noromaid 20B',
-    description: 'ロマンス・エロ特化、無検閲',
-    price: '$0.15/M'
-  },
-  {
-    id: 'thedrummer/rocinante-12b',
-    name: 'Rocinante 12B',
-    description: 'クリエイティブ文章、無検閲',
-    price: '$0.18/M'
-  },
-  {
-    id: 'thedrummer/cydonia-24b-v4.1',
-    name: 'Cydonia 24B V4.1',
-    description: '高品質エロ小説、無検閲、日本語OK',
-    price: '$0.24/M'
-  },
-  {
-    id: 'thedrummer/skyfall-36b-v2',
-    name: 'Skyfall 36B V2',
-    description: 'ロールプレイ特化、無検閲',
-    price: '$0.30/M'
-  },
-  {
-    id: 'thedrummer/anubis-70b-v1.1',
-    name: 'Anubis 70B V1.1',
-    description: '最高品質、長文得意、無検閲',
-    price: '$0.48/M'
-  },
-  {
     id: 'deepseek/deepseek-chat-v3-0324',
-    name: 'DeepSeek Chat V3',
-    description: '高品質、日本語OK',
+    name: 'DeepSeek V3',
+    description: '高品質、日本語OK、安定して3000文字出力',
     price: '$0.55/M'
+  },
+  {
+    id: 'x-ai/grok-4.1-fast',
+    name: 'Grok 4.1 Fast',
+    description: '高速、高品質、無検閲、日本語OK',
+    price: '$3/M'
   }
 ];
 
