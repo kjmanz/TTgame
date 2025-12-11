@@ -534,32 +534,53 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
         throw new Error("xAI APIキーが設定されていません。設定画面でxAI APIキーを入力してください。");
     }
 
+    console.log("xAI Image generation request:", {
+        url: XAI_API_URL,
+        model: 'grok-2-image-1212',
+        promptLength: prompt.length
+    });
+
     try {
+        const requestBody = {
+            model: 'grok-2-image-1212',
+            prompt: prompt,
+            n: 1
+        };
+
+        console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
         const response = await fetch(XAI_API_URL, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${xaiApiKey}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                model: 'grok-2-image-1212',
-                prompt: prompt,
-                n: 1,
-                response_format: 'url'
-            })
+            body: JSON.stringify(requestBody)
         });
 
+        console.log("xAI Response status:", response.status);
+
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error("xAI Image generation API error:", response.status, errorData);
+            const errorText = await response.text();
+            console.error("xAI Image generation API error response:", errorText);
+
+            let errorData;
+            try {
+                errorData = JSON.parse(errorText);
+            } catch {
+                errorData = { message: errorText };
+            }
 
             if (response.status === 401) {
                 throw new Error("xAI APIキーが無効です。正しいキーを入力してください。");
             }
-            if (response.status === 402) {
-                throw new Error("xAI API料金が不足しています。");
+            if (response.status === 402 || response.status === 429) {
+                throw new Error("xAI API料金が不足しているか、レート制限に達しています。");
             }
-            throw new Error(`xAI画像生成エラー (${response.status}): ${errorData?.error?.message || "不明なエラー"}`);
+            if (response.status === 400) {
+                throw new Error(`xAI画像生成エラー: リクエストが無効です - ${errorData?.error?.message || errorData?.message || "詳細不明"}`);
+            }
+            throw new Error(`xAI画像生成エラー (${response.status}): ${errorData?.error?.message || errorData?.message || "不明なエラー"}`);
         }
 
         const data = await response.json();
@@ -577,6 +598,9 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
         return null;
     } catch (error) {
         console.error("xAI Image generation failed:", error);
+        if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+            throw new Error("xAI APIへの接続に失敗しました。ネットワーク接続を確認してください。CORSエラーの可能性もあります。");
+        }
         throw error;
     }
 };
