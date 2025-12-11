@@ -247,9 +247,13 @@ ${(chapter === 1 && part <= 2) ? `
 
     // Add initial prompt if no history
     if (history.length === 0) {
+        // ランダムにシナリオフックを選択（3パターンからランダム）
+        const randomScenarioIndex = Math.floor(Math.random() * character.scenarioHook.length);
+        const selectedScenario = character.scenarioHook[randomScenarioIndex];
+
         const startPrompt = userChoice
             ? userChoice
-            : `第1章 Part1を開始してください。導入として、以下の設定を使ってください: ${character.scenarioHook[0]}
+            : `第1章 Part1を開始してください。導入として、以下の設定を使ってください: ${selectedScenario}
             日付設定：現在の日時（例：◯月◯日）
             時刻設定：現在の時刻（例：18:30）
             `;
