@@ -28,6 +28,10 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
 
+    // Toggle states for editing API keys (hidden if already saved)
+    const [showApiKeyEdit, setShowApiKeyEdit] = useState(!getStoredApiKey());
+    const [showXaiKeyEdit, setShowXaiKeyEdit] = useState(!getStoredXaiApiKey());
+
     const handleSave = () => {
         // Validate OpenRouter API key
         if (!apiKey.trim()) {
@@ -74,25 +78,42 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                 </div>
 
                 <div className="space-y-5 max-h-[60vh] overflow-y-auto">
+                    {/* OpenRouter API Key */}
                     <div>
                         <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
                             🔑 OpenRouter API Key
                         </label>
-                        <input
-                            type="password"
-                            value={apiKey}
-                            onChange={(e) => setApiKey(e.target.value)}
-                            placeholder="sk-or-v1-..."
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
-                        />
-                        <a
-                            href="https://openrouter.ai/keys"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-indigo-400 hover:text-indigo-300 underline mt-1 inline-block"
-                        >
-                            OpenRouter APIキーを取得 →
-                        </a>
+                        {showApiKeyEdit ? (
+                            <>
+                                <input
+                                    type="password"
+                                    value={apiKey}
+                                    onChange={(e) => setApiKey(e.target.value)}
+                                    placeholder="sk-or-v1-..."
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                                />
+                                <a
+                                    href="https://openrouter.ai/keys"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-indigo-400 hover:text-indigo-300 underline mt-1 inline-block"
+                                >
+                                    OpenRouter APIキーを取得 →
+                                </a>
+                            </>
+                        ) : (
+                            <div className="flex items-center gap-2">
+                                <div className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-500 font-mono text-sm">
+                                    sk-or-••••••••••••••
+                                </div>
+                                <button
+                                    onClick={() => setShowApiKeyEdit(true)}
+                                    className="px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs text-gray-400 hover:text-gray-200 transition-all"
+                                >
+                                    変更
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     <div>
@@ -162,23 +183,39 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                             <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">
                                 🔑 xAI API Key（画像生成用）
                             </label>
-                            <input
-                                type="password"
-                                value={xaiApiKey}
-                                onChange={(e) => setXaiApiKey(e.target.value)}
-                                placeholder="xai-..."
-                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
-                            />
-                            <p className="text-xs text-gray-500 mt-1">
-                                <a
-                                    href="https://console.x.ai/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-indigo-400 hover:text-indigo-300 underline"
-                                >
-                                    xAI APIキーを取得 →
-                                </a>
-                            </p>
+                            {showXaiKeyEdit ? (
+                                <>
+                                    <input
+                                        type="password"
+                                        value={xaiApiKey}
+                                        onChange={(e) => setXaiApiKey(e.target.value)}
+                                        placeholder="xai-..."
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        <a
+                                            href="https://console.x.ai/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-indigo-400 hover:text-indigo-300 underline"
+                                        >
+                                            xAI APIキーを取得 →
+                                        </a>
+                                    </p>
+                                </>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <div className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-gray-500 font-mono text-sm">
+                                        xai-••••••••••••••
+                                    </div>
+                                    <button
+                                        onClick={() => setShowXaiKeyEdit(true)}
+                                        className="px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs text-gray-400 hover:text-gray-200 transition-all"
+                                    >
+                                        変更
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
