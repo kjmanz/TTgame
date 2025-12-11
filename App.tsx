@@ -216,6 +216,9 @@ function App() {
             }
           ]
         }));
+
+        // 生成完了後、画面上部へスクロール
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       })
       .catch(err => {
         console.error(err);
@@ -315,6 +318,8 @@ function App() {
         ]
       }));
 
+      // 生成完了後、画面上部へスクロール
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       setState(prev => ({
@@ -468,6 +473,8 @@ function App() {
         ]
       }));
 
+      // 生成完了後、画面上部へスクロール
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       setState(prev => ({
