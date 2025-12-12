@@ -949,6 +949,7 @@ ${(chapter === 1 && part <= 2) ? `
         const decoder = new TextDecoder();
         let fullContent = "";
         let buffer = "";
+        let liveStoryBuffer = ""; // For streaming fallback when JSON field extraction fails
 
         while (true) {
             const { done, value } = await reader.read();
@@ -970,11 +971,16 @@ ${(chapter === 1 && part <= 2) ? `
                         const delta = parsed.choices?.[0]?.delta?.content;
                         if (delta) {
                             fullContent += delta;
+                            liveStoryBuffer += delta;
 
                             // Extract and clean the "text" field for display
                             const cleanedText = extractTextFieldFromStream(fullContent);
-                            if (cleanedText) {
-                                onTextChunk(cleanedText);
+
+                            // Prefer the extracted text field, but fall back to the raw stream buffer
+                            // so that streaming never stalls even if the model deviates from strict JSON.
+                            const textForStream = cleanedText || cleanStoryText(liveStoryBuffer);
+                            if (textForStream) {
+                                onTextChunk(textForStream);
                             }
                         }
                     } catch {
@@ -1041,25 +1047,45 @@ ${(chapter === 1 && part <= 2) ? `
         try {
             parsed = JSON.parse(jsonText);
         } catch {
-            console.log("JSON parse failed, using raw text as story content");
-            const cleanText = fullContent
-                .replace(/^```[\s\S]*?```/gm, "")
-                .replace(/^#+\s+/gm, "")
-                .trim();
+            console.log("JSON parse failed, attempting to recover from streamed content");
 
-            if (cleanText.length > 100) {
-                parsed = {
-                    text: cleanStoryText(cleanText),
-                    location: currentLocation || "不明",
-                    date: "",
-                    time: "",
-                    choices: ["続ける", "場面を変える", "激しくする", "ゆっくり焦らす", "別の行動をとる"],
-                    isChapterEnd: false,
-                    summary: currentSummary || "",
-                    scenes: []
-                };
-            } else {
-                throw new Error("ストリーミングレスポンスの解析に失敗しました");
+            // Try to locate a JSON-looking block manually (e.g., when the model adds extra text)
+            const fencedMatch = fullContent.match(/```json\s*([\s\S]*?)```/i);
+            const braceStart = fullContent.indexOf('{');
+            const braceEnd = fullContent.lastIndexOf('}');
+            const recoveredJson = fencedMatch?.[1]
+                || (braceStart !== -1 && braceEnd !== -1 && braceEnd > braceStart
+                    ? fullContent.slice(braceStart, braceEnd + 1)
+                    : "");
+
+            if (recoveredJson) {
+                try {
+                    parsed = JSON.parse(recoveredJson);
+                } catch {
+                    // Fall through to raw text handling below
+                }
+            }
+
+            if (!parsed) {
+                const cleanText = liveStoryBuffer || fullContent
+                    .replace(/^```[\s\S]*?```/gm, "")
+                    .replace(/^#+\s+/gm, "")
+                    .trim();
+
+                if (cleanText.length > 100) {
+                    parsed = {
+                        text: cleanStoryText(cleanText),
+                        location: currentLocation || "不明",
+                        date: "",
+                        time: "",
+                        choices: ["続ける", "場面を変える", "激しくする", "ゆっくり焦らす", "別の行動をとる"],
+                        isChapterEnd: false,
+                        summary: currentSummary || "",
+                        scenes: []
+                    };
+                } else {
+                    throw new Error("ストリーミングレスポンスの解析に失敗しました");
+                }
             }
         }
 
