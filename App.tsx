@@ -99,6 +99,7 @@ const getInitialState = (hasApiKey: boolean): StoryState => ({
   imageVariations: null, // Multiple image URLs for selection
   sceneCandidates: null,
   streamingText: null,
+  isRegeneratingChoices: false,
   error: null
 });
 
@@ -261,7 +262,10 @@ function App() {
       const saved = localStorage.getItem(SAVE_KEY);
       if (saved) {
         const parsed: StoryState = JSON.parse(saved);
-        setState(parsed);
+        setState({
+          ...parsed,
+          isRegeneratingChoices: parsed.isRegeneratingChoices ?? false
+        });
       }
     } catch (e) {
       console.error("Failed to resume game", e);
@@ -617,8 +621,7 @@ function App() {
   const handleRegenerate = useCallback(async () => {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
-
-    setState(prev => ({ ...prev, currentPhase: 'LOADING_STORY' }));
+    setState(prev => ({ ...prev, isRegeneratingChoices: true }));
 
     try {
       const historyWithoutResponse = [...state.history];
@@ -683,7 +686,6 @@ function App() {
 
         return {
           ...prev,
-          currentPhase: 'READING',
           currentSegment: prev.currentSegment
             ? { ...prev.currentSegment, choices: updatedChoices }
             : prev.currentSegment,
@@ -694,11 +696,12 @@ function App() {
       console.error(err);
       setState(prev => ({
         ...prev,
-        currentPhase: 'READING',
         error: "再生成に失敗しました。NGワード等が含まれている可能性があります。"
       }));
       // Capture retry action
       setRetryAction(() => () => handleRegenerate());
+    } finally {
+      setState(prev => ({ ...prev, isRegeneratingChoices: false }));
     }
   }, [state, clearError]);
 
@@ -1058,6 +1061,7 @@ function App() {
             onChoice={handleChoice}
             onUndo={handleUndo}
             onRegenerate={handleRegenerate}
+            isRegeneratingChoices={state.isRegeneratingChoices}
             isLoading={state.currentPhase === 'LOADING_STORY'}
             isStreaming={state.currentPhase === 'STREAMING'}
             streamingText={state.streamingText}

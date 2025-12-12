@@ -9,6 +9,7 @@ interface Props {
   onChoice: (choice: string) => void;
   onUndo: () => void;
   onRegenerate: () => void;
+  isRegeneratingChoices: boolean;
   isLoading: boolean;
   isStreaming: boolean;
   streamingText: string | null;
@@ -35,6 +36,7 @@ const StoryReader: React.FC<Props> = ({
   onChoice,
   onUndo,
   onRegenerate,
+  isRegeneratingChoices,
   isLoading,
   isStreaming,
   streamingText,
@@ -593,15 +595,15 @@ const StoryReader: React.FC<Props> = ({
               </div>
 
               {/* Action buttons */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={onRegenerate}
-                  disabled={isLoading || history.length < 2}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors disabled:opacity-30"
-                  title="再生成"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onRegenerate}
+                disabled={isLoading || isRegeneratingChoices || history.length < 2}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors disabled:opacity-30"
+                title="再生成"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+              </button>
                 <button
                   onClick={() => setIsHistoryModalOpen(true)}
                   className="w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 transition-colors"
@@ -748,10 +750,10 @@ const StoryReader: React.FC<Props> = ({
                   setIsChoiceModalOpen(false);
                   onRegenerate();
                 }}
-                disabled={isLoading}
+                disabled={isLoading || isRegeneratingChoices}
                 className="w-full py-3 rounded-xl bg-indigo-900 text-indigo-100 font-serif font-semibold tracking-widest shadow-md hover:bg-indigo-800 transition-colors disabled:opacity-50"
               >
-                🔄 次の行動を再生成
+                {isRegeneratingChoices ? '⏳ 再生成中...' : '🔄 次の行動を再生成'}
               </button>
 
               <div className="space-y-3">

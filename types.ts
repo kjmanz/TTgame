@@ -102,6 +102,7 @@ export interface StoryState {
   imageVariations: string[] | null; // Multiple image URLs for selection
   sceneCandidates: SceneCandidate[] | null; // Scene candidates for image generation
   streamingText: string | null; // Text being streamed in real-time
+  isRegeneratingChoices: boolean; // Flag for regenerating only the next action list
   error: string | null;
   lastSaveDate?: number; // Timestamp for save slot management
 }
