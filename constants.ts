@@ -33,7 +33,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人（夫含む）',
     sensitivity: '耳と首筋が弱く、声が出やすい',
-    orgasmExperience: 'あり（膣内絶頂の経験あり）'
+    orgasmExperience: 'あり（膣内絶頂の経験あり）',
+    // 拡張フィールド
+    secretFetish: '実は支配されたい願望がある。上司に命令されると興奮する',
+    pastTrauma: '夫が単身赴任になってから女として見られていない寂しさ',
+    forbiddenDesire: '一度でいいから不倫してみたい…オフィスでバレないようにされたい',
+    voiceType: '普段は落ち着いた声だが、感じると高く甘い声に変わる',
+    nippleType: '薄いピンク色で小ぶり、非常に敏感',
+    pubicHair: '黒髪で整えている、Vラインは処理済み',
+    vaginalTightness: '夫とご無沙汰で締まりが良い',
+    clitorisSize: '小さめだが感度は高い'
   },
   // 2. Yoko (Neighbor)
   {
@@ -66,7 +75,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '5人',
     sensitivity: '全身が帯状疱疹のように敏感、特に肌への接触に弱い',
-    orgasmExperience: 'あり（マルチオーガズムの素質あり）'
+    orgasmExperience: 'あり（マルチオーガズムの素質あり）',
+    // 拡張フィールド
+    secretFetish: '着物を着たまま乱されることに興奮を覚える',
+    pastTrauma: '夫を亡くしてから体に触れられることがなかった',
+    forbiddenDesire: '若い男性ではなく、同年代の落ち着いた男性に抱かれたい',
+    voiceType: '低くハスキー、京都弁混じりの艶っぽい吐息',
+    nippleType: '茶色で大きめ、経産婦のような熟れた形',
+    pubicHair: '自然な黒髪、手入れはしていない熟女らしい茂み',
+    vaginalTightness: '柔らかく包み込むような膣壁、奥まで受け入れる',
+    clitorisSize: '大きめで感度抜群、愛撫ですぐに勃起する'
   },
   // 3. Erina (Cafe Staff)
   {
@@ -99,7 +117,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人',
     sensitivity: 'クリトリスが非常に敏感、焦らされると弱い',
-    orgasmExperience: 'あり（中イキは未経験）'
+    orgasmExperience: 'あり（中イキは未経験）',
+    // 拡張フィールド
+    secretFetish: '年上のおじさんに甘えたい、パパ活的な関係に憧れ',
+    pastTrauma: '同年代の男はすぐ終わって物足りなかった',
+    forbiddenDesire: '経験豊富な年上に開発されて中イキを教えてほしい',
+    voiceType: '高くて甘い、アニメ声に近い可愛らしい声',
+    nippleType: 'ピンク色で小さく、すぐに立つ敏感乳首',
+    pubicHair: '薄めの茶色、可愛くハート型に整えている',
+    vaginalTightness: '若さゆえのキツキツ、慣れていない',
+    clitorisSize: '小粒だが異常に敏感、触られるとすぐ濡れる'
   },
   // 4. Honoka (Nurse)
   {
@@ -132,7 +159,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '1人（大学時代の先輩のみ）',
     sensitivity: '胸への刺激に極端に弱い、乳首だけで感じてしまう',
-    orgasmExperience: 'あり（控えめ）'
+    orgasmExperience: 'あり（控えめ）',
+    // 拡張フィールド
+    secretFetish: '患者さんの体を拭いているとき密かに興奮してしまう',
+    pastTrauma: '経験が少なく、自分の体に自信がない',
+    forbiddenDesire: '患者さんに押し倒されるシチュエーションに憧れている',
+    voiceType: '優しくふんわりした声、感じると息が荒くなる',
+    nippleType: 'ピンクで大きめ、乳首だけでイける敏感体質',
+    pubicHair: '栗色で薄め、自然な三角形',
+    vaginalTightness: '経験が少なく非常にキツい、慣らしが必要',
+    clitorisSize: '皮被りで隠れている、愛撫で露出すると敏感'
   },
   // 5. Saori (Ex-Wife)
   {
@@ -165,7 +201,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '4人（タケルを含む）',
     sensitivity: 'タケルとの相性が一番良く、体が覚えている',
-    orgasmExperience: 'あり（タケルとのセックスでのみ深い絶頂を知っている）'
+    orgasmExperience: 'あり（タケルとのセックスでのみ深い絶頂を知っている）',
+    // 拡張フィールド
+    secretFetish: '元夫とのいけない行為に背徳感を感じる',
+    pastTrauma: '離婚の原因はレス。タケルが忘れられない',
+    forbiddenDesire: '復縁ではなく不倫関係として体の関係を持ちたい',
+    voiceType: '低めで落ち着いた大人の声、感じると艶っぽくなる',
+    nippleType: '薄茶色で程よい大きさ、タケルに開発済み',
+    pubicHair: '黒髪で自然、離婚後は手入れしていない',
+    vaginalTightness: 'タケルの形を覚えている、最高の相性',
+    clitorisSize: '普通サイズ、タケルの攻め方を体が覚えている'
   },
   // 6. Chigusa (Okami)
   {
@@ -198,7 +243,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '経験豊富（亡き夫との生活で開発済み）',
     sensitivity: '遅漏気味だが、一度火がつくと止まらない',
-    orgasmExperience: 'あり（潮吹き経験あり）'
+    orgasmExperience: 'あり（潮吹き経験あり）',
+    // 拡張フィールド
+    secretFetish: '若い客を手玉に取る想像で寂しい夜を紛らわす',
+    pastTrauma: '夫を亡くしてから体の温もりが欲しい',
+    forbiddenDesire: '客との禁断の関係、布団を敷いた後のいけない展開',
+    voiceType: '低く艺者のような艶のある声、甘え声が色っぽい',
+    nippleType: '大きく茶色、経産婦のように立派で敏感',
+    pubicHair: '黒く豊かな茂み、経験豊富な大人の女性らしさ',
+    vaginalTightness: '経産婦だが締まりが良い、名器',
+    clitorisSize: '大きめで感度抜群、攻め続けると潮を吹く'
   },
   // 7. Reiko (Teacher)
   {
@@ -231,7 +285,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '1人（昔の恋人のみ、長期間ブランクあり）',
     sensitivity: '不感症を自称しているが、実はお尻とクリトリスが極端に弱い',
-    orgasmExperience: 'あり（自慰でのみ）'
+    orgasmExperience: 'あり（自慰でのみ）',
+    // 拡張フィールド
+    secretFetish: '実は強引に犯される想像で一人感じている',
+    pastTrauma: '真面目すぎて恋愛に臆病、感じることが怖い',
+    forbiddenDesire: '生徒の前では厳格な先生が、委ねて乱れたい',
+    voiceType: '教壇では厄い声、感じると高く抑えきれない声に',
+    nippleType: 'ピンクで小さめ、経験不足で没感だと思っている',
+    pubicHair: '黒髪で整えていない、未处理の自然な状態',
+    vaginalTightness: '長年のブランクで非常にキツい、処女同然',
+    clitorisSize: '大きめで感度抜群、本人は気づいていない'
   },
   // 8. Ai (Idol)
   {
@@ -264,7 +327,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '不明（処女を装っているが、実は……）',
     sensitivity: '演技で感じたフリをするのが上手いが、本気で攻められると弱い',
-    orgasmExperience: 'あり（演技ではない絶頂は未経験）'
+    orgasmExperience: 'あり（演技ではない絶頂は未経験）',
+    // 拡張フィールド
+    secretFetish: '本当は掛け値なしに愛されたい、ファン相手は全て営業',
+    pastTrauma: '枠営業で交渉するうちに感覚が麻痺している',
+    forbiddenDesire: 'プロデューサー目線ではなく、純粋に女として求められたい',
+    voiceType: 'アイドル声は作り、素は少し低めでダルそう',
+    nippleType: 'ピンクで小さく幼い、感度は普通',
+    pubicHair: 'パイパンに処理済み、究極の女子力',
+    vaginalTightness: '若さでキツキツ、意外と経験がある',
+    clitorisSize: '小さな豆粒、丁寧に責めると感じる'
   },
   // 9. Miyuki (Secretary)
   {
@@ -297,7 +369,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '精神的な支配に興奮するタイプ、言葉責めに弱い',
-    orgasmExperience: 'あり（強い刺激でないといけない）'
+    orgasmExperience: 'あり（強い刺激でないといけない）',
+    // 拡張フィールド
+    secretFetish: '完璧な秘書を演じながらも、実は支配されたいM気質',
+    pastTrauma: '仕事で完璧を求めるあまりプライベートが疎か',
+    forbiddenDesire: '社長室のデスクで犯される想像をしている',
+    voiceType: 'ビジネス声が甘えると高く娌声っぽくなる',
+    nippleType: '薄いピンクで小さめ、刺激に弱い',
+    pubicHair: 'パイパンに処理済み、完璧な身だしなみ',
+    vaginalTightness: '経験はあるが締まりが良い',
+    clitorisSize: '普通サイズ、言葉攻めと併用で感じる'
   },
   // 10. Kaori (Housewife)
   {
@@ -330,7 +411,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人（夫と元彼）',
     sensitivity: '長年のレスで感度が高まっている、特に乳首が弱点',
-    orgasmExperience: 'あり（最近はご無沙汰）'
+    orgasmExperience: 'あり（最近はご無沙汰）',
+    // 拡張フィールド
+    secretFetish: '夫以外の男に抱かれる背徳感に密かに興奮',
+    pastTrauma: 'レスの原因は夫の無関心、女としての自信喪失',
+    forbiddenDesire: 'いつものスーパーの帰り道、誰かに声をかけられたい',
+    voiceType: '主婦らしい優しい声、感じると切ない声に変わる',
+    nippleType: '茶色で大きめ、授乳経験で感度が高い',
+    pubicHair: '自然な黒髪、手入れは諸めている',
+    vaginalTightness: 'レスで経験不足、久しぶりの刺激に敏感',
+    clitorisSize: '普通サイズ、久しぶりの刺激ですぐ反応する'
   },
   // 11. Nami (Surfer)
   {
@@ -396,7 +486,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '0人（処女だが知識は豊富）',
     sensitivity: '知識過多で頭で感じるタイプ、声だけで濡れてしまう',
-    orgasmExperience: 'あり（自慰のみ、本番は未経験）'
+    orgasmExperience: 'あり（自慰のみ、本番は未経験）',
+    // 拡張フィールド
+    secretFetish: '官能小説で読んだプレイを全て試したい',
+    pastTrauma: '恋愛経験がなく姄想で終わっている',
+    forbiddenDesire: '図書館の書庫で実際に男性に犯されたい',
+    voiceType: '小さく震えた声、激しく責められると大きな声に',
+    nippleType: 'ピンクで大きめ、未経験でも敏感',
+    pubicHair: '黒髪で自然、未処理',
+    vaginalTightness: '処女、未知の領域',
+    clitorisSize: '小さめだが非常に敏感、読書だけで濡れる'
   },
   // 13. Juri (Hostess)
   {
@@ -429,7 +528,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '多数',
     sensitivity: 'プロなので演技も上手いが、愛撫には弱い',
-    orgasmExperience: 'あり（演技が多いが、本気でイくと凄い）'
+    orgasmExperience: 'あり（演技が多いが、本気でイくと凄い）',
+    // 拡張フィールド
+    secretFetish: 'お金なしで純粋に愛されたい言わば復讐',
+    pastTrauma: '枠営業と純粋な恋愛の区別がつかなくなっている',
+    forbiddenDesire: '本名で呼びかける男性に、プロから解放されたい',
+    voiceType: '艶やかな接客声、素は少し場末な北海道なまり',
+    nippleType: 'ピンクで小さめ、感度は高い',
+    pubicHair: '処理済み、接客業の身だしなみ',
+    vaginalTightness: '経験豊富だが、名器と評判',
+    clitorisSize: '普通サイズ、丁寧に責めると本気の声が出る'
   },
   // 14. Chiaki (Fitness Trainer)
   {
@@ -462,7 +570,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '筋肉への刺激に弱い、マッサージされると声が出る',
-    orgasmExperience: 'あり（膣圧が強い）'
+    orgasmExperience: 'あり（膣圧が強い）',
+    // 拡張フィールド
+    secretFetish: 'Sだが実は攻められると弱い、ギャップ萌え',
+    pastTrauma: 'トレーニングに没頭で恋愛は後回し',
+    forbiddenDesire: '会員さんとの禁断の関係、実はSからMに変わりたい',
+    voiceType: '体育会系の元気な声、感じると甘くなる',
+    nippleType: '小さめで引き締まっている、感度は普通',
+    pubicHair: '処理済み、スポーツ選手らしい身だしなみ',
+    vaginalTightness: '筋肉質で膣圧が強い、紞り上げるような締まり',
+    clitorisSize: '普通サイズ、運動後は敏感になる'
   },
   // 15. Sayaka (Flight Attendant)
   {
@@ -495,7 +612,16 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '8人',
     sensitivity: '足と耳への刺激に弱く、ストッキング越しに触られると興奮する',
-    orgasmExperience: 'あり（絶頂時は声を抑えられない）'
+    orgasmExperience: 'あり（絶頂時は声を抑えられない）',
+    // 拡張フィールド
+    secretFetish: '制服を着たまま犯されることに実は憧れ',
+    pastTrauma: '不倫相手に裏切られ、本気の恋愛を諸めている',
+    forbiddenDesire: 'フライト中のトイレで、ステイ先のホテルで、犯されたい',
+    voiceType: '美しい標準語、感じると艶っぽく乱れる',
+    nippleType: 'ピンクで小ぶり、経験豊富で敏感',
+    pubicHair: '完全処理済み、プロ意識の身だしなみ',
+    vaginalTightness: '経験豊富だが、指対策で締まりが良い',
+    clitorisSize: '普通サイズ、ストッキング越しに触れると特に感じる'
   },
   // 16-97. New Characters to reach 107
   {
