@@ -23,6 +23,32 @@ export const AVAILABLE_TEXT_MODELS = [
     name: 'Grok 4.1 Fast',
     description: '高速、高品質、無検閲、日本語OK',
     price: '$3/M'
+  },
+  // === S tier NSFW特化モデル ===
+  {
+    id: 'sao10k/l3.1-euryale-70b',
+    name: '🔥 Euryale 70B v2.2',
+    description: 'NSFW特化、官能描写が自然、コミュニティ定評',
+    price: '$0.35-0.40/M'
+  },
+  {
+    id: 'cognitivecomputations/dolphin-llama-3-70b',
+    name: '🔥 Dolphin Llama3 70B',
+    description: '完全無検閲、高品質、長文対応',
+    price: '$0.35/M'
+  },
+  {
+    id: 'gryphe/mythomax-l2-13b',
+    name: '🔥 MythoMax L2 13B',
+    description: '想像力豊か、無制限RP、無料〜安価',
+    price: '無料〜安価'
+  },
+  // === 追加おすすめモデル ===
+  {
+    id: 'deepseek/deepseek-v3.2-exp',
+    name: 'DeepSeek V3.2 Exp',
+    description: '最新実験版、無料枠、ERP対応可能性',
+    price: '無料〜安価'
   }
 ];
 
