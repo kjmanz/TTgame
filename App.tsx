@@ -242,7 +242,10 @@ function App() {
         ]
       }));
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 一括生成モードの場合のみ上部へスクロール（ストリーミング時はスクロールしない）
+      if (!useStreaming) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } catch (err) {
       console.error(err);
       const errorMessage = err instanceof Error ? err.message : "物語の開始に失敗しました。";
@@ -372,7 +375,10 @@ function App() {
         ]
       }));
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 一括生成モードの場合のみ上部へスクロール（ストリーミング時はスクロールしない）
+      if (!useStreaming) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } catch (err) {
       console.error(err);
       setState(prev => ({
