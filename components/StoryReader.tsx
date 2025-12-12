@@ -748,7 +748,7 @@ const StoryReader: React.FC<Props> = ({
                   setIsChoiceModalOpen(false);
                   onRegenerate();
                 }}
-                disabled={isLoading || history.length < 2}
+                disabled={isLoading}
                 className="w-full py-3 rounded-xl bg-indigo-900 text-indigo-100 font-serif font-semibold tracking-widest shadow-md hover:bg-indigo-800 transition-colors disabled:opacity-50"
               >
                 🔄 次の行動を再生成
