@@ -1055,8 +1055,34 @@ ${(chapter === 1 && part <= 2) ? `
 import { getStoredImageModel, getStoredXaiApiKey, getStoredImageStyle } from "../components/ApiKeyScreen";
 
 // Helper to extract image URL from content
-const extractImageUrlFromContent = (content: string | undefined | null): string | null => {
+const extractImageUrlFromContent = (content: unknown): string | null => {
     if (!content) return null;
+
+    // Handle array-based content (OpenAI style)
+    if (Array.isArray(content)) {
+        for (const item of content) {
+            // Direct image_url object
+            if (item && typeof item === 'object' && 'image_url' in item) {
+                const url = (item as { image_url?: { url?: string } }).image_url?.url;
+                if (url) return url;
+            }
+
+            // Nested text content
+            if (item && typeof item === 'object' && 'text' in item) {
+                const nested = extractImageUrlFromContent((item as { text?: unknown }).text);
+                if (nested) return nested;
+            }
+
+            // String item
+            if (typeof item === 'string') {
+                const nested = extractImageUrlFromContent(item);
+                if (nested) return nested;
+            }
+        }
+        return null;
+    }
+
+    if (typeof content !== 'string') return null;
 
     // 0. Clean content
     const cleanContent = content.trim();
