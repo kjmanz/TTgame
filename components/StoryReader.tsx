@@ -66,6 +66,11 @@ const StoryReader: React.FC<Props> = ({
   const [customSceneInput, setCustomSceneInput] = useState('');
   const [showCustomScene, setShowCustomScene] = useState(false);
 
+  const closeChoiceModal = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setIsChoiceModalOpen(false);
+  };
+
   const textRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
 
@@ -724,7 +729,7 @@ const StoryReader: React.FC<Props> = ({
         <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-0 sm:p-4">
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
-            onClick={() => setIsChoiceModalOpen(false)}
+            onClick={closeChoiceModal}
           />
 
           <div className="relative bg-[#fcfaf5] w-full max-w-xl rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[85vh]">
@@ -734,7 +739,8 @@ const StoryReader: React.FC<Props> = ({
                 <span>◇</span> 選択肢
               </h3>
               <button
-                onClick={() => setIsChoiceModalOpen(false)}
+                type="button"
+                onClick={closeChoiceModal}
                 className="text-white/50 hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
