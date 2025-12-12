@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PlayPreferences, DEFAULT_PREFERENCES } from '../types';
 
 const API_KEY_STORAGE_KEY = 'openrouter_api_key';
 const XAI_API_KEY_STORAGE_KEY = 'xai_api_key';
@@ -6,6 +7,7 @@ const MODEL_STORAGE_KEY = 'openrouter_model';
 const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 const IMAGE_STYLE_STORAGE_KEY = 'image_style';
 const STREAMING_MODE_STORAGE_KEY = 'streaming_mode';
+const PREFERENCES_STORAGE_KEY = 'play_preferences';
 
 // 利用可能な文章生成モデル一覧
 // ※推奨モデルのみに絞っています
@@ -37,6 +39,12 @@ export const AVAILABLE_IMAGE_MODELS = [
     name: 'Grok 2 Image',
     description: 'xAI画像生成（要xAI APIキー）',
     price: '$0.01/枚'
+  },
+  {
+    id: 'black-forest-labs/flux-1.1-pro',
+    name: 'FLUX 1.1 Pro',
+    description: 'OpenRouter経由、高品質画像生成',
+    price: '$0.04/枚'
   }
 ];
 
@@ -115,6 +123,23 @@ export const getStoredStreamingMode = (): boolean => {
 
 export const setStoredStreamingMode = (enabled: boolean): void => {
   localStorage.setItem(STREAMING_MODE_STORAGE_KEY, enabled.toString());
+};
+
+// Play Preferences: プレイ嗜好設定
+export const getStoredPreferences = (): PlayPreferences => {
+  const stored = localStorage.getItem(PREFERENCES_STORAGE_KEY);
+  if (stored) {
+    try {
+      return { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) };
+    } catch {
+      return DEFAULT_PREFERENCES;
+    }
+  }
+  return DEFAULT_PREFERENCES;
+};
+
+export const setStoredPreferences = (prefs: PlayPreferences): void => {
+  localStorage.setItem(PREFERENCES_STORAGE_KEY, JSON.stringify(prefs));
 };
 
 const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {

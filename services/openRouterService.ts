@@ -1,7 +1,132 @@
-import { Character, HistoryItem, SceneCandidate } from "../types";
-import { getStoredApiKey, getStoredModel } from "../components/ApiKeyScreen";
+import { Character, HistoryItem, SceneCandidate, PlayPreferences } from "../types";
+import { getStoredApiKey, getStoredModel, getStoredPreferences } from "../components/ApiKeyScreen";
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+
+// ===========================================
+// 嗜好設定をプロンプトに変換する関数
+// ===========================================
+const buildPreferencePrompt = (prefs: PlayPreferences): string => {
+    const sections: string[] = [];
+
+    // A. メインシチュエーション
+    const situationMap: Record<string, string> = {
+        'pure_love': '【シチュエーション：純愛】ロマンチックで甘い展開を重視してください。お互いの気持ちを確かめ合いながら進む純粋な恋愛物語です。',
+        'affair': '【シチュエーション：不倫】禁断の関係という背徳感を強調してください。既婚者との秘密の逢瀬、バレてはいけないスリル、罪悪感と快楽の狭間で揺れる心理を描写。',
+        'ntr_take': '【シチュエーション：寝取り（攻め）】この女性には彼氏または夫がいます。タケルがその女性を奪い取る征服感、優越感を描写してください。「あいつより俺の方がいいだろ？」等のセリフを含めて。',
+        'ntr_taken': '【シチュエーション：寝取られ（受け）】物語中に女性が他の男性に心変わりしていく、または他の男性のことを考えている様子を描写してください。タケルの嫉妬と焦りを表現。',
+        'sm_dom': '【シチュエーション：SM（S側）】タケルが支配者として女性を調教します。命令口調、拘束、言葉責め、罰と褒美の使い分けを含めてください。「許可なく声を出すな」「いい子だ」等のセリフ。',
+        'sm_sub': '【シチュエーション：SM（M側）】女性がタケルを責める側です。女王様キャラとして振る舞い、タケルに命令し、焦らし、言葉責めをする描写。「まだダメよ」「許可した？」等のセリフ。',
+        'oneshota': '【シチュエーション：おねショタ風】年上女性が母性的にリードする展開。タケルを甘やかし、優しく導く。「大丈夫、私に任せて」「こうするの、わかる？」等のセリフ。',
+        'reverse_rape': '【シチュエーション：逆レイプ】女性から強引に迫られる展開。タケルは押し倒される側。女性が主導権を握り、タケルの拒否を押し切る（同意の上のロールプレイ）。',
+        'molester': '【シチュエーション：痴漢】電車、バス、映画館など公共の場での秘密の行為。周囲にバレないようにしながら、声を殺して行う興奮。「声出したらバレるよ」等のセリフ。',
+        'exhibitionism': '【シチュエーション：露出】野外、窓際、人が来そうな場所での行為。見られるかもしれないスリルと興奮。「誰か来たらどうする？」「見せつけてやろうか」等のセリフ。'
+    };
+    sections.push(situationMap[prefs.mainSituation] || '');
+
+    // B. 関係性ダイナミクス
+    if (prefs.relationshipDynamics.length > 0) {
+        const dynamicsMap: Record<string, string> = {
+            'boss_subordinate': '上司と部下の関係性（権力関係、仕事中の緊張感）',
+            'age_gap_older': '年上女性と年下男性の関係性（敬語崩壊、年齢差の描写）',
+            'first_meeting': '初対面の関係性（名前も知らない、運命的な出会い）',
+            'ex_partner': '元恋人の関係性（過去の記憶、体が覚えている）',
+            'childhood_friend': '幼馴染の関係性（長年の想い、「ずっと好きだった」）',
+            'teacher_student': '師弟関係（教える側と教わる側のダイナミクス）'
+        };
+        const dynamicsList = prefs.relationshipDynamics.map(d => dynamicsMap[d]).filter(Boolean).join('、');
+        sections.push(`【関係性要素】以下の関係性要素を物語に反映させてください：${dynamicsList}`);
+    }
+
+    // C. プレイ内容の好み
+    if (prefs.foreplayPreferences.length > 0) {
+        const foreplayMap: Record<string, string> = {
+            'kissing': '長いキス・ディープキス・舌の絡み合い',
+            'breast_play': '胸責め・乳首責め・パイズリ',
+            'cunnilingus': 'クンニ・舐め描写・愛液の味',
+            'fellatio': 'フェラ・奉仕シーン・喉奥',
+            'fingering': '手マン・指の動き・Gスポット',
+            'teasing': '焦らしプレイ・じらして我慢させる',
+            'dirty_talk': '言葉責め・淫語を言わせる'
+        };
+        const foreplayList = prefs.foreplayPreferences.map(f => foreplayMap[f]).filter(Boolean).join('、');
+        sections.push(`【前戯の重点】以下の前戯を重点的に描写してください：${foreplayList}`);
+    }
+
+    if (prefs.positionPreferences.length > 0) {
+        const positionMap: Record<string, string> = {
+            'missionary': '正常位（見つめ合い、キスしながら）',
+            'doggy': '後背位（獣のように、支配感）',
+            'cowgirl': '騎乗位（女性主導、見下ろす視点）',
+            'standing': '立位（壁ドン、立ったまま）',
+            'sitting': '座位（密着、抱きしめながら）'
+        };
+        const positionList = prefs.positionPreferences.map(p => positionMap[p]).filter(Boolean).join('、');
+        sections.push(`【好みの体位】以下の体位を物語に含めてください：${positionList}`);
+    }
+
+    if (prefs.finishPreferences.length > 0) {
+        const finishMap: Record<string, string> = {
+            'creampie': '中出し（膣内射精、精液が溢れる描写）',
+            'facial': '顔射（顔にかける、汚す）',
+            'oral_finish': '口内射精（飲ませる、味の描写）',
+            'pull_out': '外出し（お腹や胸に射精）'
+        };
+        const finishList = prefs.finishPreferences.map(f => finishMap[f]).filter(Boolean).join('、');
+        sections.push(`【フィニッシュ】以下のフィニッシュを描写してください：${finishList}`);
+    }
+
+    // D. 女性の反応タイプ
+    const reactionMap: Record<string, string> = {
+        'shy': '【女性反応：恥じらい型】「ダメ…見ないで…」「恥ずかしい…」顔を隠す、声を押し殺す、手で口を覆う、目を逸らす。',
+        'honest': '【女性反応：素直型】「気持ちいい…もっと…」「そこ…好き…」正直に快感を表現、素直に体を委ねる。',
+        'tsundere': '【女性反応：ツンデレ型】「べ、別に感じてないし…」「勘違いしないで」口では否定しつつ体は正直に反応。',
+        'lewd': '【女性反応：淫乱型】「もっと激しく！」「壊れちゃう…もっと！」自分から積極的に求め、快楽を貪欲に求める。',
+        'silent': '【女性反応：無口型】言葉少なく、体の反応（震え、痙攣、締め付け）と表情・吐息で快感を表現。',
+        'begging': '【女性反応：おねだり型】「お願い…入れて…」「もう我慢できない…」懇願し、自分からねだる。',
+        'dominant': '【女性反応：ドS型】「まだイっちゃダメよ」「許可した覚えはないわ」タケルを責める側として振る舞う。'
+    };
+    sections.push(reactionMap[prefs.femaleReactionType] || '');
+
+    // F. フェチ強調
+    if (prefs.fetishEmphasis.length > 0) {
+        const fetishMap: Record<string, string> = {
+            'feet': '足・太もも・ストッキング・足の指・足裏',
+            'breasts': '胸・乳房・乳首・谷間・揺れ・柔らかさ',
+            'butt': 'お尻・ヒップライン・たたく・揉む',
+            'smell': '体臭・汗の匂い・香水・下着の匂い・首筋の香り',
+            'voice': '喘ぎ声・吐息・囁き・声のトーン変化・声を我慢する様子',
+            'sweat': '汗ばむ肌・湿った髪・べたつき・体温上昇',
+            'uniform': '制服・OL服・ナース服・着衣のまま・服を乱す',
+            'underwear': '下着・ランジェリー・下着をずらす・下着越しの刺激',
+            'saliva': '唾液・糸を引くキス・涎・舐め合い',
+            'hair': '陰毛・下の毛・毛の感触'
+        };
+        const fetishList = prefs.fetishEmphasis.map(f => fetishMap[f]).filter(Boolean).join('、');
+        sections.push(`【フェチ強調】以下の要素を特に詳細に描写してください：${fetishList}`);
+    }
+
+    // 比較セリフシステム
+    if (prefs.comparisonEnabled) {
+        const targetMap: Record<string, string> = {
+            'ex_boyfriend': '元彼',
+            'current_boyfriend': '今彼',
+            'husband': '旦那'
+        };
+        const targetName = targetMap[prefs.comparisonTarget] || '元彼';
+        sections.push(`【比較セリフ】行為中、女性は「${targetName}」と比較するセリフを言ってください。
+例：
+- 「${targetName}よりずっと大きい…」
+- 「${targetName}はこんなこと…してくれなかった…」
+- 「${targetName}より上手…」
+- 「${targetName}のときはこんなに感じなかったのに…」
+- 「もう${targetName}には戻れない…」
+これらのようなセリフを自然に挿入してください。`);
+    }
+
+    return sections.filter(s => s.length > 0).join('\n\n');
+};
+
 
 // テキストクリーニング関数: Grokなどのモデルが出力する余計なメタ情報を除去
 const cleanStoryText = (text: string): string => {
@@ -225,7 +350,18 @@ export const generateStorySegment = async (
         throw new Error("APIキーが設定されていません");
     }
 
+    // ユーザーの嗜好設定を取得してプロンプトに変換
+    const userPreferences = getStoredPreferences();
+    const preferencePrompt = buildPreferencePrompt(userPreferences);
+
     const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+${preferencePrompt ? `
+===========================================
+【ユーザー嗜好設定（最優先で反映）】
+===========================================
+${preferencePrompt}
+` : ''}
 
 【現在執筆中のキャラクター】
 名前: ${character.name}
@@ -480,7 +616,18 @@ export const generateStorySegmentStreaming = async (
         throw new Error("APIキーが設定されていません");
     }
 
+    // ユーザーの嗜好設定を取得してプロンプトに変換
+    const userPreferences = getStoredPreferences();
+    const preferencePrompt = buildPreferencePrompt(userPreferences);
+
     const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+${preferencePrompt ? `
+===========================================
+【ユーザー嗜好設定（最優先で反映）】
+===========================================
+${preferencePrompt}
+` : ''}
 
 【現在執筆中のキャラクター】
 名前: ${character.name}
@@ -816,7 +963,12 @@ export const generateSceneImage = async (character: Character, sceneText: string
         return generateImageWithXai(imagePrompt);
     }
 
-    // OpenRouter経由の場合（現在は使用しない）
+    // FLUX モデルの場合 (OpenRouter経由)
+    if (imageModel.startsWith('black-forest-labs/')) {
+        return generateImageWithFlux(imagePrompt, imageModel);
+    }
+
+    // その他のOpenRouter経由モデルの場合
     const apiKey = getStoredApiKey();
     if (!apiKey) {
         throw new Error("APIキーが設定されていません");
@@ -965,6 +1117,75 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
         if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
             throw new Error("xAI APIへの接続に失敗しました。ネットワーク接続を確認してください。CORSエラーの可能性もあります。");
         }
+        throw error;
+    }
+};
+
+// FLUX (OpenRouter経由) で画像生成
+const generateImageWithFlux = async (prompt: string, model: string): Promise<string | null> => {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("OpenRouter APIキーが設定されていません。");
+    }
+
+    console.log("FLUX Image generation request:", {
+        model: model,
+        promptLength: prompt.length
+    });
+
+    try {
+        // OpenRouter の画像生成APIを使用
+        const response = await fetch('https://openrouter.ai/api/v1/images/generations', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.origin,
+                'X-Title': "Takeru's Tales"
+            },
+            body: JSON.stringify({
+                model: model,
+                prompt: prompt,
+                n: 1,
+                size: '768x1024'  // 縦長ポートレート
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("FLUX Image generation API error response:", errorText);
+
+            let errorData;
+            try {
+                errorData = JSON.parse(errorText);
+            } catch {
+                errorData = { message: errorText };
+            }
+
+            if (response.status === 401) {
+                throw new Error("OpenRouter APIキーが無効です。");
+            }
+            if (response.status === 402) {
+                throw new Error("OpenRouter API料金が不足しています。クレジットを追加してください。");
+            }
+            throw new Error(`FLUX画像生成エラー (${response.status}): ${errorData?.error?.message || errorData?.message || "不明なエラー"}`);
+        }
+
+        const data = await response.json();
+        console.log("FLUX Image generation response:", data);
+
+        // 画像URLを取得
+        if (data.data?.[0]?.url) {
+            return data.data[0].url;
+        }
+        if (data.data?.[0]?.b64_json) {
+            return `data:image/png;base64,${data.data[0].b64_json}`;
+        }
+
+        console.warn("No image found in FLUX response:", data);
+        return null;
+    } catch (error) {
+        console.error("FLUX Image generation failed:", error);
         throw error;
     }
 };

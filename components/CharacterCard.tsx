@@ -12,7 +12,7 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
   // Remove leading zeros using parseInt
   const numericId = parseInt(character.id.split('_')[0], 10).toString();
   // Use relative path that works with Vite/GitHub Pages
-  const imageUrl = `./characters/${numericId}.jpg`;
+  const imageUrl = `./characters/${numericId}.png`;
 
   return (
     <div

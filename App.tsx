@@ -5,6 +5,7 @@ import CharacterCard from './components/CharacterCard';
 import StoryReader from './components/StoryReader';
 import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
+import PreferenceSettings from './components/PreferenceSettings';
 import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
 
 const SAVE_KEY = 'takeru_tales_save_data_v2';
@@ -31,6 +32,8 @@ function App() {
   const [retryAction, setRetryAction] = useState<(() => void) | null>(null);
   // Model selector modal
   const [showModelSelector, setShowModelSelector] = useState(false);
+  // Preference settings modal
+  const [showPreferenceSettings, setShowPreferenceSettings] = useState(false);
 
   const [saveDataInfo, setSaveDataInfo] = useState<{
     charName: string;
@@ -712,8 +715,14 @@ function App() {
         {state.currentPhase === 'SELECTION' && (
           <div className="flex flex-col items-center">
 
-            {/* Settings Button */}
-            <div className="w-full max-w-6xl flex justify-end mb-4">
+            {/* Settings Buttons */}
+            <div className="w-full max-w-6xl flex justify-end gap-2 mb-4">
+              <button
+                onClick={() => setShowPreferenceSettings(true)}
+                className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-gray-200 border border-white/10 px-4 py-2 rounded-lg transition-all text-sm"
+              >
+                🎭 嗜好設定
+              </button>
               <button
                 onClick={() => setShowModelSelector(true)}
                 className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-gray-200 border border-white/10 px-4 py-2 rounded-lg transition-all text-sm"
@@ -798,6 +807,11 @@ function App() {
       {/* Model Selector Modal */}
       {showModelSelector && (
         <ModelSelector onClose={() => setShowModelSelector(false)} />
+      )}
+
+      {/* Preference Settings Modal */}
+      {showPreferenceSettings && (
+        <PreferenceSettings onClose={() => setShowPreferenceSettings(false)} />
       )}
     </div>
   );
