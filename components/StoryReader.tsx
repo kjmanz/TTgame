@@ -21,6 +21,7 @@ interface Props {
   sceneCandidates: SceneCandidate[] | null;
   onSelectScene: (scene: SceneCandidate) => void;
   onCancelSceneSelection: () => void;
+  onRegenerateScenes: () => void;
 }
 
 const StoryReader: React.FC<Props> = ({
@@ -42,7 +43,8 @@ const StoryReader: React.FC<Props> = ({
   isSelectingScene,
   sceneCandidates,
   onSelectScene,
-  onCancelSceneSelection
+  onCancelSceneSelection,
+  onRegenerateScenes
 }) => {
   const [customInput, setCustomInput] = useState('');
   const [editPrompt, setEditPrompt] = useState('');
@@ -282,10 +284,16 @@ const StoryReader: React.FC<Props> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 border-t border-white/5 bg-[#151518]">
+            <div className="p-4 border-t border-white/5 bg-[#151518] flex gap-2">
+              <button
+                onClick={onRegenerateScenes}
+                className="flex-1 py-3 bg-purple-900/50 hover:bg-purple-800 text-purple-200 hover:text-white font-serif text-sm tracking-wider transition-colors rounded-lg border border-purple-500/30"
+              >
+                🔄 シーン更新
+              </button>
               <button
                 onClick={onCancelSceneSelection}
-                className="w-full py-3 text-gray-400 hover:text-white font-serif text-sm tracking-wider transition-colors"
+                className="flex-1 py-3 text-gray-400 hover:text-white font-serif text-sm tracking-wider transition-colors rounded-lg border border-white/10 hover:border-white/20"
               >
                 キャンセル
               </button>

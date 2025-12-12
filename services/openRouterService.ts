@@ -1054,9 +1054,37 @@ ${(chapter === 1 && part <= 2) ? `
 
 import { getStoredImageModel, getStoredXaiApiKey, getStoredImageStyle } from "../components/ApiKeyScreen";
 
+// NSFW プロンプトのサニタイズ関数
+const sanitizeNsfwPrompt = (prompt: string): string => {
+    // 露骨な性的表現を婉曲的な表現に置き換える
+    const nsfwKeywords = [
+        { pattern: /\b(naked|nude|topless|bottomless)\b/gi, replacement: 'undressed' },
+        { pattern: /\b(nipples?|areola)\b/gi, replacement: 'chest' },
+        { pattern: /\b(vagina|pussy|vulva)\b/gi, replacement: 'intimate area' },
+        { pattern: /\b(penis|cock|dick)\b/gi, replacement: 'male anatomy' },
+        { pattern: /\b(sex|fucking|intercourse|penetration)\b/gi, replacement: 'intimate moment' },
+        { pattern: /\b(cum|cumming|ejaculat\w*|orgasm)\b/gi, replacement: 'climax' },
+        { pattern: /\b(erotic|explicit|xxx|nsfw)\b/gi, replacement: 'sensual' },
+        { pattern: /\b(masturbat\w*|touching herself|touching himself)\b/gi, replacement: 'self pleasure' },
+        { pattern: /\b(breasts? exposed|bare breasts?)\b/gi, replacement: 'upper body' },
+        { pattern: /\b(spread legs|open legs)\b/gi, replacement: 'relaxed pose' },
+        { pattern: /\b(wet|dripping|moist)\b/gi, replacement: 'glistening' },
+    ];
+
+    let sanitized = prompt;
+
+    // キーワードを置き換え
+    nsfwKeywords.forEach(({ pattern, replacement }) => {
+        sanitized = sanitized.replace(pattern, replacement);
+    });
+
+    return sanitized;
+};
+
 // 画像モデルはlocalStorageから取得
 const getImageModel = () => getStoredImageModel();
 const getImageStyle = () => getStoredImageStyle();
+
 
 // xAI API URL
 const XAI_API_URL = 'https://api.x.ai/v1/images/generations';
@@ -1549,6 +1577,11 @@ export const generateImageFromScene = async (
     // Ensure prompt is within limits and add quality enhancers
     let imagePrompt = scene.imagePrompt;
 
+    // NSFW プロンプトのサニタイズ（露骨なキーワードを除去）
+    if (scene.isNsfw) {
+        imagePrompt = sanitizeNsfwPrompt(imagePrompt);
+    }
+
     // ネガティブプロンプト要素を正方向表現で追加（品質向上）
     const qualityEnhancers = ', perfect hands, perfect fingers, anatomically correct, sharp focus, high resolution, professional quality';
     const negativeAvoidance = '. Avoid: blurry, low quality, distorted anatomy, extra limbs, deformed hands, bad proportions, watermark, text';
@@ -1559,12 +1592,18 @@ export const generateImageFromScene = async (
         imagePrompt = imagePrompt.slice(0, 1000);
     }
 
-    console.log(`Generating image for scene ${scene.id} with prompt:`, imagePrompt);
+    console.log(`Generating image for scene ${scene.id} (NSFW: ${scene.isNsfw}) with prompt:`, imagePrompt);
 
     // xAI Grok 2 Image の場合
     if (imageModel === 'grok-2-image-1212') {
         return generateImageWithXai(imagePrompt);
     }
+
+    // FLUX モデルの場合 (OpenRouter経由)
+    if (imageModel.startsWith('black-forest-labs/') || imageModel.startsWith('blackforestlabs/')) {
+        return generateImageWithFlux(imagePrompt, imageModel);
+    }
+
 
     // OpenRouter経由の場合
     const apiKey = getStoredApiKey();

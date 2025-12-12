@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { CHARACTERS } from './constants';
 import { Character, StoryState, StorySegment, HistoryItem, SceneCandidate } from './types';
 import CharacterCard from './components/CharacterCard';
+import CharacterFilter from './components/CharacterFilter';
 import StoryReader from './components/StoryReader';
 import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
@@ -35,12 +36,94 @@ function App() {
   // Preference settings modal
   const [showPreferenceSettings, setShowPreferenceSettings] = useState(false);
 
+  // Character filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [ageFilters, setAgeFilters] = useState<string[]>([]);
+  const [relationshipFilters, setRelationshipFilters] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<'id' | 'name' | 'age'>('id');
+
   const [saveDataInfo, setSaveDataInfo] = useState<{
     charName: string;
     chapter: number;
     part: number;
     date: string;
   } | null>(null);
+
+  // Filtered and sorted characters
+  const filteredCharacters = useMemo(() => {
+    let filtered = [...CHARACTERS];
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(char =>
+        char.name.toLowerCase().includes(query) ||
+        char.role.toLowerCase().includes(query) ||
+        char.workplace.toLowerCase().includes(query) ||
+        char.description.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply age filter
+    if (ageFilters.length > 0) {
+      filtered = filtered.filter(char => {
+        const age = char.age;
+        return ageFilters.some(filter => {
+          if (filter === '10s') return age >= 10 && age < 20;
+          if (filter === '20s') return age >= 20 && age < 30;
+          if (filter === '30s') return age >= 30 && age < 40;
+          if (filter === '40s') return age >= 40 && age < 50;
+          if (filter === '50s') return age >= 50;
+          return false;
+        });
+      });
+    }
+
+    // Apply relationship filter
+    if (relationshipFilters.length > 0) {
+      filtered = filtered.filter(char => {
+        return relationshipFilters.some(filter => {
+          const keywords = filter.split(',');
+          return keywords.some(keyword =>
+            char.relationship.includes(keyword)
+          );
+        });
+      });
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name, 'ja');
+      } else if (sortBy === 'age') {
+        return a.age - b.age;
+      } else {
+        // ID sorting (default)
+        const aNum = parseInt(a.id.split('_')[0], 10);
+        const bNum = parseInt(b.id.split('_')[0], 10);
+        return aNum - bNum;
+      }
+    });
+
+    return filtered;
+  }, [searchQuery, ageFilters, relationshipFilters, sortBy]);
+
+  // Filter toggle handlers
+  const handleAgeFilterToggle = useCallback((ageRange: string) => {
+    setAgeFilters(prev =>
+      prev.includes(ageRange)
+        ? prev.filter(f => f !== ageRange)
+        : [...prev, ageRange]
+    );
+  }, []);
+
+  const handleRelationshipFilterToggle = useCallback((relationship: string) => {
+    setRelationshipFilters(prev =>
+      prev.includes(relationship)
+        ? prev.filter(f => f !== relationship)
+        : [...prev, relationship]
+    );
+  }, []);
 
   // Check for save data on mount
   useEffect(() => {
@@ -593,6 +676,8 @@ function App() {
   // Select a scene and generate image
   const handleSelectScene = useCallback(async (scene: SceneCandidate) => {
     clearError();
+    // Preserve current sceneCandidates before clearing
+    const currentSceneCandidates = state.sceneCandidates;
     setState(prev => ({ ...prev, currentPhase: 'LOADING_IMAGE', sceneCandidates: null }));
 
     try {
@@ -615,14 +700,16 @@ function App() {
       });
     } catch (err) {
       console.error(err);
+      // Restore sceneCandidates on failure so user can try again
       setState(prev => ({
         ...prev,
-        currentPhase: 'READING',
-        error: "画像の生成に失敗しました。"
+        currentPhase: 'SELECTING_SCENE',
+        sceneCandidates: currentSceneCandidates,
+        error: "画像の生成に失敗しました。別のシーンを選ぶか、再試行してください。"
       }));
       setRetryAction(() => () => handleSelectScene(scene));
     }
-  }, [clearError]);
+  }, [state.sceneCandidates, clearError]);
 
   // Cancel scene selection
   const handleCancelSceneSelection = useCallback(() => {
@@ -632,6 +719,37 @@ function App() {
       sceneCandidates: null
     }));
   }, []);
+
+  // Regenerate scenes from current story
+  const handleRegenerateScenes = useCallback(async () => {
+    if (!state.selectedCharacter || !state.currentSegment) return;
+    clearError();
+
+    setState(prev => ({ ...prev, currentPhase: 'EXTRACTING_SCENES' }));
+
+    try {
+      const imageStyle = getStoredImageStyle() as 'photorealistic' | 'realistic_anime' | 'illustration_anime';
+      const scenes = await extractImageScenes(
+        state.selectedCharacter,
+        state.currentSegment.text,
+        imageStyle
+      );
+
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'SELECTING_SCENE',
+        sceneCandidates: scenes
+      }));
+    } catch (err) {
+      console.error(err);
+      setState(prev => ({
+        ...prev,
+        currentPhase: 'READING',
+        error: "シーンの再生成に失敗しました。"
+      }));
+      setRetryAction(() => () => handleRegenerateScenes());
+    }
+  }, [state, clearError]);
 
   // Edit Image
   const handleEditImage = useCallback(async (prompt: string) => {
@@ -721,8 +839,8 @@ function App() {
         {state.currentPhase === 'SELECTION' && (
           <div className="flex flex-col items-center">
 
-            {/* Settings Buttons */}
-            <div className="w-full max-w-6xl flex justify-end gap-2 mb-4">
+            {/* Settings Buttons - Made Sticky */}
+            <div className="sticky top-[72px] z-40 w-full max-w-6xl flex justify-end gap-2 mb-4 bg-[#0f0f12]/95 backdrop-blur-md py-3 px-4 rounded-lg">
               <button
                 onClick={() => setShowPreferenceSettings(true)}
                 className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-gray-200 border border-white/10 px-4 py-2 rounded-lg transition-all text-sm"
@@ -773,8 +891,22 @@ function App() {
               </p>
             </div>
 
+            {/* Character Filter */}
+            <CharacterFilter
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              ageFilters={ageFilters}
+              onAgeFilterToggle={handleAgeFilterToggle}
+              relationshipFilters={relationshipFilters}
+              onRelationshipFilterToggle={handleRelationshipFilterToggle}
+              sortBy={sortBy}
+              onSortChange={setSortBy}
+              resultCount={filteredCharacters.length}
+              totalCount={CHARACTERS.length}
+            />
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl pb-32">
-              {CHARACTERS.map(char => (
+              {filteredCharacters.map(char => (
                 <CharacterCard
                   key={char.id}
                   character={char}
@@ -803,6 +935,7 @@ function App() {
             sceneCandidates={state.sceneCandidates}
             onSelectScene={handleSelectScene}
             onCancelSceneSelection={handleCancelSceneSelection}
+            onRegenerateScenes={handleRegenerateScenes}
             generatedImageUrl={state.generatedImageUrl}
             onGenerateImage={handleGenerateImage}
             onEditImage={handleEditImage}
