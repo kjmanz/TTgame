@@ -90,7 +90,7 @@ export interface SceneCandidate {
 }
 
 export interface StoryState {
-  currentPhase: 'API_KEY_SETUP' | 'SELECTION' | 'LOADING_STORY' | 'STREAMING' | 'READING' | 'LOADING_IMAGE' | 'EDITING_IMAGE' | 'SELECTING_SCENE' | 'EXTRACTING_SCENES';
+  currentPhase: 'API_KEY_SETUP' | 'SELECTION' | 'LOADING_STORY' | 'STREAMING' | 'READING' | 'LOADING_IMAGE' | 'EDITING_IMAGE' | 'SELECTING_SCENE' | 'EXTRACTING_SCENES' | 'SELECTING_IMAGE';
   selectedCharacter: Character | null;
   history: HistoryItem[];
   currentSegment: StorySegment | null;
@@ -99,6 +99,7 @@ export interface StoryState {
   currentLocation: string | null;
   currentSummary: string; // The rolling summary of the story
   generatedImageUrl: string | null;
+  imageVariations: string[] | null; // Multiple image URLs for selection
   sceneCandidates: SceneCandidate[] | null; // Scene candidates for image generation
   streamingText: string | null; // Text being streamed in real-time
   error: string | null;

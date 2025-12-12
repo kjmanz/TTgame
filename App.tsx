@@ -4,7 +4,7 @@ import { Character, StoryState, StorySegment, HistoryItem, SceneCandidate } from
 import CharacterCard from './components/CharacterCard';
 import CharacterFilter from './components/CharacterFilter';
 import StoryReader from './components/StoryReader';
-import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode } from './components/ApiKeyScreen';
+import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode, getStoredImageCount } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
 import PreferenceSettings from './components/PreferenceSettings';
 import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
@@ -96,6 +96,7 @@ const getInitialState = (hasApiKey: boolean): StoryState => ({
   currentLocation: null,
   currentSummary: "", // Initialize summary
   generatedImageUrl: null,
+  imageVariations: null, // Multiple image URLs for selection
   sceneCandidates: null,
   streamingText: null,
   error: null
@@ -759,31 +760,74 @@ function App() {
     }
   }, [state, clearError]);
 
-  // Select a scene and generate image
+  // Select a scene and generate image(s)
   const handleSelectScene = useCallback(async (scene: SceneCandidate) => {
     clearError();
     // Preserve current sceneCandidates before clearing
     const currentSceneCandidates = state.sceneCandidates;
-    setState(prev => ({ ...prev, currentPhase: 'LOADING_IMAGE', sceneCandidates: null }));
+    setState(prev => ({ ...prev, currentPhase: 'LOADING_IMAGE', sceneCandidates: null, imageVariations: null }));
 
     try {
-      const imageUrl = await generateImageFromScene(scene);
+      // Get the image count setting (1, 2, or 4)
+      const imageCount = getStoredImageCount();
 
-      setState(prev => {
-        // Update the metadata of the last history item to include the new image url
-        const newHistory = [...prev.history];
-        const lastItem = newHistory[newHistory.length - 1];
-        if (lastItem && lastItem.role === 'model' && lastItem.meta) {
-          lastItem.meta.imageUrl = imageUrl;
+      if (imageCount === 1) {
+        // Single image: generate and set directly
+        const imageUrl = await generateImageFromScene(scene);
+
+        setState(prev => {
+          const newHistory = [...prev.history];
+          const lastItem = newHistory[newHistory.length - 1];
+          if (lastItem && lastItem.role === 'model' && lastItem.meta) {
+            lastItem.meta.imageUrl = imageUrl;
+          }
+          return {
+            ...prev,
+            currentPhase: 'READING',
+            generatedImageUrl: imageUrl,
+            imageVariations: null,
+            history: newHistory
+          };
+        });
+      } else {
+        // Multiple images: generate concurrently
+        const imagePromises = Array(imageCount).fill(null).map(() => generateImageFromScene(scene));
+        const results = await Promise.allSettled(imagePromises);
+
+        // Filter successful results
+        const successfulImages = results
+          .filter((r): r is PromiseFulfilledResult<string | null> => r.status === 'fulfilled' && r.value !== null)
+          .map(r => r.value as string);
+
+        if (successfulImages.length === 0) {
+          throw new Error('All image generations failed');
         }
 
-        return {
-          ...prev,
-          currentPhase: 'READING',
-          generatedImageUrl: imageUrl,
-          history: newHistory
-        };
-      });
+        if (successfulImages.length === 1) {
+          // Only one succeeded, use it directly without selection
+          setState(prev => {
+            const newHistory = [...prev.history];
+            const lastItem = newHistory[newHistory.length - 1];
+            if (lastItem && lastItem.role === 'model' && lastItem.meta) {
+              lastItem.meta.imageUrl = successfulImages[0];
+            }
+            return {
+              ...prev,
+              currentPhase: 'READING',
+              generatedImageUrl: successfulImages[0],
+              imageVariations: null,
+              history: newHistory
+            };
+          });
+        } else {
+          // Multiple succeeded, show selection
+          setState(prev => ({
+            ...prev,
+            currentPhase: 'SELECTING_IMAGE',
+            imageVariations: successfulImages
+          }));
+        }
+      }
     } catch (err) {
       console.error(err);
       // Restore sceneCandidates on failure so user can try again
@@ -804,6 +848,24 @@ function App() {
       currentPhase: 'READING',
       sceneCandidates: null
     }));
+  }, []);
+
+  // Select one image from the generated variations
+  const handleSelectImageVariation = useCallback((selectedImageUrl: string) => {
+    setState(prev => {
+      const newHistory = [...prev.history];
+      const lastItem = newHistory[newHistory.length - 1];
+      if (lastItem && lastItem.role === 'model' && lastItem.meta) {
+        lastItem.meta.imageUrl = selectedImageUrl;
+      }
+      return {
+        ...prev,
+        currentPhase: 'READING',
+        generatedImageUrl: selectedImageUrl,
+        imageVariations: null,
+        history: newHistory
+      };
+    });
   }, []);
 
   // Regenerate scenes from current story
@@ -1004,7 +1066,7 @@ function App() {
           </div>
         )}
 
-        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'STREAMING' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE' || state.currentPhase === 'EXTRACTING_SCENES' || state.currentPhase === 'SELECTING_SCENE') && state.selectedCharacter && (
+        {(state.currentPhase === 'READING' || state.currentPhase === 'LOADING_STORY' || state.currentPhase === 'STREAMING' || state.currentPhase === 'LOADING_IMAGE' || state.currentPhase === 'EDITING_IMAGE' || state.currentPhase === 'EXTRACTING_SCENES' || state.currentPhase === 'SELECTING_SCENE' || state.currentPhase === 'SELECTING_IMAGE') && state.selectedCharacter && (
           <StoryReader
             character={state.selectedCharacter}
             segment={state.currentSegment || { chapter: 1, part: 1, text: '', location: '', date: '', time: '', choices: [], isChapterEnd: false, summary: '' }}
@@ -1019,10 +1081,13 @@ function App() {
             isEditingImage={state.currentPhase === 'EDITING_IMAGE'}
             isExtractingScenes={state.currentPhase === 'EXTRACTING_SCENES'}
             isSelectingScene={state.currentPhase === 'SELECTING_SCENE'}
+            isSelectingImage={state.currentPhase === 'SELECTING_IMAGE'}
             sceneCandidates={state.sceneCandidates}
+            imageVariations={state.imageVariations}
             onSelectScene={handleSelectScene}
             onCancelSceneSelection={handleCancelSceneSelection}
             onRegenerateScenes={handleRegenerateScenes}
+            onSelectImageVariation={handleSelectImageVariation}
             generatedImageUrl={state.generatedImageUrl}
             onGenerateImage={handleGenerateImage}
             onEditImage={handleEditImage}

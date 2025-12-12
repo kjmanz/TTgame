@@ -19,10 +19,13 @@ interface Props {
   isEditingImage: boolean;
   isExtractingScenes: boolean;
   isSelectingScene: boolean;
+  isSelectingImage: boolean;
   sceneCandidates: SceneCandidate[] | null;
+  imageVariations: string[] | null;
   onSelectScene: (scene: SceneCandidate) => void;
   onCancelSceneSelection: () => void;
   onRegenerateScenes: () => void;
+  onSelectImageVariation: (imageUrl: string) => void;
 }
 
 const StoryReader: React.FC<Props> = ({
@@ -42,10 +45,13 @@ const StoryReader: React.FC<Props> = ({
   isEditingImage,
   isExtractingScenes,
   isSelectingScene,
+  isSelectingImage,
   sceneCandidates,
+  imageVariations,
   onSelectScene,
   onCancelSceneSelection,
-  onRegenerateScenes
+  onRegenerateScenes,
+  onSelectImageVariation
 }) => {
   const [customInput, setCustomInput] = useState('');
   const [editPrompt, setEditPrompt] = useState('');
@@ -336,8 +342,8 @@ const StoryReader: React.FC<Props> = ({
                 <button
                   onClick={() => setShowPromptPreview(!showPromptPreview)}
                   className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${showPromptPreview
-                      ? 'bg-indigo-900/30 border-indigo-500 text-indigo-200'
-                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                    ? 'bg-indigo-900/30 border-indigo-500 text-indigo-200'
+                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
                     }`}
                 >
                   {showPromptPreview ? '🔍 プロンプト非表示' : '🔍 プロンプト表示'}
@@ -345,8 +351,8 @@ const StoryReader: React.FC<Props> = ({
                 <button
                   onClick={() => setShowCustomScene(!showCustomScene)}
                   className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${showCustomScene
-                      ? 'bg-pink-900/30 border-pink-500 text-pink-200'
-                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                    ? 'bg-pink-900/30 border-pink-500 text-pink-200'
+                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
                     }`}
                 >
                   {showCustomScene ? '✕ カスタム閉じる' : '✏️ カスタムシーン'}
@@ -368,6 +374,52 @@ const StoryReader: React.FC<Props> = ({
               >
                 キャンセル
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Selection Modal */}
+      {isSelectingImage && imageVariations && imageVariations.length > 0 && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#1a1a1d] border border-white/10 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
+            {/* Modal Header */}
+            <div className="p-4 border-b border-white/5 bg-gradient-to-r from-indigo-900/30 to-purple-900/30">
+              <h2 className="text-lg font-serif font-bold text-gray-100 tracking-wider">
+                🖼️ 画像を選択
+              </h2>
+              <p className="text-xs text-gray-400 mt-1 font-serif">
+                {imageVariations.length}枚の画像が生成されました。お好みの画像をタップして選択してください。
+              </p>
+            </div>
+
+            {/* Image Grid */}
+            <div className="flex-1 overflow-y-auto p-4">
+              <div className={`grid gap-4 ${imageVariations.length === 2 ? 'grid-cols-2' : 'grid-cols-2'}`}>
+                {imageVariations.map((imageUrl, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onSelectImageVariation(imageUrl)}
+                    className="relative group rounded-xl overflow-hidden border-2 border-transparent hover:border-purple-500 transition-all duration-300 aspect-square bg-[#222228]"
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={`バリエーション ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+                      <span className="text-white font-serif text-sm tracking-wider bg-purple-600 px-4 py-2 rounded-lg">
+                        ✓ この画像を選択
+                      </span>
+                    </div>
+                    {/* Number badge */}
+                    <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                      <span className="text-white text-sm font-bold">{index + 1}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
