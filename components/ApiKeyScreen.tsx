@@ -26,29 +26,29 @@ export const AVAILABLE_TEXT_MODELS = [
   },
   // === S tier NSFW特化モデル ===
   {
-    id: 'sao10k/l3.1-euryale-70b',
-    name: '🔥 Euryale 70B v2.2',
-    description: 'NSFW特化、官能描写が自然、コミュニティ定評',
-    price: '$0.35-0.40/M'
+    id: 'sao10k/l3.3-euryale-70b',
+    name: '🔥 Euryale 70B v2.3',
+    description: 'NSFW特化、最新Llama3.3版、官能描写が自然',
+    price: '$0.40/M'
   },
   {
-    id: 'cognitivecomputations/dolphin-llama-3-70b',
-    name: '🔥 Dolphin Llama3 70B',
-    description: '完全無検閲、高品質、長文対応',
-    price: '$0.35/M'
+    id: 'cognitivecomputations/dolphin3.0-r1-mistral-24b',
+    name: '🔥 Dolphin 3.0 R1 24B',
+    description: '完全無検閲、Mistralベース、高品質',
+    price: '$0.14/M'
   },
   {
     id: 'gryphe/mythomax-l2-13b',
     name: '🔥 MythoMax L2 13B',
-    description: '想像力豊か、無制限RP、無料〜安価',
+    description: '想像力豊か、無制限RP（日本語強制）',
     price: '無料〜安価'
   },
   // === 追加おすすめモデル ===
   {
-    id: 'deepseek/deepseek-v3.2-exp',
-    name: 'DeepSeek V3.2 Exp',
-    description: '最新実験版、無料枠、ERP対応可能性',
-    price: '無料〜安価'
+    id: 'eva-unit-01/eva-llama-3.33-70b',
+    name: 'EVA Llama 3.33 70B',
+    description: 'RP・創作特化、無検閲',
+    price: '$0.40/M'
   }
 ];
 
