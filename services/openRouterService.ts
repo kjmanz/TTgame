@@ -190,6 +190,11 @@ const buildPreferencePrompt = (prefs: PlayPreferences): string => {
         sections.push(`【フェチ強調】以下の要素を特に詳細に描写してください：${fetishList}`);
     }
 
+    // 呼び方の親密化設定
+    sections.push(prefs.dynamicCallingEnabled
+        ? '【呼び方の親密化】キャラクター設定にあるデフォルトの呼び方を起点に、章・パートの進行や行為の盛り上がりに合わせて、敬称→名前呼び捨て→愛称など少しずつ親密な呼称へ変化させてください。唐突に変えず、親密度の積み上げを描写しながら段階的に行うこと。'
+        : '【呼び方固定モード】どのパートでもキャラクター設定のデフォルトの呼び方を変えずに使い続け、親密さが増しても呼称を崩さないでください。');
+
     // 比較セリフシステム
     if (prefs.comparisonEnabled) {
         const targetMap: Record<string, string> = {
@@ -475,6 +480,14 @@ export const generateStorySegment = async (
     // ユーザーの嗜好設定を取得してプロンプトに変換
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
+    const callingStyleInstruction = userPreferences.dynamicCallingEnabled
+        ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。`
+        : `- 主人公を呼ぶときは常に「${character.callingTakeru}」。物語の進行や盛り上がりに関係なく呼び方を変えないでください。`;
+
+    const callingSafetyRule = userPreferences.dynamicCallingEnabled
+        ? '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
+        : `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`;
+
     const innerThoughtsEnabled = getStoredInnerThoughtsMode();
 
     // 内心モード用プロンプト（条件付き）
@@ -548,11 +561,11 @@ ${character.clitorisSize ? `クリトリス: ${character.clitorisSize}` : ''}
 4. **セリフの口調**:
    - 「${character.speechTone}」の口調を維持してください
    - 一人称「${character.firstPerson}」を使ってください
-   - 主人公を「${character.callingTakeru}」と呼んでください
+   ${callingStyleInstruction}
 
 **【絶対禁止：呼び方のルール】**
 - **女性が主人公を「お前」と呼ぶことは絶対に禁止です。**
-- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。
+- ${callingSafetyRule}
 - 「あなた」「きみ」程度は許容しますが、「お前」「てめえ」などは絶対にNGです。
 
 
@@ -771,6 +784,14 @@ export const generateStorySegmentStreaming = async (
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
 
+    const callingStyleInstruction = userPreferences.dynamicCallingEnabled
+        ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。`
+        : `- 主人公を呼ぶときは常に「${character.callingTakeru}」。物語の進行や盛り上がりに関係なく呼び方を変えないでください。`;
+
+    const callingSafetyRule = userPreferences.dynamicCallingEnabled
+        ? '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
+        : `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`;
+
     const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
 
 ${preferencePrompt ? `
@@ -814,11 +835,11 @@ ${preferencePrompt}
 4. **セリフの口調**:
    - 「${character.speechTone}」の口調を維持してください
    - 一人称「${character.firstPerson}」を使ってください
-   - 主人公を「${character.callingTakeru}」と呼んでください
+   ${callingStyleInstruction}
 
 **【絶対禁止：呼び方のルール】**
 - **女性が主人公を「お前」と呼ぶことは絶対に禁止です。**
-- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。
+- ${callingSafetyRule}
 - 「あなた」「きみ」程度は許容しますが、「お前」「てめえ」などは絶対にNGです。
 
 

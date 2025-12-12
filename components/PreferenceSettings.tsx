@@ -409,6 +409,28 @@ const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({ onClose }) => {
                         <>
                             <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-4">
                                 <p className="text-sm text-gray-300 leading-relaxed">
+                                    物語が進行したり盛り上がったりすると、女性が主人公を呼ぶときの距離感を
+                                    少しずつ親密に変化させます。オフにすると常にデフォルトの呼び方のまま固定されます。
+                                </p>
+                            </div>
+
+                            <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 mb-6">
+                                <div>
+                                    <div className="font-bold text-white">呼び方の親密化を有効化</div>
+                                    <div className="text-xs text-gray-500">進行度や盛り上がりに応じて呼び方を変える</div>
+                                </div>
+                                <button
+                                    onClick={() => setPrefs({ ...prefs, dynamicCallingEnabled: !prefs.dynamicCallingEnabled })}
+                                    className={`w-14 h-8 rounded-full transition-all relative ${prefs.dynamicCallingEnabled ? 'bg-emerald-600' : 'bg-gray-700'}`}
+                                >
+                                    <div
+                                        className={`absolute top-1 w-6 h-6 bg-white rounded-full transition-all ${prefs.dynamicCallingEnabled ? 'left-7' : 'left-1'}`}
+                                    />
+                                </button>
+                            </div>
+
+                            <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-4">
+                                <p className="text-sm text-gray-300 leading-relaxed">
                                     有効にすると、行為中に女性が「◯◯よりすごい」「◯◯はもっと上手だった」など、
                                     他の男性と比較するセリフを言うようになります。
                                 </p>

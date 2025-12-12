@@ -291,6 +291,9 @@ export interface PlayPreferences {
   // 比較セリフシステム
   comparisonEnabled: boolean;          // 比較セリフを有効化
   comparisonTarget: ComparisonTarget;  // 比較対象
+
+  // 呼び方親密化システム
+  dynamicCallingEnabled: boolean;      // 物語の進行や盛り上がりで呼び方を変える
 }
 
 // デフォルト設定
@@ -303,5 +306,6 @@ export const DEFAULT_PREFERENCES: PlayPreferences = {
   femaleReactionType: 'honest',
   fetishEmphasis: [],
   comparisonEnabled: false,
-  comparisonTarget: 'ex_boyfriend'
+  comparisonTarget: 'ex_boyfriend',
+  dynamicCallingEnabled: true
 };
