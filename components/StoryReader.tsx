@@ -742,7 +742,18 @@ const StoryReader: React.FC<Props> = ({
             </div>
 
             {/* Modal Content */}
-            <div className="p-6 overflow-y-auto bg-gradient-to-b from-[#fcfaf5] to-[#f5f2eb]">
+            <div className="p-6 overflow-y-auto bg-gradient-to-b from-[#fcfaf5] to-[#f5f2eb] space-y-5">
+              <button
+                onClick={() => {
+                  setIsChoiceModalOpen(false);
+                  onRegenerate();
+                }}
+                disabled={isLoading || history.length < 2}
+                className="w-full py-3 rounded-xl bg-indigo-900 text-indigo-100 font-serif font-semibold tracking-widest shadow-md hover:bg-indigo-800 transition-colors disabled:opacity-50"
+              >
+                🔄 次の行動を再生成
+              </button>
+
               <div className="space-y-3">
                 {segment.choices.map((choice, idx) => (
                   <button
