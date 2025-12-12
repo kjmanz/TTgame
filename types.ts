@@ -93,7 +93,7 @@ export interface StoryState {
 // プレイ嗜好設定 (Play Preferences)
 // ===========================================
 
-// A. メインシチュエーション（排他選択：1つ）
+// A. メインシチュエーション（排他選択：1つ）- 25種類
 export type MainSituation =
   | 'pure_love'       // 純愛
   | 'affair'          // 不倫
@@ -104,18 +104,47 @@ export type MainSituation =
   | 'oneshota'        // おねショタ風
   | 'reverse_rape'    // 逆レイプ
   | 'molester'        // 痴漢
-  | 'exhibitionism';  // 露出
+  | 'exhibitionism'   // 露出
+  // 追加15種類
+  | 'prostitution'    // 援助交際/パパ活
+  | 'teacher_student' // 教師と生徒
+  | 'hypnosis'        // 催眠/洗脳
+  | 'blackmail'       // 脅迫/弱み
+  | 'drunk'           // 泥酔/酩酊
+  | 'sleeping'        // 夜這い/睡眠姦
+  | 'virginity'       // 処女喪失
+  | 'reunion'         // 再会セックス
+  | 'revenge'         // 復讐/報復
+  | 'voyeur'          // 覗き/盗撮
+  | 'office_affair'   // オフィスラブ
+  | 'masquerade'      // 仮面/匿名
+  | 'forbidden_love'  // 禁忌/タブー
+  | 'service'         // ご奉仕/メイド
+  | 'swap';           // スワッピング/乱交
 
-// B. 関係性ダイナミクス（複数選択可）
+// B. 関係性ダイナミクス（複数選択可）- 18種類
 export type RelationshipDynamic =
   | 'boss_subordinate'  // 上司と部下
   | 'age_gap_older'     // 年下×年上
   | 'first_meeting'     // 初対面
   | 'ex_partner'        // 元カレ元カノ
   | 'childhood_friend'  // 幼馴染
-  | 'teacher_student';  // 師弟関係
+  | 'mentor_student'    // 師弟関係
+  // 追加12種類
+  | 'married_woman'     // 人妻×独身男性
+  | 'widow'             // 未亡人
+  | 'celebrity'         // 芸能人/アイドル
+  | 'customer_service'  // 客と店員
+  | 'patient_nurse'     // 患者と看護師
+  | 'landlord_tenant'   // 大家と店子
+  | 'stepfamily'        // 義理の家族
+  | 'rivals'            // ライバル/敵同士
+  | 'online_meetup'     // ネット知り合い
+  | 'one_night'         // 一夜限りの関係
+  | 'secret_lovers'     // 秘密の恋人
+  | 'sugar_daddy';      // パトロン関係
 
-// C. プレイ内容の好み
+// C. プレイ内容の好み - 前戯17種類
 export type ForeplayPreference =
   | 'kissing'           // キス重視
   | 'breast_play'       // 胸責め
@@ -123,22 +152,50 @@ export type ForeplayPreference =
   | 'fellatio'          // フェラ
   | 'fingering'         // 手マン
   | 'teasing'           // 焦らし
-  | 'dirty_talk';       // 言葉責め
+  | 'dirty_talk'        // 言葉責め
+  // 追加10種類
+  | 'rimming'           // アナル舐め
+  | 'footjob'           // 足コキ
+  | 'paizuri'           // パイズリ
+  | 'sixty_nine'        // シックスナイン
+  | 'nipple_play'       // 乳首責め集中
+  | 'spanking'          // お尻叩き
+  | 'blindfold'         // 目隠しプレイ
+  | 'ice_play'          // アイスキューブ/温冷
+  | 'oil_massage'       // オイルマッサージ
+  | 'vibrator';         // バイブ/おもちゃ
 
+// 体位13種類
 export type PositionPreference =
   | 'missionary'        // 正常位
   | 'doggy'             // 後背位
   | 'cowgirl'           // 騎乗位
   | 'standing'          // 立位
-  | 'sitting';          // 座位
+  | 'sitting'           // 座位
+  // 追加8種類
+  | 'side'              // 側位/横入れ
+  | 'piledriver'        // 屈曲位/駅弁
+  | 'prone_bone'        // 寝バック
+  | 'face_sitting'      // 顔面騎乗
+  | 'sixty_nine_pos'    // 69体位
+  | 'wall_pin'          // 壁ドン挿入
+  | 'desk_sex'          // 机上位
+  | 'bathtub';          // 風呂場プレイ
 
+// フィニッシュ9種類
 export type FinishPreference =
   | 'creampie'          // 中出し
   | 'facial'            // 顔射
   | 'oral_finish'       // 口内射精
-  | 'pull_out';         // 外出し
+  | 'pull_out'          // 外出し
+  // 追加5種類
+  | 'multiple_creampie' // 連続中出し
+  | 'body_cumshot'      // 全身射精
+  | 'cum_swallow'       // ごっくん
+  | 'ruined_orgasm'     // 寸止め射精
+  | 'breeding';         // 種付けプレス
 
-// D. 女性キャラの反応タイプ（1つ選ぶ）
+// D. 女性キャラの反応タイプ（1つ選ぶ）- 17種類
 export type FemaleReactionType =
   | 'shy'               // 恥じらい型
   | 'honest'            // 素直型
@@ -146,9 +203,20 @@ export type FemaleReactionType =
   | 'lewd'              // 淫乱型
   | 'silent'            // 無口型
   | 'begging'           // おねだり型
-  | 'dominant';         // ドS型
+  | 'dominant'          // ドS型
+  // 追加10種類
+  | 'resistance'        // 抵抗型
+  | 'corrupted'         // 堕ち型
+  | 'yandere'           // ヤンデレ型
+  | 'masochist'         // ドM型
+  | 'kuudere'           // クーデレ型
+  | 'gyaru'             // ギャル型
+  | 'ojousama'          // お嬢様型
+  | 'innocent'          // 天然型
+  | 'experienced'       // 熟練型
+  | 'verbal';           // 実況型
 
-// F. フェチ強調設定（複数選択可）
+// F. フェチ強調設定（複数選択可）- 25種類
 export type FetishEmphasis =
   | 'feet'              // 足フェチ
   | 'breasts'           // 胸フェチ
@@ -159,7 +227,23 @@ export type FetishEmphasis =
   | 'uniform'           // 制服フェチ
   | 'underwear'         // 下着フェチ
   | 'saliva'            // 唾液フェチ
-  | 'hair';             // 毛フェチ
+  | 'hair'              // 毛フェチ
+  // 追加15種類
+  | 'nape'              // うなじ
+  | 'armpit'            // 腋
+  | 'tongue'            // 舌
+  | 'eyes'              // 瞳/目線
+  | 'lips'              // 唇
+  | 'navel'             // へそ
+  | 'thighs'            // 太もも
+  | 'back'              // 背中
+  | 'hands'             // 手/指
+  | 'neck'              // 首
+  | 'belly'             // お腹
+  | 'tan_lines'         // 日焼け跡
+  | 'glasses'           // 眼鏡
+  | 'crying'            // 涙
+  | 'ahegao';           // アヘ顔
 
 // 比較対象タイプ（行為中に名前を出す）
 export type ComparisonTarget =
