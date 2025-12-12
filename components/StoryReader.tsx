@@ -100,7 +100,7 @@ const StoryReader: React.FC<Props> = ({
   // allowAnimation flag controls whether fade-in is used (disable for history)
   // Mobile optimization: split long paragraphs into smaller chunks (2-3 sentences)
   const renderFormattedText = (text: string, allowAnimation = true) => {
-    if (!text) return "読み込みエラーが発生しました。再試行してください。";
+    if (!text) return "✍️ 執筆を開始しています...";
 
     // Split by newlines and filter empty lines
     const rawParagraphs = text.split(/\n+/).filter(p => p.trim().length > 0);

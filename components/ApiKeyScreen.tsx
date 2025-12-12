@@ -33,8 +33,8 @@ export const AVAILABLE_TEXT_MODELS = [
     price: '$0.40/M'
   },
   {
-    id: 'cognitivecomputations/dolphin3.0-r1-mistral-24b',
-    name: '🔥 Dolphin 3.0 R1 24B',
+    id: 'cognitivecomputations/dolphin3.0-mistral-24b',
+    name: '🔥 Dolphin 3.0 24B',
     description: '完全無検閲、Mistralベース、高品質',
     price: '$0.14/M'
   },
@@ -46,10 +46,10 @@ export const AVAILABLE_TEXT_MODELS = [
   },
   // === 追加おすすめモデル ===
   {
-    id: 'eva-unit-01/eva-llama-3.33-70b',
-    name: 'EVA Llama 3.33 70B',
-    description: 'RP・創作特化、無検閲',
-    price: '$0.40/M'
+    id: 'thedrummer/rocinante-12b',
+    name: 'Rocinante 12B',
+    description: 'RP・創作特化、高品質文章',
+    price: '$0.15/M'
   }
 ];
 
@@ -72,6 +72,12 @@ export const AVAILABLE_IMAGE_MODELS = [
     name: 'FLUX 1.1 Pro',
     description: 'OpenRouter経由、高品質画像生成',
     price: '$0.04/枚'
+  },
+  {
+    id: 'blackforestlabs/flux-2-pro',
+    name: 'FLUX 2 Pro',
+    description: '最新版、最高品質、4K対応',
+    price: '$0.05/枚'
   },
   {
     id: 'google/gemini-2.5-flash-image',
