@@ -453,8 +453,8 @@ const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({ onClose }) => {
                                         ))}
                                     </div>
                                     <p className="text-xs text-gray-500 mt-3">
-                                        例：「{prefs.comparisonTarget === 'ex_boyfriend' ? '元彼' : prefs.comparisonTarget === 'husband' ? '旦那' : '今彼'}よりずっと大きい…」
-                                        「{prefs.comparisonTarget === 'ex_boyfriend' ? '元彼' : prefs.comparisonTarget === 'husband' ? '旦那' : '今彼'}はこんなこと…してくれなかった」
+                                        例：「{prefs.comparisonTarget === 'ex_boyfriend' ? '元彼' : prefs.comparisonTarget === 'husband' ? '主人' : '彼氏'}よりずっと大きい…」
+                                        「{prefs.comparisonTarget === 'ex_boyfriend' ? '元彼' : prefs.comparisonTarget === 'husband' ? '主人' : '彼氏'}はこんなこと…してくれなかった」
                                     </p>
                                 </div>
                             )}

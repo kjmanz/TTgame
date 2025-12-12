@@ -194,18 +194,24 @@ const buildPreferencePrompt = (prefs: PlayPreferences): string => {
     if (prefs.comparisonEnabled) {
         const targetMap: Record<string, string> = {
             'ex_boyfriend': '元彼',
-            'current_boyfriend': '今彼',
-            'husband': '旦那'
+            'current_boyfriend': '彼氏',
+            'husband': '主人'
         };
         const targetName = targetMap[prefs.comparisonTarget] || '元彼';
-        sections.push(`【比較セリフ】行為中、女性は「${targetName}」と比較するセリフを言ってください。
+        const comparisonNuance = prefs.comparisonTarget === 'current_boyfriend'
+            ? '「今彼」という表現は使わず、現在の恋人を指すときは「彼氏」「彼」「あの人」など、女性キャラの年齢・口調・関係性に合った呼び方に置き換えてください。呼び方が毎回同じにならないように少しずつ変化させ、1パートに1〜2回程度の頻度で自然に差し込むこと。'
+            : prefs.comparisonTarget === 'husband'
+                ? '既婚設定を踏まえ、「旦那」「主人」「夫」「あの人」など女性の立場や品の良さ・砕け具合に合った呼び方で比較してください。呼称を固定せず、女性キャラの設定（口調、上品さ/砕け具合、年齢感）に沿って自然な頻度で1パート1〜2回ほどに留めてください。'
+                : '元恋人との比較は、女性キャラの口調や性格に合わせて自然に。頻度は1パート1〜2回程度に抑え、セリフが機械的に繰り返されないようにしてください。';
+
+        sections.push(`【比較セリフ】行為中、女性は「${targetName}」と比較するセリフを言ってください。${comparisonNuance}
 例：
 - 「${targetName}よりずっと大きい…」
 - 「${targetName}はこんなこと…してくれなかった…」
 - 「${targetName}より上手…」
 - 「${targetName}のときはこんなに感じなかったのに…」
 - 「もう${targetName}には戻れない…」
-これらのようなセリフを自然に挿入してください。`);
+これらのようなセリフを女性キャラの設定に合わせた呼び方で自然に挿入してください。`);
     }
 
     return sections.filter(s => s.length > 0).join('\n\n');
