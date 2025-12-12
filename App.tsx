@@ -613,27 +613,20 @@ function App() {
     });
   }, [clearError]);
 
-  // Regenerate last response (Retry the same turn)
+  // Regenerate only the action list for the current segment
   const handleRegenerate = useCallback(async () => {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
 
-    // Need at least 2 items to regenerate: [User, Model(current)]
-    if (state.history.length < 2) {
-      // Cannot regenerate the very first intro segment easily without reset
-      alert("最初のパートは再生成できません。トップに戻ってやり直してください。");
-      return;
-    }
-
     setState(prev => ({ ...prev, currentPhase: 'LOADING_STORY' }));
 
     try {
-      const newHistory = [...state.history];
+      const historyWithoutResponse = [...state.history];
       // Remove current Model response
-      newHistory.pop();
+      historyWithoutResponse.pop();
 
       // Get the last user action
-      const lastUserItem = newHistory[newHistory.length - 1];
+      const lastUserItem = historyWithoutResponse[historyWithoutResponse.length - 1];
       let lastAction = "";
       if (lastUserItem && lastUserItem.role === 'user') {
         lastAction = lastUserItem.parts[0].text.replace(/^【.*?】:\s*/, '');
@@ -647,8 +640,8 @@ function App() {
       let previousSummary = "";
       let contextLocation = state.currentLocation;
 
-      if (newHistory.length >= 2) {
-        const prevModelItem = newHistory[newHistory.length - 2];
+      if (historyWithoutResponse.length >= 2) {
+        const prevModelItem = historyWithoutResponse[historyWithoutResponse.length - 2];
         if (prevModelItem && prevModelItem.meta) {
           if (prevModelItem.meta.location) contextLocation = prevModelItem.meta.location;
           if (prevModelItem.meta.summary) previousSummary = prevModelItem.meta.summary;
@@ -659,53 +652,44 @@ function App() {
         state.selectedCharacter,
         chapter,
         part,
-        newHistory,
+        historyWithoutResponse,
         contextLocation,
         previousSummary, // Pass PREVIOUS summary for regeneration
         lastAction
       );
 
-      const newSegment: StorySegment = {
-        chapter: chapter,
-        part: part,
-        text: result.text,
-        location: result.location,
-        date: result.date, // New
-        time: result.time, // New
-        choices: result.choices,
-        isChapterEnd: result.isChapterEnd,
-        summary: result.summary
-      };
+      const updatedChoices = result.choices;
 
-      setState(prev => ({
-        ...prev,
-        currentPhase: 'READING',
-        currentSegment: newSegment,
-        currentLocation: result.location,
-        currentSummary: result.summary, // Update to new result summary
-        history: [
-          ...newHistory,
-          {
-            role: 'model',
-            parts: [{ text: result.text }],
-            meta: {
-              chapter: chapter,
-              part: part,
-              location: result.location,
-              date: result.date, // New
-              time: result.time, // New
-              choices: result.choices,
-              isChapterEnd: result.isChapterEnd,
-              imageUrl: prev.generatedImageUrl, // Keep image
-              summary: result.summary,
-              scenes: result.scenes
-            }
+      setState(prev => {
+        const newHistory = [...prev.history];
+
+        // Update the last model response meta with the new choices while keeping the text as-is
+        if (newHistory.length > 0) {
+          const lastIndex = newHistory.length - 1;
+          const lastEntry = newHistory[lastIndex];
+
+          if (lastEntry.role === 'model') {
+            const existingMeta = lastEntry.meta || {};
+
+            newHistory[lastIndex] = {
+              ...lastEntry,
+              meta: {
+                ...existingMeta,
+                choices: updatedChoices
+              }
+            };
           }
-        ]
-      }));
+        }
 
-      // 生成完了後、画面上部へスクロール
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        return {
+          ...prev,
+          currentPhase: 'READING',
+          currentSegment: prev.currentSegment
+            ? { ...prev.currentSegment, choices: updatedChoices }
+            : prev.currentSegment,
+          history: newHistory
+        };
+      });
     } catch (err) {
       console.error(err);
       setState(prev => ({
