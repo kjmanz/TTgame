@@ -1054,6 +1054,44 @@ ${(chapter === 1 && part <= 2) ? `
 
 import { getStoredImageModel, getStoredXaiApiKey, getStoredImageStyle } from "../components/ApiKeyScreen";
 
+// Helper to extract image URL from content
+const extractImageUrlFromContent = (content: string | undefined | null): string | null => {
+    if (!content) return null;
+
+    // 0. Clean content
+    const cleanContent = content.trim();
+
+    // 1. Markdown image syntax: ![alt](url)
+    const markdownMatch = cleanContent.match(/!\[.*?\]\((https?:\/\/[^\)]+)\)/);
+    if (markdownMatch) {
+        return markdownMatch[1];
+    }
+
+    // 2. Direct URL or Base64 at start
+    if (cleanContent.startsWith('http') || cleanContent.startsWith('data:image')) {
+        // If it starts with http, it might be followed by text.
+        // If it's just a URL, return it.
+        const firstToken = cleanContent.split(/\s+/)[0];
+        if (firstToken.startsWith('http')) return firstToken;
+        return cleanContent;
+    }
+
+    // 3. URL with common image extensions (anywhere in text)
+    const extMatch = cleanContent.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp|gif)(\?[^\s\)\"]*)?/i);
+    if (extMatch) {
+        return extMatch[0];
+    }
+
+    // 4. Any http/https URL (Fallback)
+    // This is important for signed URLs or APIs that return just a link (like Gemini)
+    const urlMatch = cleanContent.match(/https?:\/\/[^\s\)\"]+/);
+    if (urlMatch) {
+        return urlMatch[0];
+    }
+
+    return null;
+};
+
 // NSFW プロンプトのサニタイズ関数
 const sanitizeNsfwPrompt = (prompt: string): string => {
     // 露骨な性的表現を婉曲的な表現に置き換える
@@ -1182,21 +1220,10 @@ export const generateSceneImage = async (character: Character, sceneText: string
 
         // OpenRouterからの画像URLまたはbase64データを取得
         const content = data.choices?.[0]?.message?.content;
+        const extractedUrl = extractImageUrlFromContent(content);
 
-        if (content) {
-            // URLの場合
-            if (content.startsWith('http')) {
-                return content;
-            }
-            // base64の場合
-            if (content.startsWith('data:image')) {
-                return content;
-            }
-            // その他のフォーマットの場合、URLを探す
-            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+(png|jpg|jpeg|webp)/i);
-            if (urlMatch) {
-                return urlMatch[0];
-            }
+        if (extractedUrl) {
+            return extractedUrl;
         }
 
         // 画像データがレスポンスに直接含まれている場合
@@ -1408,18 +1435,10 @@ Quality: 8K, ultra detailed, masterpiece.
 
         const data = await response.json();
         const content = data.choices?.[0]?.message?.content;
+        const extractedUrl = extractImageUrlFromContent(content);
 
-        if (content) {
-            if (content.startsWith('http')) {
-                return content;
-            }
-            if (content.startsWith('data:image')) {
-                return content;
-            }
-            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp)/i);
-            if (urlMatch) {
-                return urlMatch[0];
-            }
+        if (extractedUrl) {
+            return extractedUrl;
         }
 
         if (data.data?.[0]?.url) {
@@ -1639,12 +1658,10 @@ export const generateImageFromScene = async (
 
         const data = await response.json();
         const content = data.choices?.[0]?.message?.content;
+        const extractedUrl = extractImageUrlFromContent(content);
 
-        if (content) {
-            if (content.startsWith('http')) return content;
-            if (content.startsWith('data:image')) return content;
-            const urlMatch = content.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp)/i);
-            if (urlMatch) return urlMatch[0];
+        if (extractedUrl) {
+            return extractedUrl;
         }
 
         if (data.data?.[0]?.url) return data.data[0].url;
