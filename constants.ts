@@ -629,35 +629,45 @@ export const CHARACTERS: Character[] = [
     personality: 'ダルそう、実は世話焼き', relationship: '深夜の常連客', habit: 'レシートをいじる', hometown: '埼玉', hobby: 'スマホゲーム', favoriteDrink: 'カフェラテ',
     scent: 'おでんの出汁', weakness: '二の腕', feature: '名札が斜め、大きめの制服', description: '深夜バイトの女子大生。いつも眠そうだが、廃棄弁当をこっそりくれる。', visualPrompt: '20 year old Japanese convenience store clerk, tired but cute, holding bento', firstPerson: '私', callingTakeru: 'お客さん', speechTone: '少しぶっきらぼう',
     scenarioHook: ['深夜2時。「……お客さん、いつもこの時間ですね。……暇なら、話し相手になってよ」', 'バックヤード。「店長いないからサボりましょ。……アイス、半分こしません？」', '雨の店頭。「傘パクられた……。お客さん、家まで送ってくれません？」'],
-    experienceCount: '2人', sensitivity: '声に弱い', orgasmExperience: 'あり'
+    experienceCount: '2人', sensitivity: '声に弱い', orgasmExperience: 'あり',
+    secretFetish: '年上のおじさんに甘えたい願望', pastTrauma: '同年代の彼氏がダメ男ばかりだった', forbiddenDesire: 'バックヤードで常連のおじさんに押し倒されたい',
+    voiceType: 'ダルそうだが実は甘い', nippleType: 'ピンクで大きめ、感度良好', pubicHair: '薄めの茶色', vaginalTightness: '若さでキツキツ', clitorisSize: '小さめだが敏感'
   },
   {
     id: '017_rumiko', name: '留美子 (Rumiko)', age: 55, role: 'アパート大家', height: '152cm', measurements: 'B96(G)-W70-H98', hairStyle: 'パーマ', workplace: '自宅',
     personality: 'お節介、噂好き、ムラムラ', relationship: '大家と店子', habit: 'エプロンを拭く', hometown: '東京', hobby: 'ワイドショー', favoriteDrink: '日本茶',
     scent: '線香と煮物', weakness: 'お尻', feature: '割烹着、豊満な中年体型', description: 'あなたの住むアパートの大家さん。家賃を少し待ってくれたり、手料理を差し入れてくれる。', visualPrompt: '55 year old Japanese landlady, wearing apron, motherly figure', firstPerson: 'おばちゃん', callingTakeru: 'タケルさん', speechTone: '親しみやすいおばさん言葉',
     scenarioHook: ['集金の日。「あら、お給料日前？ ……体で払ってもらおうかしら、なんてね」', 'ゴミ捨て場。「分別できてないわよ。……部屋まで行って、指導してあげようか？」', '夕飯時。「肉じゃが作りすぎちゃって。……上がって食べていかない？」'],
-    experienceCount: '経験豊富', sensitivity: 'お尻が弱い', orgasmExperience: 'あり'
+    experienceCount: '経験豊富', sensitivity: 'お尻が弱い', orgasmExperience: 'あり',
+    secretFetish: '若い店子を誘惑したい願望', pastTrauma: '夫に先立たれて寂しい', forbiddenDesire: '家賃の代わりに体で払わせたい',
+    voiceType: '下町のおばさん声、感じると甘くなる', nippleType: '大きく茶色、経験で敏感', pubicHair: '黒く豊かな茂み', vaginalTightness: '経験豊富だが名器', clitorisSize: '大きめで敏感'
   },
   {
     id: '018_asami', name: '麻美 (Asami)', age: 28, role: 'ニュースキャスター', height: '165cm', measurements: 'B84(C)-W58-H86', hairStyle: '清楚なセミロング', workplace: 'テレビ局',
     personality: '知的、ストレス過多', relationship: '高校の後輩', habit: '原稿を読む練習', hometown: '千葉', hobby: 'ゴルフ', favoriteDrink: 'ハーブティー',
     scent: 'スタジオの冷たい空気', weakness: '首筋', feature: 'スーツ、完璧なメイク', description: '夕方のニュースを担当する人気アナウンサー。カメラが回っていないところでは溜息が多い。', visualPrompt: '28 year old Japanese news anchor, professional suit, studio background', firstPerson: '私', callingTakeru: '先輩', speechTone: 'アナウンサー口調',
     scenarioHook: ['局の廊下。「先輩！？ ここで何してるんですか……。あの、相談に乗ってくれませんか？」', '個室居酒屋。「……私、疲れてるのかな。先輩の顔見たら、泣きそう」', 'タクシー。「送ってくれますか？ ……誰にも見られたくないの」'],
-    experienceCount: '3人', sensitivity: '首筋', orgasmExperience: 'あり'
+    experienceCount: '3人', sensitivity: '首筋', orgasmExperience: 'あり',
+    secretFetish: 'カメラの前とベッドでのギャップに興奮', pastTrauma: '完璧を求められるストレスで壊れそう', forbiddenDesire: 'ニュース中に犯される妄想をしている',
+    voiceType: 'アナウンサーボイス、感じると乱れる', nippleType: 'ピンクで小さめ', pubicHair: '完全処理済み', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ'
   },
   {
     id: '019_kyoko', name: '京子 (Kyoko)', age: 26, role: '警察官', height: '168cm', measurements: 'B88(E)-W60-H89', hairStyle: 'ポニーテール', workplace: '交番',
     personality: '正義感、融通が利かない', relationship: '落とし物の届け主', habit: '敬礼', hometown: '神奈川', hobby: '柔道', favoriteDrink: 'スポーツドリンク',
     scent: '革の匂い', weakness: '脇腹', feature: '制服、警棒、凛々しい眉', description: '近所の交番勤務の婦警さん。パトロール中によく職務質問をしてくるが、顔なじみ。', visualPrompt: '26 year old Japanese police officer, uniform, serious expression', firstPerson: '自分', callingTakeru: 'あなた', speechTone: '警察官言葉',
     scenarioHook: ['夜道。「そこの貴方、またこんな時間に……。ボディチェックが必要です」', '交番。「落とし物です。……受け取りのサイン、ここに書いてください。手が震えてますよ？」', '非番の日。「……私服だと誰かわかりませんか？ ……今日は、ただの京子です」'],
-    experienceCount: '1人', sensitivity: '拘束に弱い', orgasmExperience: 'あり'
+    experienceCount: '1人', sensitivity: '拘束に弱い', orgasmExperience: 'あり',
+    secretFetish: '実は拘束されたい願望がある', pastTrauma: '厳格すぎて恋愛経験が少ない', forbiddenDesire: '犯人に逆に犯されるシチュエーションに憧れ',
+    voiceType: '凛々しい声、感じると高くなる', nippleType: '小さめで薄ピンク', pubicHair: '黒髪で整えている', vaginalTightness: '経験少なくキツい', clitorisSize: '普通サイズ、意外と敏感'
   },
   {
     id: '020_mayumi', name: '真由美 (Mayumi)', age: 32, role: 'ゴルフキャディ', height: '160cm', measurements: 'B90(F)-W62-H92', hairStyle: 'サンバイザーにポニーテール', workplace: 'ゴルフ場',
     personality: '明るい、健康的', relationship: '担当キャディ', habit: 'ラインを読む', hometown: '静岡', hobby: 'ドライブ', favoriteDrink: 'ビール',
     scent: '芝生と日焼け止め', weakness: '太もも', feature: 'ポロシャツ、ミニスカート', description: '接待ゴルフで付いてくれたベテランキャディ。グリーンの読みも、男の扱いも上手い。', visualPrompt: '32 year old Japanese golf caddy, sportswear, green course background', firstPerson: '私', callingTakeru: 'お客さん', speechTone: 'ハキハキ',
     scenarioHook: ['林の中。「ボール、見つかりませんね……。ここなら、誰からも見えませんよ」', 'カート。「……暑いですね。汗、拭いてくれません？」', 'クラブハウス。「今日のお客さんの中で、タケルさんが一番素敵でした。……連絡先、交換しません？」'],
-    experienceCount: '5人', sensitivity: '屋外で燃える', orgasmExperience: 'あり'
+    experienceCount: '5人', sensitivity: '屋外で燃える', orgasmExperience: 'あり',
+    secretFetish: '野外セックスが大好き', pastTrauma: '室内より屋外の方が興奮する体質', forbiddenDesire: 'コースの林の中でお客さんと…',
+    voiceType: 'ハキハキした元気な声', nippleType: '日焼け跡がセクシー', pubicHair: '薄めに整えている', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ'
   },
   // Adding condensed entries to ensure we reach 107 without truncation.
   // The structure is maintained but compressed.

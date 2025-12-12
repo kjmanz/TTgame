@@ -8,6 +8,7 @@ const IMAGE_MODEL_STORAGE_KEY = 'openrouter_image_model';
 const IMAGE_STYLE_STORAGE_KEY = 'image_style';
 const STREAMING_MODE_STORAGE_KEY = 'streaming_mode';
 const PREFERENCES_STORAGE_KEY = 'play_preferences';
+const INNER_THOUGHTS_MODE_STORAGE_KEY = 'inner_thoughts_mode';
 
 // 利用可能な文章生成モデル一覧
 // ※推奨モデルのみに絞っています
@@ -71,6 +72,18 @@ export const AVAILABLE_IMAGE_MODELS = [
     name: 'FLUX 1.1 Pro',
     description: 'OpenRouter経由、高品質画像生成',
     price: '$0.04/枚'
+  },
+  {
+    id: 'google/gemini-2.5-flash-image',
+    name: 'Gemini 2.5 Flash Image',
+    description: 'Google Gemini、高速画像生成',
+    price: '$0.02/枚'
+  },
+  {
+    id: 'google/gemini-3-pro-image-preview',
+    name: 'Gemini 3 Pro Image',
+    description: 'Google Gemini最新、高品質',
+    price: '$0.03/枚'
   }
 ];
 
@@ -149,6 +162,16 @@ export const getStoredStreamingMode = (): boolean => {
 
 export const setStoredStreamingMode = (enabled: boolean): void => {
   localStorage.setItem(STREAMING_MODE_STORAGE_KEY, enabled.toString());
+};
+
+// Inner Thoughts Mode: 内心表示モード
+export const getStoredInnerThoughtsMode = (): boolean => {
+  const stored = localStorage.getItem(INNER_THOUGHTS_MODE_STORAGE_KEY);
+  return stored === null ? true : stored === 'true'; // default is ON
+};
+
+export const setStoredInnerThoughtsMode = (enabled: boolean): void => {
+  localStorage.setItem(INNER_THOUGHTS_MODE_STORAGE_KEY, enabled.toString());
 };
 
 // Play Preferences: プレイ嗜好設定

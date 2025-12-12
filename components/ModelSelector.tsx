@@ -14,7 +14,9 @@ import {
     getStoredApiKey,
     setStoredApiKey,
     getStoredStreamingMode,
-    setStoredStreamingMode
+    setStoredStreamingMode,
+    getStoredInnerThoughtsMode,
+    setStoredInnerThoughtsMode
 } from './ApiKeyScreen';
 
 interface ModelSelectorProps {
@@ -28,6 +30,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [xaiApiKey, setXaiApiKey] = useState(getStoredXaiApiKey() || '');
     const [apiKey, setApiKey] = useState(getStoredApiKey() || '');
     const [streamingMode, setStreamingMode] = useState(getStoredStreamingMode());
+    const [innerThoughtsMode, setInnerThoughtsMode] = useState(getStoredInnerThoughtsMode());
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
 
@@ -57,6 +60,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
         setStoredImageModel(imageModel);
         setStoredImageStyle(imageStyle);
         setStoredStreamingMode(streamingMode);
+        setStoredInnerThoughtsMode(innerThoughtsMode);
         if (xaiApiKey.trim()) {
             setStoredXaiApiKey(xaiApiKey);
         }
@@ -212,6 +216,41 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                                 <div>
                                     <p className="font-medium text-white text-xs">一括表示</p>
                                     <p className="text-[10px] text-gray-400">生成完了後に表示</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Inner Thoughts Mode Toggle */}
+                    <div>
+                        <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+                            💭 女性の内心（本音）表示
+                        </label>
+                        <div className="flex gap-3">
+                            <label className={`flex-1 flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${innerThoughtsMode ? 'bg-pink-900/30 border-pink-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                                <input
+                                    type="radio"
+                                    name="innerThoughtsMode"
+                                    checked={innerThoughtsMode}
+                                    onChange={() => setInnerThoughtsMode(true)}
+                                    className="w-3 h-3 text-pink-500"
+                                />
+                                <div>
+                                    <p className="font-medium text-white text-xs">ON</p>
+                                    <p className="text-[10px] text-gray-400">本音を（　）で表示</p>
+                                </div>
+                            </label>
+                            <label className={`flex-1 flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${!innerThoughtsMode ? 'bg-pink-900/30 border-pink-500' : 'bg-white/5 border-white/10 hover:border-white/30'}`}>
+                                <input
+                                    type="radio"
+                                    name="innerThoughtsMode"
+                                    checked={!innerThoughtsMode}
+                                    onChange={() => setInnerThoughtsMode(false)}
+                                    className="w-3 h-3 text-pink-500"
+                                />
+                                <div>
+                                    <p className="font-medium text-white text-xs">OFF</p>
+                                    <p className="text-[10px] text-gray-400">セリフのみ表示</p>
                                 </div>
                             </label>
                         </div>

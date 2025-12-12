@@ -1,5 +1,5 @@
 import { Character, HistoryItem, SceneCandidate, PlayPreferences } from "../types";
-import { getStoredApiKey, getStoredModel, getStoredPreferences } from "../components/ApiKeyScreen";
+import { getStoredApiKey, getStoredModel, getStoredPreferences, getStoredInnerThoughtsMode } from "../components/ApiKeyScreen";
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
@@ -334,22 +334,7 @@ YOU MUST WRITE EVERYTHING IN JAPANESE (日本語).
    - **味覚**: キスの味、肌の塩気、愛液の味、精液の味、唾液
      例: 「舌を絡めると微かに甘い唾液の味がした」「肌を舐めると汗の塩気が広がる」
 
-3. **【超重要】女性の内心（本音）表示モード**:
-   女性キャラクターのセリフの後に、（　）書きで**本音・内心**を必ず挿入してください。
-   口では「ダメ」と言いながら本音では「もっと」と思っている…そのギャップが読者を興奮させます。
-   
-   **必須フォーマット**:
-   「やめて…ダメ…」（でも本当は止まってほしくない…こんなに濡れてるのがバレたら…）
-   「そんな激しくしないで…」（もっと奥まで突いて…壊れちゃいそう…）
-   「恥ずかしい…見ないで…」（でも見られてる…この人に全部見られてる…それが…嬉しい…）
-   
-   **ルール**:
-   - セリフの**直後**に（　）で内心を追加
-   - 内心は**願望、快楽、羞恥、背徳感**を正直に表現
-   - 口で言っていることと**反対**の本音を書くとより効果的
-   - 最低3回以上/1パートで内心描写を入れてください
-
-4. **心理描写とギャップの強化**:
+3. **心理描写とギャップの強化**:
    - 「50歳の平凡な男」に翻弄される女性の**羞恥心と背徳感**を描いてください。
    - 「ダメだと分かっているのに身体が勝手に反応する」という葛藤が、絶頂に向けて崩壊する様を描いてください。
    - **快感の段階的描写**:「違和感」→「じんわり気持ちいい」→「抗えない快楽」→「理性崩壊」→「絶頂」
@@ -442,9 +427,24 @@ YOU MUST WRITE EVERYTHING IN JAPANESE (日本語).
 - **物語の内容に合わせた「4つの視覚的なシーン」を必ず作成してください。**
 - **各シーンは、画像生成AIのための高品質な英語プロンプト（imagePrompt）を含めてください。**
 - **imagePromptの必須キーワード**: "masterpiece, best quality, ultra detailed, 8k, perfect anatomy, mature female features, adult proportions".
-- **重要**: 場面転換や重要なアクション（キス、愛撫、挿入、絶頂など）を優先的にシーン化してください。
 - **視点（POV）の絶対ルール**: すべてのシーンは**「主人公（タケル）の視点（POV）」**から見た構図にしてください。
 - **imagePromptの必須キーワード（追加）**: "POV, first-person perspective, looking at viewer, from protagonist's eyes".
+
+**【重要：4つのシーンのNSFWレベル分け】**
+4つのシーンは以下のレベルに分けて作成してください：
+
+**シーン1-2（ギリギリセーフ - suggestive）**:
+- 明示的なNSFW/性的表現は**使用しない**
+- ただし、セクシー・挑発的・暗示的な表現はOK
+- 例: "laying on bed looking up seductively", "wet clothes clinging to body", "sitting on lap close together"
+- 禁止ワード: nude, naked, sex, penetration, breasts exposed などの明示的語句
+- isNsfw: false に設定
+
+**シーン3-4（少しエロい - mildly suggestive）**:
+- 完全にセーフ、一般的な画像生成AIでも生成可能なレベル
+- ロマンチック・親密な雰囲気は表現するが、体の露出は最小限
+- 例: "holding hands romantically", "embracing in dimly lit room", "face close together about to kiss"
+- isNsfw: false に設定
 `;
 
 interface OpenRouterMessage {
@@ -469,8 +469,29 @@ export const generateStorySegment = async (
     // ユーザーの嗜好設定を取得してプロンプトに変換
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
+    const innerThoughtsEnabled = getStoredInnerThoughtsMode();
+
+    // 内心モード用プロンプト（条件付き）
+    const innerThoughtsPrompt = innerThoughtsEnabled ? `
+【女性の内心（本音）表示モード：ON】
+女性キャラクターのセリフの後に、（　）書きで**本音・内心**を必ず挿入してください。
+口では「ダメ」と言いながら本音では「もっと」と思っている…そのギャップが読者を興奮させます。
+
+**必須フォーマット**:
+「やめて…ダメ…」（でも本当は止まってほしくない…こんなに濡れてるのがバレたら…）
+「そんな激しくしないで…」（もっと奥まで突いて…壊れちゃいそう…）
+「恥ずかしい…見ないで…」（でも見られてる…この人に全部見られてる…それが…嬉しい…）
+
+**ルール**:
+- セリフの**直後**に（　）で内心を追加
+- 内心は**願望、快楽、羞恥、背徳感**を正直に表現
+- 口で言っていることと**反対**の本音を書くとより効果的
+- 最低3回以上/1パートで内心描写を入れてください
+` : '';
 
     const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+${innerThoughtsPrompt}
 
 ${preferencePrompt ? `
 ===========================================
