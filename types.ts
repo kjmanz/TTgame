@@ -34,6 +34,21 @@ export interface Character {
   orgasmExperience: string; // 絶頂経験 (e.g. あり(膣), なし)
   sensitivity: string;      // 感度 (e.g. 開発済み, クリスに弱い)
   experienceCount: string;  // 経験人数 (e.g. 5人, 処女)
+
+  // === NEW: 拡張キャラクター設定 ===
+  // 心理・性癖設定
+  secretFetish?: string;      // 秘密の性癖 (e.g. 「実はMだけど隠してる」)
+  pastTrauma?: string;        // 過去のトラウマ (e.g. 「元彼に酷いことされた」)
+  forbiddenDesire?: string;   // 禁断の願望 (e.g. 「一度でいいから痴漢されたい」)
+
+  // 声・音声設定
+  voiceType?: string;         // 声のタイプ (e.g. 「低くハスキー」「幼い高め」「色っぽいお姉さん声」)
+
+  // 詳細な体の特徴
+  nippleType?: string;        // 乳首タイプ (e.g. 「ピンクで小さめ」「大きく浮き出やすい」)
+  pubicHair?: string;         // 陰毛 (e.g. 「薄め」「処理している」「自然」)
+  vaginalTightness?: string;  // 膣の締まり (e.g. 「キツキツ」「柔らかく包み込む」)
+  clitorisSize?: string;      // クリトリス (e.g. 「敏感で大きめ」「皮被り」)
 }
 
 export interface HistoryItem {
