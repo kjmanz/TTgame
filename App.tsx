@@ -621,7 +621,15 @@ function App() {
   const handleRegenerate = useCallback(async () => {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
-    setState(prev => ({ ...prev, isRegeneratingChoices: true }));
+
+    const useStreaming = getStoredStreamingMode();
+
+    setState(prev => ({
+      ...prev,
+      isRegeneratingChoices: true,
+      currentPhase: useStreaming ? 'STREAMING' : prev.currentPhase,
+      streamingText: useStreaming ? '' : prev.streamingText
+    }));
 
     try {
       const historyWithoutResponse = [...state.history];
@@ -651,57 +659,85 @@ function App() {
         }
       }
 
-      const result = await generateStorySegment(
-        state.selectedCharacter,
+      let result;
+
+      if (useStreaming) {
+        result = await generateStorySegmentStreaming(
+          state.selectedCharacter,
+          chapter,
+          part,
+          historyWithoutResponse,
+          contextLocation,
+          previousSummary, // Pass PREVIOUS summary for regeneration
+          (streamingText) => {
+            setState(prev => ({ ...prev, streamingText }));
+          },
+          lastAction
+        );
+      } else {
+        result = await generateStorySegment(
+          state.selectedCharacter,
+          chapter,
+          part,
+          historyWithoutResponse,
+          contextLocation,
+          previousSummary, // Pass PREVIOUS summary for regeneration
+          lastAction
+        );
+      }
+
+      const regeneratedSegment: StorySegment = {
         chapter,
         part,
-        historyWithoutResponse,
-        contextLocation,
-        previousSummary, // Pass PREVIOUS summary for regeneration
-        lastAction
-      );
+        text: result.text,
+        location: result.location,
+        date: result.date,
+        time: result.time,
+        choices: result.choices,
+        isChapterEnd: result.isChapterEnd,
+        summary: result.summary,
+        scenes: result.scenes
+      };
 
-      const updatedChoices = result.choices;
-
-      setState(prev => {
-        const newHistory = [...prev.history];
-
-        // Update the last model response meta with the new choices while keeping the text as-is
-        if (newHistory.length > 0) {
-          const lastIndex = newHistory.length - 1;
-          const lastEntry = newHistory[lastIndex];
-
-          if (lastEntry.role === 'model') {
-            const existingMeta = lastEntry.meta || {};
-
-            newHistory[lastIndex] = {
-              ...lastEntry,
-              meta: {
-                ...existingMeta,
-                choices: updatedChoices
-              }
-            };
+      setState(prev => ({
+        ...prev,
+        currentSegment: regeneratedSegment,
+        currentLocation: result.location,
+        currentSummary: result.summary,
+        history: [
+          ...historyWithoutResponse,
+          {
+            role: 'model',
+            parts: [{ text: result.text }],
+            meta: {
+              chapter,
+              part,
+              location: result.location,
+              date: result.date,
+              time: result.time,
+              choices: result.choices,
+              isChapterEnd: result.isChapterEnd,
+              imageUrl: prev.generatedImageUrl,
+              summary: result.summary,
+              scenes: result.scenes
+            }
           }
-        }
-
-        return {
-          ...prev,
-          currentSegment: prev.currentSegment
-            ? { ...prev.currentSegment, choices: updatedChoices }
-            : prev.currentSegment,
-          history: newHistory
-        };
-      });
+        ],
+        streamingText: null,
+        currentPhase: 'READING',
+        isRegeneratingChoices: false
+      }));
     } catch (err) {
       console.error(err);
       setState(prev => ({
         ...prev,
-        error: "再生成に失敗しました。NGワード等が含まれている可能性があります。"
+        error: "再生成に失敗しました。NGワード等が含まれている可能性があります。",
+        currentPhase: 'READING',
+        isRegeneratingChoices: false,
+        streamingText: null
       }));
       // Capture retry action
       setRetryAction(() => () => handleRegenerate());
-    } finally {
-      setState(prev => ({ ...prev, isRegeneratingChoices: false }));
     }
   }, [state, clearError]);
 
