@@ -9,6 +9,8 @@ const IMAGE_STYLE_STORAGE_KEY = 'image_style';
 const STREAMING_MODE_STORAGE_KEY = 'streaming_mode';
 const PREFERENCES_STORAGE_KEY = 'play_preferences';
 const INNER_THOUGHTS_MODE_STORAGE_KEY = 'inner_thoughts_mode';
+const FONT_SIZE_STORAGE_KEY = 'font_size';
+const IMAGE_COUNT_STORAGE_KEY = 'image_count';
 
 // 利用可能な文章生成モデル一覧
 // ※推奨モデルのみに絞っています
@@ -195,6 +197,33 @@ export const getStoredPreferences = (): PlayPreferences => {
 
 export const setStoredPreferences = (prefs: PlayPreferences): void => {
   localStorage.setItem(PREFERENCES_STORAGE_KEY, JSON.stringify(prefs));
+};
+
+// Font Size Settings: 'small' | 'medium' | 'large'
+export const getStoredFontSize = (): 'small' | 'medium' | 'large' => {
+  const stored = localStorage.getItem(FONT_SIZE_STORAGE_KEY);
+  if (stored === 'small' || stored === 'medium' || stored === 'large') {
+    return stored;
+  }
+  return 'medium'; // default
+};
+
+export const setStoredFontSize = (size: 'small' | 'medium' | 'large'): void => {
+  localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
+};
+
+// Image Count Settings: 1 | 2 | 4
+export const getStoredImageCount = (): 1 | 2 | 4 => {
+  const stored = localStorage.getItem(IMAGE_COUNT_STORAGE_KEY);
+  const num = parseInt(stored || '1', 10);
+  if (num === 1 || num === 2 || num === 4) {
+    return num;
+  }
+  return 1; // default
+};
+
+export const setStoredImageCount = (count: 1 | 2 | 4): void => {
+  localStorage.setItem(IMAGE_COUNT_STORAGE_KEY, count.toString());
 };
 
 const ApiKeyScreen: React.FC<ApiKeyScreenProps> = ({ onApiKeySet }) => {

@@ -9,6 +9,7 @@ interface CharacterFilterProps {
     onRelationshipFilterToggle: (relationship: string) => void;
     sortBy: 'id' | 'name' | 'age';
     onSortChange: (sort: 'id' | 'name' | 'age') => void;
+    onClearFilters: () => void;
     resultCount: number;
     totalCount: number;
 }
@@ -22,6 +23,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
     onRelationshipFilterToggle,
     sortBy,
     onSortChange,
+    onClearFilters,
     resultCount,
     totalCount
 }) => {
@@ -84,8 +86,8 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                                 key={value}
                                 onClick={() => onAgeFilterToggle(value)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${ageFilters.includes(value)
-                                        ? 'bg-indigo-600 text-white border-indigo-500'
-                                        : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-gray-300'
+                                    ? 'bg-indigo-600 text-white border-indigo-500'
+                                    : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-gray-300'
                                     }`}
                             >
                                 {label}
@@ -103,8 +105,8 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                                 key={value}
                                 onClick={() => onRelationshipFilterToggle(value)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${relationshipFilters.includes(value)
-                                        ? 'bg-pink-600 text-white border-pink-500'
-                                        : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-gray-300'
+                                    ? 'bg-pink-600 text-white border-pink-500'
+                                    : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-gray-300'
                                     }`}
                             >
                                 {label}
@@ -124,8 +126,8 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                             key={value}
                             onClick={() => onSortChange(value)}
                             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${sortBy === value
-                                    ? 'bg-purple-600 text-white'
-                                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-300'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-300'
                                 }`}
                         >
                             {label}
@@ -133,14 +135,22 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                     ))}
                 </div>
 
-                {/* Result Count */}
-                <div className="text-xs text-gray-400 font-serif">
+                {/* Result Count and Clear Button */}
+                <div className="flex items-center gap-3 text-xs text-gray-400 font-serif">
                     {resultCount === totalCount ? (
                         <span>{totalCount}人</span>
                     ) : (
                         <span>
                             <span className="text-indigo-400 font-bold">{resultCount}</span> / {totalCount}人
                         </span>
+                    )}
+                    {(searchQuery || ageFilters.length > 0 || relationshipFilters.length > 0) && (
+                        <button
+                            onClick={onClearFilters}
+                            className="px-2 py-1 bg-red-900/50 hover:bg-red-800 text-red-200 hover:text-white rounded text-[10px] font-bold tracking-wider transition-all border border-red-500/30"
+                        >
+                            ✕ クリア
+                        </button>
                     )}
                 </div>
             </div>

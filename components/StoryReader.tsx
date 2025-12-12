@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Character, StorySegment, SceneCandidate } from '../types';
+import { getStoredFontSize } from './ApiKeyScreen';
 
 interface Props {
   character: Character;
@@ -53,6 +54,9 @@ const StoryReader: React.FC<Props> = ({
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isImageEnlarged, setIsImageEnlarged] = useState(false);
   const [lastAction, setLastAction] = useState('');
+  const [showPromptPreview, setShowPromptPreview] = useState(false);
+  const [customSceneInput, setCustomSceneInput] = useState('');
+  const [showCustomScene, setShowCustomScene] = useState(false);
 
   const textRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
@@ -133,10 +137,18 @@ const StoryReader: React.FC<Props> = ({
       }
     }
 
+    // Get dynamic font size class
+    const fontSizeClasses = {
+      small: 'text-[0.9rem] md:text-lg',
+      medium: 'text-[1rem] md:text-xl',
+      large: 'text-[1.1rem] md:text-2xl'
+    };
+    const currentFontSize = getStoredFontSize();
+
     return paragraphs.map((para, idx) => (
       <p
         key={idx}
-        className={`mb-6 md:mb-10 leading-[2.0] md:leading-[2.6] tracking-wider text-justify text-[1rem] md:text-xl text-ink/90 font-serif font-medium ${allowAnimation ? 'opacity-0 animate-fade-in-slow' : ''}`}
+        className={`mb-6 md:mb-10 leading-[2.0] md:leading-[2.6] tracking-wider text-justify ${fontSizeClasses[currentFontSize]} text-ink/90 font-serif font-medium ${allowAnimation ? 'opacity-0 animate-fade-in-slow' : ''}`}
         style={allowAnimation ? {
           animationDelay: `${idx * 0.15}s`,
           animationFillMode: 'forwards'
@@ -275,11 +287,70 @@ const StoryReader: React.FC<Props> = ({
                             🔞 NSFW
                           </span>
                         )}
+                        {/* Prompt Preview */}
+                        {showPromptPreview && (
+                          <div className="mt-2 p-2 bg-black/30 rounded text-[10px] text-gray-400 font-mono leading-relaxed max-h-20 overflow-y-auto border border-white/5">
+                            {scene.imagePrompt}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </button>
                 ))}
+              </div>
+
+              {/* Custom Scene Input Section */}
+              {showCustomScene && (
+                <div className="mt-4 p-4 bg-[#1a1a20] rounded-xl border border-white/10">
+                  <label className="block text-xs text-gray-400 font-serif tracking-wider mb-2">
+                    カスタムシーンを入力
+                  </label>
+                  <textarea
+                    value={customSceneInput}
+                    onChange={(e) => setCustomSceneInput(e.target.value)}
+                    placeholder="生成したいシーンを具体的に入力してください..."
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none h-20"
+                  />
+                  <button
+                    onClick={() => {
+                      if (customSceneInput.trim()) {
+                        onSelectScene({
+                          id: 'custom',
+                          description: customSceneInput,
+                          imagePrompt: customSceneInput,
+                          isNsfw: false
+                        });
+                      }
+                    }}
+                    disabled={!customSceneInput.trim()}
+                    className="mt-2 w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-serif text-sm tracking-wider rounded-lg transition-all"
+                  >
+                    🎨 カスタムシーンで生成
+                  </button>
+                </div>
+              )}
+
+              {/* Prompt Preview Toggle */}
+              <div className="mt-4 flex gap-2">
+                <button
+                  onClick={() => setShowPromptPreview(!showPromptPreview)}
+                  className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${showPromptPreview
+                      ? 'bg-indigo-900/30 border-indigo-500 text-indigo-200'
+                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                    }`}
+                >
+                  {showPromptPreview ? '🔍 プロンプト非表示' : '🔍 プロンプト表示'}
+                </button>
+                <button
+                  onClick={() => setShowCustomScene(!showCustomScene)}
+                  className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${showCustomScene
+                      ? 'bg-pink-900/30 border-pink-500 text-pink-200'
+                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                    }`}
+                >
+                  {showCustomScene ? '✕ カスタム閉じる' : '✏️ カスタムシーン'}
+                </button>
               </div>
             </div>
 

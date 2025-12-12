@@ -102,6 +102,7 @@ export interface StoryState {
   sceneCandidates: SceneCandidate[] | null; // Scene candidates for image generation
   streamingText: string | null; // Text being streamed in real-time
   error: string | null;
+  lastSaveDate?: number; // Timestamp for save slot management
 }
 
 // ===========================================

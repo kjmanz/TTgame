@@ -9,7 +9,81 @@ import ModelSelector from './components/ModelSelector';
 import PreferenceSettings from './components/PreferenceSettings';
 import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
 
-const SAVE_KEY = 'takeru_tales_save_data_v2';
+// Save slot system (3 slots)
+const SAVE_SLOT_KEYS = [
+  'takeru_tales_slot_1',
+  'takeru_tales_slot_2',
+  'takeru_tales_slot_3'
+];
+
+interface SaveSlotInfo {
+  charName: string;
+  chapter: number;
+  part: number;
+  date: string;
+}
+
+const loadSlotInfo = (): (SaveSlotInfo | null)[] => {
+  return SAVE_SLOT_KEYS.map(key => {
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        const parsed: StoryState = JSON.parse(saved);
+        if (parsed.selectedCharacter) {
+          return {
+            charName: parsed.selectedCharacter.name,
+            chapter: parsed.currentChapter,
+            part: parsed.currentPart,
+            date: new Date(parsed.lastSaveDate || Date.now()).toLocaleString()
+          };
+        }
+      }
+    } catch (e) {
+      console.error(`Failed to load slot ${key}:`, e);
+    }
+    return null;
+  });
+};
+
+// Default save key (backward compatibility - uses first slot)
+const SAVE_KEY = SAVE_SLOT_KEYS[0];
+
+// Helper functions for slot management
+const saveToSlot = (slotIndex: number, state: StoryState): boolean => {
+  if (slotIndex < 0 || slotIndex >= 3) return false;
+  try {
+    const stateWithTimestamp = { ...state, lastSaveDate: Date.now() };
+    localStorage.setItem(SAVE_SLOT_KEYS[slotIndex], JSON.stringify(stateWithTimestamp));
+    return true;
+  } catch (e) {
+    console.error(`Failed to save to slot ${slotIndex}:`, e);
+    return false;
+  }
+};
+
+const loadFromSlot = (slotIndex: number): StoryState | null => {
+  if (slotIndex < 0 || slotIndex >= 3) return null;
+  try {
+    const saved = localStorage.getItem(SAVE_SLOT_KEYS[slotIndex]);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error(`Failed to load from slot ${slotIndex}:`, e);
+  }
+  return null;
+};
+
+const deleteSlot = (slotIndex: number): boolean => {
+  if (slotIndex < 0 || slotIndex >= 3) return false;
+  try {
+    localStorage.removeItem(SAVE_SLOT_KEYS[slotIndex]);
+    return true;
+  } catch (e) {
+    console.error(`Failed to delete slot ${slotIndex}:`, e);
+    return false;
+  }
+};
 
 // Factory function to ensure a fresh state object every time
 const getInitialState = (hasApiKey: boolean): StoryState => ({
@@ -35,6 +109,11 @@ function App() {
   const [showModelSelector, setShowModelSelector] = useState(false);
   // Preference settings modal
   const [showPreferenceSettings, setShowPreferenceSettings] = useState(false);
+  // Save slot modal
+  const [showSaveSlotModal, setShowSaveSlotModal] = useState(false);
+  const [saveSlotMode, setSaveSlotMode] = useState<'save' | 'load'>('load');
+  const [currentSlot, setCurrentSlot] = useState<number | null>(null);
+  const [slotInfos, setSlotInfos] = useState<(SaveSlotInfo | null)[]>(loadSlotInfo());
 
   // Character filter state
   const [searchQuery, setSearchQuery] = useState('');
@@ -123,6 +202,13 @@ function App() {
         ? prev.filter(f => f !== relationship)
         : [...prev, relationship]
     );
+  }, []);
+
+  const handleClearFilters = useCallback(() => {
+    setSearchQuery('');
+    setAgeFilters([]);
+    setRelationshipFilters([]);
+    setSortBy('id');
   }, []);
 
   // Check for save data on mount
@@ -901,6 +987,7 @@ function App() {
               onRelationshipFilterToggle={handleRelationshipFilterToggle}
               sortBy={sortBy}
               onSortChange={setSortBy}
+              onClearFilters={handleClearFilters}
               resultCount={filteredCharacters.length}
               totalCount={CHARACTERS.length}
             />

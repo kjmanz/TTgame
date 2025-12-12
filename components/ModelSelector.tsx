@@ -16,7 +16,11 @@ import {
     getStoredStreamingMode,
     setStoredStreamingMode,
     getStoredInnerThoughtsMode,
-    setStoredInnerThoughtsMode
+    setStoredInnerThoughtsMode,
+    getStoredFontSize,
+    setStoredFontSize,
+    getStoredImageCount,
+    setStoredImageCount
 } from './ApiKeyScreen';
 
 interface ModelSelectorProps {
@@ -31,6 +35,8 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
     const [apiKey, setApiKey] = useState(getStoredApiKey() || '');
     const [streamingMode, setStreamingMode] = useState(getStoredStreamingMode());
     const [innerThoughtsMode, setInnerThoughtsMode] = useState(getStoredInnerThoughtsMode());
+    const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>(getStoredFontSize());
+    const [imageCount, setImageCount] = useState<1 | 2 | 4>(getStoredImageCount());
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
 
@@ -61,6 +67,8 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
         setStoredImageStyle(imageStyle);
         setStoredStreamingMode(streamingMode);
         setStoredInnerThoughtsMode(innerThoughtsMode);
+        setStoredFontSize(fontSize);
+        setStoredImageCount(imageCount);
         if (xaiApiKey.trim()) {
             setStoredXaiApiKey(xaiApiKey);
         }
@@ -255,6 +263,53 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onClose }) => {
                             </label>
                         </div>
                     </div>
+
+                    {/* Font Size Toggle */}
+                    <div>
+                        <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+                            📖 文字サイズ
+                        </label>
+                        <div className="flex gap-2">
+                            {(['small', 'medium', 'large'] as const).map((size) => (
+                                <button
+                                    key={size}
+                                    onClick={() => setFontSize(size)}
+                                    className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${fontSize === size
+                                            ? 'bg-green-900/30 border-green-500 text-green-200'
+                                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                                        }`}
+                                >
+                                    {size === 'small' ? '小' : size === 'medium' ? '中' : '大'}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Image Count Toggle */}
+                    {imageModel !== 'none' && (
+                        <div>
+                            <label className="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">
+                                🖼️ 画像生成枚数
+                            </label>
+                            <div className="flex gap-2">
+                                {([1, 2, 4] as const).map((count) => (
+                                    <button
+                                        key={count}
+                                        onClick={() => setImageCount(count)}
+                                        className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all border ${imageCount === count
+                                                ? 'bg-purple-900/30 border-purple-500 text-purple-200'
+                                                : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/30'
+                                            }`}
+                                    >
+                                        {count}枚
+                                    </button>
+                                ))}
+                            </div>
+                            <p className="text-[10px] text-gray-500 mt-1">
+                                複数枚生成時はバリエーションから選択できます
+                            </p>
+                        </div>
+                    )}
 
                     {imageModel === 'grok-2-image-1212' && (
                         <div>
