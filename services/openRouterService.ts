@@ -192,8 +192,14 @@ const buildPreferencePrompt = (prefs: PlayPreferences): string => {
 
     // 呼び方の親密化設定
     sections.push(prefs.dynamicCallingEnabled
-        ? '【呼び方の親密化】キャラクター設定にあるデフォルトの呼び方を起点に、章・パートの進行や行為の盛り上がりに合わせて、敬称→名前呼び捨て→愛称など少しずつ親密な呼称へ変化させてください。唐突に変えず、親密度の積み上げを描写しながら段階的に行うこと。'
-        : '【呼び方固定モード】どのパートでもキャラクター設定のデフォルトの呼び方を変えずに使い続け、親密さが増しても呼称を崩さないでください。');
+        ? '【呼び方の親密化】キャラクター設定にあるデフォルトの呼び方を起点に、章・パートの進行や行為の盛り上がりに合わせて、敬称→名前呼び捨て→愛称など少しずつ親密な呼称へ変化させてください。唐突に変えず、親密度の積み上げを描写しながら段階的に行うこと。各パートで「いつ」「どのきっかけで」呼称が変わるのか、セリフ中に明示してください。'
+        : '【呼び方固定モード】どのパートでもキャラクター設定のデフォルトの呼び方を変えずに使い続け、親密さが増しても呼称を崩さないでください。各パートで必ず1回はデフォルト呼称を使い、固定であることを示してください。');
+
+    // 嗜好反映の強制ルール
+    const hasPlayEmphasis = prefs.foreplayPreferences.length + prefs.positionPreferences.length + prefs.finishPreferences.length + prefs.fetishEmphasis.length > 0;
+    if (hasPlayEmphasis) {
+        sections.push('【嗜好反映ルール】選択された前戯/体位/フィニッシュ/フェチのうち、毎パート最低3要素を具体的な描写・セリフ・擬音で必ず盛り込み、選ばれていない要素を不用意に混ぜないでください。反映できた箇所がどこか分かるよう、セリフやモノローグにキーワードを含めてください。');
+    }
 
     // 比較セリフシステム
     if (prefs.comparisonEnabled) {
@@ -783,6 +789,7 @@ export const generateStorySegmentStreaming = async (
     // ユーザーの嗜好設定を取得してプロンプトに変換
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
+    const innerThoughtsEnabled = getStoredInnerThoughtsMode();
 
     const callingStyleInstruction = userPreferences.dynamicCallingEnabled
         ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。`
@@ -792,7 +799,26 @@ export const generateStorySegmentStreaming = async (
         ? '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
         : `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`;
 
+    const innerThoughtsPrompt = innerThoughtsEnabled ? `
+【女性の内心（本音）表示モード：ON】
+女性キャラクターのセリフの後に、（　）書きで**本音・内心**を必ず挿入してください。
+口では「ダメ」と言いながら本音では「もっと」と思っている…そのギャップが読者を興奮させます。
+
+**必須フォーマット**:
+「やめて…ダメ…」（でも本当は止まってほしくない…こんなに濡れてるのがバレたら…）
+「そんな激しくしないで…」（もっと奥まで突いて…壊れちゃいそう…）
+「恥ずかしい…見ないで…」（でも見られてる…この人に全部見られてる…それが…嬉しい…）
+
+**ルール**:
+- セリフの**直後**に（　）で内心を追加
+- 内心は**願望、快楽、羞恥、背徳感**を正直に表現
+- 口で言っていることと**反対**の本音を書くとより効果的
+- 最低3回以上/1パートで内心描写を入れてください
+` : '';
+
     const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+${innerThoughtsPrompt}
 
 ${preferencePrompt ? `
 ===========================================
