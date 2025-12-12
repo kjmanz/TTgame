@@ -1061,32 +1061,41 @@ const extractImageUrlFromContent = (content: string | undefined | null): string 
     // 0. Clean content
     const cleanContent = content.trim();
 
+    // Helper to clean trailing punctuation from URL
+    const cleanUrl = (url: string): string => {
+        // Remove trailing punctuation that might have been captured
+        return url.replace(/[\.\,\)\;\]\>]+$/, '');
+    };
+
     // 1. Markdown image syntax: ![alt](url)
-    const markdownMatch = cleanContent.match(/!\[.*?\]\((https?:\/\/[^\)]+)\)/);
+    // Also match [text](url) just in case
+    const markdownMatch = cleanContent.match(/!?\[.*?\]\((https?:\/\/[^\)]+)\)/);
     if (markdownMatch) {
-        return markdownMatch[1];
+        return cleanUrl(markdownMatch[1]);
     }
 
     // 2. Direct URL or Base64 at start
     if (cleanContent.startsWith('http') || cleanContent.startsWith('data:image')) {
         // If it starts with http, it might be followed by text.
         // If it's just a URL, return it.
-        const firstToken = cleanContent.split(/\s+/)[0];
-        if (firstToken.startsWith('http')) return firstToken;
+        const firstToken = cleanContent.split(/[\s\n]+/)[0];
+        if (firstToken.startsWith('http')) return cleanUrl(firstToken);
         return cleanContent;
     }
 
     // 3. URL with common image extensions (anywhere in text)
-    const extMatch = cleanContent.match(/https?:\/\/[^\s\)\"]+\.(png|jpg|jpeg|webp|gif)(\?[^\s\)\"]*)?/i);
+    // Be more aggressive with boundaries
+    const extMatch = cleanContent.match(/https?:\/\/[^\s\)\"\'\<]+?\.(png|jpg|jpeg|webp|gif)(\?[^\s\)\"\'\<]*)?/i);
     if (extMatch) {
-        return extMatch[0];
+        return cleanUrl(extMatch[0]);
     }
 
     // 4. Any http/https URL (Fallback)
     // This is important for signed URLs or APIs that return just a link (like Gemini)
-    const urlMatch = cleanContent.match(/https?:\/\/[^\s\)\"]+/);
+    // Capture until whitespace or common closing delimiters
+    const urlMatch = cleanContent.match(/https?:\/\/[^\s\)\"\'\<]+/);
     if (urlMatch) {
-        return urlMatch[0];
+        return cleanUrl(urlMatch[0]);
     }
 
     return null;
