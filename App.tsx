@@ -618,13 +618,6 @@ function App() {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
 
-    // Need at least 2 items to regenerate: [User, Model(current)]
-    if (state.history.length < 2) {
-      // Cannot regenerate the very first intro segment easily without reset
-      alert("最初のパートは再生成できません。トップに戻ってやり直してください。");
-      return;
-    }
-
     setState(prev => ({ ...prev, currentPhase: 'LOADING_STORY' }));
 
     try {
