@@ -194,11 +194,11 @@ const buildPreferencePrompt = (prefs: PlayPreferences): string => {
     sections.push(prefs.dynamicCallingEnabled
         ? `【呼び方の親密化 - 絶対遵守】
 **段階的変化ルール**:
-- **Part1-3**: 「${prefs.mainSituation === 'boss_subordinate' ? '部長' : 'さん付け'}」などの距離のある呼称のみ使用。毎パート最低3回は呼びかけてください。
-- **Part4-6**: 徐々に親密化。「タケルさん」→「タケル」への移行。変化の瞬間は必ずセリフで明示（例：「ねえ...タケル...って呼んでもいい？」）。
-- **Part7以降**: 盛り上がりに応じて「タケル」→愛称（「タケちゃん」「あなた」など）へ。絶頂時や感情が高ぶった時に自然に変化。
+- **Part1-3**: 「${prefs.mainSituation === 'boss_subordinate' ? '部長' : 'さん付け'}」「お客様」「プロデューサー」など距離のある呼称のみ使用。毎パート最低3回は呼びかけてください。
+- **Part4-6**: 盛り上がりに合わせて親密化。「タケルさん」→「タケル」への移行。変化の瞬間は必ずセリフで明示（例：「ねえ...タケル...って呼んでもいい？」）。名前以外の呼称から始まる場合は、「そういえばお名前は？」「もう“タケルさん”って呼んでいい？」など、名前を尋ねたり本人がお願いするミニシーンを挟み、呼び方のスイッチに必ず理由と感情を添えてください。
+- **Part7以降**: 盛り上がりに応じて「タケル」→愛称（「タケちゃん」「あなた」など）へ。絶頂時や感情が高ぶった時に自然に変化し、初期の呼称（お客様/プロデューサー等）とのギャップで親密さを際立たせる。
 - **重要**: 呼び方が変わるたびに、女性の心理描写（戸惑い、恥じらい、親密感の高まり）を必ず付け加えてください。
-- **毎パート必須**: 現在の呼び方を最低5回以上使用し、段階的変化を読者に実感させること。`
+- **毎パート必須**: 現在の呼び方を最低5回以上使用し、段階的変化を読者に実感させること.`
         : `【呼び方固定モード - 絶対遵守】
 - 全てのパートで一貫して「${prefs.mainSituation === 'boss_subordinate' ? '部長' : 'デフォルトの呼称'}」のみを使用。
 - 毎パート最低5回は呼びかけのセリフを入れ、呼び方が固定されていることを明確にしてください。
@@ -573,7 +573,7 @@ export const generateStorySegment = async (
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
     const callingStyleInstruction = userPreferences.dynamicCallingEnabled
-        ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。`
+        ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。名前以外の呼称（お客様・プロデューサー等）から始まる場合は、親しくなる瞬間に「そういえばお名前は？」「タケルさんって呼んでいい？」といった会話を必ず挟み、名前呼びや愛称へのスイッチに理由と感情を添えてください。`
         : `- 主人公を呼ぶときは常に「${character.callingTakeru}」。物語の進行や盛り上がりに関係なく呼び方を変えないでください。`;
 
     const callingSafetyRule = userPreferences.dynamicCallingEnabled
@@ -885,7 +885,7 @@ export const generateStorySegmentStreaming = async (
 
     // 呼び方の段階的変化（非ストリーミング版と同じ強化版）
     const callingStyleInstruction = userPreferences.dynamicCallingEnabled
-        ? `- **呼び方の段階的変化**: Part1-3では「${character.callingTakeru}」などの距離のある呼称（毎パート最低3回）、Part4-6で「タケルさん」→「タケル」への移行（変化の瞬間をセリフで明示）、Part7以降で愛称への変化。毎パート最低5回は現在の呼び方を使用し、変化時は心理描写を付け加えること。`
+        ? `- **呼び方の段階的変化**: Part1-3では「${character.callingTakeru}」などの距離のある呼称（毎パート最低3回）、Part4-6で「タケルさん」→「タケル」への移行（変化の瞬間をセリフで明示）、Part7以降で愛称への変化。毎パート最低5回は現在の呼び方を使用し、変化時は心理描写を付け加えること。名前以外の呼称（お客様・プロデューサー等）スタートの場合は、親しくなるシーンで名前を尋ねたり愛称を提案する会話を必ず挟み、呼び方の変化に理由と感情の流れを与えること。`
         : `- **呼び方固定モード**: 全パートで「${character.callingTakeru}」のみ使用。毎パート最低5回は呼びかけのセリフを入れ、どんなに盛り上がっても絶対に呼び方を変えないこと。`;
 
     const callingSafetyRule = userPreferences.dynamicCallingEnabled

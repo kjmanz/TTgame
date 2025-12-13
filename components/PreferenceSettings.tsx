@@ -476,7 +476,9 @@ const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({ onClose }) => {
                             <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-4">
                                 <p className="text-sm text-gray-300 leading-relaxed">
                                     物語が進行したり盛り上がったりすると、女性が主人公を呼ぶときの距離感を
-                                    少しずつ親密に変化させます。オフにすると常にデフォルトの呼び方のまま固定されます。
+                                    少しずつ親密に変化させます。最初に「お客様」「プロデューサー」など名前以外で呼んでいても、
+                                    途中で「そういえばお名前は？」「タケルさんって呼んでいい？」と尋ねて名前呼びや愛称に
+                                    切り替える小さなドラマを自然に挟みます。オフにすると常にデフォルトの呼び方のまま固定されます。
                                 </p>
                             </div>
 
