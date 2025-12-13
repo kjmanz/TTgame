@@ -76,7 +76,7 @@ export const AVAILABLE_IMAGE_MODELS = [
     price: '$0.04/枚'
   },
   {
-    id: 'blackforestlabs/flux-2-pro',
+    id: 'black-forest-labs/flux.2-pro',
     name: 'FLUX 2 Pro',
     description: '最新版、最高品質、4K対応',
     price: '$0.05/枚'
