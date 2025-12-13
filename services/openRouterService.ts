@@ -1093,10 +1093,13 @@ ${(chapter === 1 && part <= 2) ? `
 
                     try {
                         const parsed = JSON.parse(data);
-                        const delta = parsed.choices?.[0]?.delta?.content;
-                        if (delta) {
-                            fullContent += delta;
-                            liveStoryBuffer += delta;
+                        const deltaContent = parsed.choices?.[0]?.delta?.content
+                            ?? parsed.choices?.[0]?.message?.content;
+                        const deltaText = extractDeltaText(deltaContent);
+
+                        if (deltaText) {
+                            fullContent += deltaText;
+                            liveStoryBuffer += deltaText;
 
                             // Extract and clean the "text" field for display
                             const cleanedText = extractTextFieldFromStream(fullContent);
@@ -1113,6 +1116,39 @@ ${(chapter === 1 && part <= 2) ? `
                     }
                 }
             }
+        }
+
+        // Gemini 2.5 Flash (and some other OpenRouter models) return delta.content as an
+        // array of content blocks instead of a plain string. Normalize it so we always
+        // accumulate text and avoid empty fullContent that would break JSON parsing.
+        function extractDeltaText(content: unknown): string {
+            if (!content) return "";
+
+            if (typeof content === "string") return content;
+
+            if (Array.isArray(content)) {
+                return content
+                    .map(item => {
+                        if (typeof item === "string") return item;
+                        if (item && typeof item === "object" && "text" in item) {
+                            const textValue = (item as { text?: unknown }).text;
+                            return typeof textValue === "string" ? textValue : "";
+                        }
+                        return "";
+                    })
+                    .join("");
+            }
+
+            if (typeof content === "object") {
+                if ("text" in content && typeof (content as { text?: unknown }).text === "string") {
+                    return (content as { text: string }).text;
+                }
+                if ("content" in content) {
+                    return extractDeltaText((content as { content?: unknown }).content);
+                }
+            }
+
+            return "";
         }
 
         // Helper function to extract only the "text" field content from streaming JSON
