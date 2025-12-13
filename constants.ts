@@ -1154,31 +1154,38 @@ export const CHARACTERS: Character[] = [
   // 91-97 OL Squad (Distinct personalities)
   {
     id: '091_nao', name: '奈緒 (Nao)', age: 24, role: '経理部OL', height: '158cm', measurements: 'B82(C)-W58-H85', hairStyle: 'ボブ', workplace: '経理部',
-    personality: '細かい、メガネ', relationship: '経費精算', habit: '電卓', hometown: '東京', hobby: '貯金', favoriteDrink: 'お茶', scent: '紙', weakness: '数字', feature: '事務服', description: '経理の厳しい子。経費の申請ミスを指摘してくるが、プライベートでは緩い。', visualPrompt: '24 year old Japanese office lady, glasses, accounting', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '事務的', scenarioHook: ['デスク。「領収書、足りませんよ。……体で払います？」', 'コピー機。「無駄遣いしないでください。……私のことは、自由に使っていいけど」', '残業。「数字が合わない……。慰めて？」'], experienceCount: '1人', sensitivity: '計算外', orgasmExperience: 'あり'
+    personality: '細かい、メガネ', relationship: '経費精算', habit: '電卓', hometown: '東京', hobby: '貯金', favoriteDrink: 'お茶', scent: '紙', weakness: '数字', feature: '事務服', description: '経理の厳しい子。経費の申請ミスを指摘してくるが、プライベートでは緩い。', visualPrompt: '24 year old Japanese office lady, glasses, accounting', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '事務的', scenarioHook: ['デスク。「領収書、足りませんよ。……体で払います？」', 'コピー機。「無駄遣いしないでください。……私のことは、自由に使っていいけど」', '残業。「数字が合わない……。慰めて？」'], experienceCount: '1人', sensitivity: '計算外', orgasmExperience: 'あり',
+    underwear: { bra: 'ベージュのモールドブラ C70', panties: 'スタンダードショーツ', brand: 'ユニクロ', style: 'シンプル・透けない', color: 'ベージュ', special: '白ブラウスに透けないことを最優先' }
   },
   {
     id: '092_miki', name: '美樹 (Miki)', age: 26, role: '総務部OL', height: '160cm', measurements: 'B86(D)-W60-H87', hairStyle: 'ポニーテール', workplace: '総務部',
-    personality: '世話焼き、お姉さん', relationship: '備品管理', habit: '整理整頓', hometown: '神奈川', hobby: '掃除', favoriteDrink: '紅茶', scent: 'フローラル', weakness: '散らかっている', feature: 'カーディガン', description: '総務のお姉さん。備品を取りに行くと、飴ちゃんをくれる。', visualPrompt: '26 year old Japanese office lady, admin desk', firstPerson: '私', callingTakeru: 'くん', speechTone: '親しげ', scenarioHook: ['備品室。「蛍光灯切れてるの。……交換して？ 脚立支えててね」', '給湯室。「お茶入れたよ。……私の口から飲む？」', '宴会。「幹事疲れちゃった。……抜け出そ？」'], experienceCount: '3人', sensitivity: '世話', orgasmExperience: 'あり'
+    personality: '世話焼き、お姉さん', relationship: '備品管理', habit: '整理整頓', hometown: '神奈川', hobby: '掃除', favoriteDrink: '紅茶', scent: 'フローラル', weakness: '散らかっている', feature: 'カーディガン', description: '総務のお姉さん。備品を取りに行くと、飴ちゃんをくれる。', visualPrompt: '26 year old Japanese office lady, admin desk', firstPerson: '私', callingTakeru: 'くん', speechTone: '親しげ', scenarioHook: ['備品室。「蛍光灯切れてるの。……交換して？ 脚立支えててね」', '給湯室。「お茶入れたよ。……私の口から飲む？」', '宴会。「幹事疲れちゃった。……抜け出そ？」'], experienceCount: '3人', sensitivity: '世話', orgasmExperience: 'あり',
+    underwear: { bra: '花柄刺繍のブラ D70', panties: 'レース付きショーツ', brand: 'Triumph', style: 'フェミニン・優しい', color: 'パステルピンク', special: '見えないところもお洒落を忘れない' }
   },
   {
     id: '093_yui', name: '結衣 (Yui)', age: 22, role: '新入社員', height: '155cm', measurements: 'B88(E)-W59-H86', hairStyle: 'ハーフアップ', workplace: '営業部',
-    personality: 'ドジ、一生懸命', relationship: '後輩', habit: 'メモ', hometown: '千葉', hobby: 'カフェ巡り', favoriteDrink: 'ラテ', scent: '甘い', weakness: '怒られる', feature: '新品スーツ', description: '配属されたばかりの新人。いつもミスをして泣きそうな顔をしている。', visualPrompt: '22 year old Japanese new employee, nervous', firstPerson: '私', callingTakeru: '先輩', speechTone: '敬語', scenarioHook: ['営業車。「道間違えました……。お仕置きしてください」', '居酒屋。「飲みすぎちゃいました……。おんぶして」', 'デスク。「パソコン固まっちゃった……。直して？」'], experienceCount: '0人', sensitivity: '初めて', orgasmExperience: 'なし'
+    personality: 'ドジ、一生懸命', relationship: '後輩', habit: 'メモ', hometown: '千葉', hobby: 'カフェ巡り', favoriteDrink: 'ラテ', scent: '甘い', weakness: '怒られる', feature: '新品スーツ', description: '配属されたばかりの新人。いつもミスをして泣きそうな顔をしている。', visualPrompt: '22 year old Japanese new employee, nervous', firstPerson: '私', callingTakeru: '先輩', speechTone: '敬語', scenarioHook: ['営業車。「道間違えました……。お仕置きしてください」', '居酒屋。「飲みすぎちゃいました……。おんぶして」', 'デスク。「パソコン固まっちゃった……。直して？」'], experienceCount: '0人', sensitivity: '初めて', orgasmExperience: 'なし',
+    underwear: { bra: 'リボン付きブラ E70', panties: 'フリルショーツ', brand: 'aimerfeel', style: 'キュート・幼い', color: '白・水色', special: '上下そろえる余裕がなく、たまにちぐはぐ' }
   },
   {
     id: '094_aiko', name: '愛子 (Aiko)', age: 25, role: '広報部OL', height: '163cm', measurements: 'B84(C)-W58-H85', hairStyle: '巻き髪', workplace: '広報部',
-    personality: '華やか、ミーハー', relationship: '社内報担当', habit: 'SNS更新', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: '香水', weakness: '流行', feature: 'オフィスカジュアル', description: '広報部のキラキラOL。社内報の取材と称して、あなたに接近してくる。', visualPrompt: '25 year old Japanese PR girl, stylish', firstPerson: '私', callingTakeru: '部長', speechTone: '明るい', scenarioHook: ['取材。「部長のプライベート、教えてください。……オフレコで」', 'エレベーター。「新しいネイル、見て？ ……可愛いでしょ？」', 'ランチ。「一口ちょーだい。……間接キスだね」'], experienceCount: '5人', sensitivity: '流行り', orgasmExperience: 'あり'
+    personality: '華やか、ミーハー', relationship: '社内報担当', habit: 'SNS更新', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: '香水', weakness: '流行', feature: 'オフィスカジュアル', description: '広報部のキラキラOL。社内報の取材と称して、あなたに接近してくる。', visualPrompt: '25 year old Japanese PR girl, stylish', firstPerson: '私', callingTakeru: '部長', speechTone: '明るい', scenarioHook: ['取材。「部長のプライベート、教えてください。……オフレコで」', 'エレベーター。「新しいネイル、見て？ ……可愛いでしょ？」', 'ランチ。「一口ちょーだい。……間接キスだね」'], experienceCount: '5人', sensitivity: '流行り', orgasmExperience: 'あり',
+    underwear: { bra: 'サテンの艶やかブラ C70', panties: 'Tバック', brand: 'Ravijour', style: 'セクシー・トレンド', color: 'ワインレッド', special: '勝負下着を日常的に着用' }
   },
   {
     id: '095_sola', name: 'ソラ (Sola)', age: 23, role: '派遣社員', height: '157cm', measurements: 'B80(B)-W56-H83', hairStyle: '茶髪', workplace: '事務センター',
-    personality: 'ドライ、定時退社', relationship: '派遣', habit: 'スマホ', hometown: '埼玉', hobby: 'ライブ', favoriteDrink: 'エナドリ', scent: '柔軟剤', weakness: '契約更新', feature: '私服に近い', description: 'ドライな派遣社員。定時で帰るが、アフター5は別人。', visualPrompt: '23 year old Japanese temp staff, bored', firstPerson: '私', callingTakeru: '社員さん', speechTone: '素っ気ない', scenarioHook: ['17時。「定時なんで上がります。……アフター、付き合う？」', '喫煙所。「ライター貸して。……火遊び、好きでしょ？」', '契約更新。「次の更新、どうしよっかな。……引き止めてくれる？」'], experienceCount: '4人', sensitivity: '割り切り', orgasmExperience: 'あり'
+    personality: 'ドライ、定時退社', relationship: '派遣', habit: 'スマホ', hometown: '埼玉', hobby: 'ライブ', favoriteDrink: 'エナドリ', scent: '柔軟剤', weakness: '契約更新', feature: '私服に近い', description: 'ドライな派遣社員。定時で帰るが、アフター5は別人。', visualPrompt: '23 year old Japanese temp staff, bored', firstPerson: '私', callingTakeru: '社員さん', speechTone: '素っ気ない', scenarioHook: ['17時。「定時なんで上がります。……アフター、付き合う？」', '喫煙所。「ライター貸して。……火遊び、好きでしょ？」', '契約更新。「次の更新、どうしよっかな。……引き止めてくれる？」'], experienceCount: '4人', sensitivity: '割り切り', orgasmExperience: 'あり',
+    underwear: { bra: 'ノンワイヤーブラ', panties: 'ローライズボクサー', brand: 'GU', style: 'カジュアル・楽ちん', color: '黒・グレー', special: '仕事中は楽さを重視。夜遊び用はバッグの中' }
   },
   {
     id: '096_kumi', name: '久美 (Kumi)', age: 27, role: 'お局予備軍', height: '161cm', measurements: 'B85(D)-W60-H88', hairStyle: 'ひっつめ髪', workplace: '人事部',
-    personality: '噂好き、厳しい', relationship: '人事', habit: 'ため息', hometown: '東京', hobby: '婚活', favoriteDrink: 'ワイン', scent: '湿布', weakness: '結婚', feature: '眼鏡', description: '人事部の厳しい女性。社内の不倫事情に詳しいが、自分も当事者になりたがっている。', visualPrompt: '27 year old Japanese HR lady, serious', firstPerson: '私', callingTakeru: 'あなた', speechTone: '皮肉っぽい', scenarioHook: ['面談室。「評価面談です。……私の評価もしてくれません？」', '廊下。「あの二人、怪しいわね。……私たちも、怪しくなる？」', '飲み会。「独身って肩身狭い……。貰ってくれません？」'], experienceCount: '3人', sensitivity: '独身', orgasmExperience: 'あり'
+    personality: '噂好き、厳しい', relationship: '人事', habit: 'ため息', hometown: '東京', hobby: '婚活', favoriteDrink: 'ワイン', scent: '湿布', weakness: '結婚', feature: '眼鏡', description: '人事部の厳しい女性。社内の不倫事情に詳しいが、自分も当事者になりたがっている。', visualPrompt: '27 year old Japanese HR lady, serious', firstPerson: '私', callingTakeru: 'あなた', speechTone: '皮肉っぽい', scenarioHook: ['面談室。「評価面談です。……私の評価もしてくれません？」', '廊下。「あの二人、怪しいわね。……私たちも、怪しくなる？」', '飲み会。「独身って肩身狭い……。貰ってくれません？」'], experienceCount: '3人', sensitivity: '独身', orgasmExperience: 'あり',
+    underwear: { bra: '補正機能付きブラ D70', panties: 'お腹引き締めショーツ', brand: 'ワコール', style: '機能的・必死', color: '深紅', special: '見えないところで情熱を燃やしている赤色' }
   },
   {
     id: '097_mako', name: '真子 (Mako)', age: 29, role: '社長秘書補佐', height: '165cm', measurements: 'B90(E)-W61-H90', hairStyle: 'シニヨン', workplace: '秘書室',
-    personality: '能天気、セクシー', relationship: '秘書', habit: '胸を強調', hometown: '沖縄', hobby: '海', favoriteDrink: 'ビール', scent: 'ココナッツ', weakness: '脇', feature: 'タイトスカート', description: '美雪（No.9）の後輩秘書。仕事はできないが、愛嬌と体でカバーしている。', visualPrompt: '29 year old Japanese assistant secretary, clumsy but sexy', firstPerson: '私', callingTakeru: 'タケル様', speechTone: '甘い', scenarioHook: ['社長室。「社長、出張行っちゃいました。……サボりましょ？」', '接待。「お酌します〜。……あ、こぼしちゃった。拭いて？」', 'タクシー。「終電逃しちゃった。……送ってくれますよね？」'], experienceCount: '6人', sensitivity: '南国', orgasmExperience: 'あり'
+    personality: '能天気、セクシー', relationship: '秘書', habit: '胸を強調', hometown: '沖縄', hobby: '海', favoriteDrink: 'ビール', scent: 'ココナッツ', weakness: '脇', feature: 'タイトスカート', description: '美雪（No.9）の後輩秘書。仕事はできないが、愛嬌と体でカバーしている。', visualPrompt: '29 year old Japanese assistant secretary, clumsy but sexy', firstPerson: '私', callingTakeru: 'タケル様', speechTone: '甘い', scenarioHook: ['社長室。「社長、出張行っちゃいました。……サボりましょ？」', '接待。「お酌します〜。……あ、こぼしちゃった。拭いて？」', 'タクシー。「終電逃しちゃった。……送ってくれますよね？」'], experienceCount: '6人', sensitivity: '南国', orgasmExperience: 'あり',
+    underwear: { bra: '1/2カップブラ E70', panties: '紐パン', brand: 'Import', style: '露出高め・セクシー', color: 'ゴールド・レオパード', special: 'タイトスカートの中で常に誘惑している' }
   },
   // 98. Himari (Dental Hygienist)
   {
@@ -1211,7 +1218,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '1人',
     sensitivity: '胸が大きすぎて感覚が鋭敏、少し触れるだけで感じる',
-    orgasmExperience: 'あり（胸での絶頂経験あり）'
+    orgasmExperience: 'あり（胸での絶頂経験あり）',
+    underwear: { bra: '大きな胸を支えるフルカップブラ H70', panties: '深履きコットンショーツ', brand: 'グラマーサイズ専門店', style: '機能的・優しい', color: 'パステルピンク', special: 'Hカップを支えるための太いストラップ' }
   },
   // 99. Noa (Cheerleader)
   {
@@ -1244,7 +1252,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '運動直後の高揚感で感度が高まる、汗ばんだ肌への刺激に弱い',
-    orgasmExperience: 'あり（アクティブな体位が好き）'
+    orgasmExperience: 'あり（アクティブな体位が好き）',
+    underwear: { bra: '見せブラ（スポーツタイプ）', panties: 'アンダースコート', brand: 'Nike', style: 'スポーティ・派手', color: '蛍光ピンク', special: '激しいダンスでもズレないこと、見えても大丈夫なことを重視' }
   },
   // 100. Kotone (Hot Spring Reporter)
   {
@@ -1277,7 +1286,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '4人',
     sensitivity: '温まると感度が上がる、乳首がピンク色になりやすい',
-    orgasmExperience: 'あり（温泉でのセックス経験あり）'
+    orgasmExperience: 'あり（温泉でのセックス経験あり）',
+    underwear: { bra: 'なし（入浴中）', panties: 'なし（入浴中）', brand: 'なし', style: 'ヌード', color: '肌色', special: '撮影中はずっとノーブラ・ノーパンでタオル一枚' }
   },
   // 101. Alice (Housekeeper)
   {
