@@ -1510,6 +1510,20 @@ const generateImageWithOpenRouter = async (prompt: string, model: string): Promi
         console.log("Content type:", typeof content);
         console.log("Content value:", content);
 
+        // ★ FLUX形式: message.images 配列に画像がある場合
+        if (message?.images && Array.isArray(message.images) && message.images.length > 0) {
+            console.log("Found message.images array, length:", message.images.length);
+            const firstImage = message.images[0];
+            if (firstImage?.image_url?.url) {
+                console.log("Found image in message.images[0].image_url.url");
+                return firstImage.image_url.url;
+            }
+            if (firstImage?.url) {
+                console.log("Found image in message.images[0].url");
+                return firstImage.url;
+            }
+        }
+
         // content が配列の場合（OpenAI Vision形式）
         if (Array.isArray(content)) {
             console.log("Content is array, length:", content.length);
