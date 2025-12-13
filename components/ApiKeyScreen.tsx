@@ -27,6 +27,12 @@ export const AVAILABLE_TEXT_MODELS = [
     description: '高速、高品質、無検閲、日本語OK',
     price: '$3/M'
   },
+  {
+    id: 'google/gemini-2.5-flash',
+    name: 'Gemini 2.5 Flash (OpenRouter)',
+    description: 'Google Gemini、高速・安定、OpenRouter経由で利用可能',
+    price: '$0.10/M'
+  },
   // === S tier NSFW特化モデル ===
   {
     id: 'sao10k/l3.3-euryale-70b',
