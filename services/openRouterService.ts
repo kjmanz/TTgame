@@ -1502,38 +1502,81 @@ const generateImageWithOpenRouter = async (prompt: string, model: string): Promi
         console.log("OpenRouter Image generation response:", data);
 
         // レスポンスから画像を抽出
-        const content = data.choices?.[0]?.message?.content;
+        const message = data.choices?.[0]?.message;
+        const content = message?.content;
 
-        // content が配列の場合（OpenAI形式）
+        // 詳細ログ
+        console.log("Message object:", message);
+        console.log("Content type:", typeof content);
+        console.log("Content value:", content);
+
+        // content が配列の場合（OpenAI Vision形式）
         if (Array.isArray(content)) {
+            console.log("Content is array, length:", content.length);
             for (const item of content) {
+                console.log("Array item:", item);
+                // type: 'image_url' 形式
                 if (item.type === 'image_url' && item.image_url?.url) {
+                    console.log("Found image_url in array:", item.image_url.url.substring(0, 100));
                     return item.image_url.url;
                 }
-                // base64 data URL の場合
-                if (typeof item === 'object' && item.image_url?.url?.startsWith('data:image')) {
-                    return item.image_url.url;
+                // type: 'image' 形式
+                if (item.type === 'image' && item.url) {
+                    console.log("Found image url in array:", item.url.substring(0, 100));
+                    return item.url;
+                }
+                // data URL 直接指定の場合
+                if (typeof item === 'string' && item.startsWith('data:image')) {
+                    console.log("Found data URL string in array");
+                    return item;
                 }
             }
         }
 
-        // content が文字列の場合、URL抽出を試みる
+        // content が文字列の場合
         if (typeof content === 'string') {
+            // base64 data URL が直接含まれている場合
+            if (content.startsWith('data:image')) {
+                console.log("Content is data URL");
+                return content;
+            }
+            // URL抽出を試みる
             const extractedUrl = extractImageUrlFromContent(content);
             if (extractedUrl) {
+                console.log("Extracted URL from string content:", extractedUrl.substring(0, 100));
                 return extractedUrl;
             }
         }
 
-        // data配列形式のレスポンス
+        // data配列形式のレスポンス (DALL-E互換形式)
         if (data.data?.[0]?.url) {
+            console.log("Found data[0].url:", data.data[0].url.substring(0, 100));
             return data.data[0].url;
         }
         if (data.data?.[0]?.b64_json) {
+            console.log("Found data[0].b64_json");
             return `data:image/png;base64,${data.data[0].b64_json}`;
         }
 
-        console.warn("No image found in OpenRouter response:", data);
+        // choices[0].message に直接 image_url がある場合
+        if (message?.image_url) {
+            console.log("Found message.image_url:", message.image_url.substring(0, 100));
+            return message.image_url;
+        }
+
+        // choices[0] に直接 image がある場合
+        const choice = data.choices?.[0];
+        if (choice?.image) {
+            console.log("Found choice.image");
+            if (typeof choice.image === 'string') {
+                return choice.image;
+            }
+            if (choice.image.url) {
+                return choice.image.url;
+            }
+        }
+
+        console.warn("No image found in OpenRouter response. Full response:", JSON.stringify(data, null, 2));
         return null;
     } catch (error) {
         console.error("OpenRouter Image generation failed:", error);
