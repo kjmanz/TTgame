@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Character } from '../types';
 
 interface Props {
@@ -8,30 +7,98 @@ interface Props {
 }
 
 const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   // Extract numeric ID from character.id (e.g., "001_misaki" -> "1")
-  // Remove leading zeros using parseInt
   const numericId = parseInt(character.id.split('_')[0], 10).toString();
-  // Use relative path that works with Vite/GitHub Pages
-  const imageUrl = `./characters/${numericId}.png`;
+
+  // Image sources: normal and underwear
+  const images = [
+    `./characters/${numericId}.png`,
+    `./characters_underwear/${numericId}.png`
+  ];
+
+  const imageLabels = ['通常', '下着'];
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex(prev => prev > 0 ? prev - 1 : images.length - 1);
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex(prev => prev < images.length - 1 ? prev + 1 : 0);
+  };
 
   return (
-    <div
-      className="group relative bg-[#fcfaf5] rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-900/30 flex flex-col h-full border border-gray-200/60"
-    >
-      {/* Character Portrait Image */}
+    <div className="group relative bg-[#fcfaf5] rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-900/30 flex flex-col h-full border border-gray-200/60">
+      {/* Character Portrait Image with Slideshow */}
       <div className="relative w-full aspect-[3/4] bg-gray-200 overflow-hidden">
         <img
-          src={imageUrl}
-          alt={character.name}
+          src={images[currentImageIndex]}
+          alt={`${character.name} - ${imageLabels[currentImageIndex]}`}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           onError={(e) => {
-            // Hide image on error, show placeholder gradient
-            (e.target as HTMLImageElement).style.display = 'none';
+            if (currentImageIndex === 1) {
+              (e.target as HTMLImageElement).src = images[0];
+            } else {
+              (e.target as HTMLImageElement).style.display = 'none';
+            }
           }}
         />
-        {/* Gradient overlay for text readability */}
+
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+        {/* Image Navigation Arrows */}
+        <button
+          onClick={handlePrevImage}
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-black/70 hover:border-purple-400 transition-all opacity-0 group-hover:opacity-100 z-10"
+          aria-label="前の画像"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={handleNextImage}
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-black/70 hover:border-purple-400 transition-all opacity-0 group-hover:opacity-100 z-10"
+          aria-label="次の画像"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Image Type Indicator */}
+        <div className="absolute top-3 right-3 flex gap-1 z-10">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentImageIndex(index);
+              }}
+              className={`w-2 h-2 rounded-full transition-all ${index === currentImageIndex
+                  ? 'bg-purple-400 scale-125'
+                  : 'bg-white/50 hover:bg-white/70'
+                }`}
+              aria-label={imageLabels[index]}
+            />
+          ))}
+        </div>
+
+        {/* Current Image Label Badge */}
+        <div className="absolute top-3 left-3 z-10">
+          <span className={`px-2 py-0.5 rounded text-[10px] font-bold tracking-wider backdrop-blur-sm ${currentImageIndex === 0
+              ? 'bg-indigo-600/80 text-white'
+              : 'bg-pink-500/80 text-white'
+            }`}>
+            {imageLabels[currentImageIndex]}
+          </span>
+        </div>
 
         {/* Name overlay on image */}
         <div className="absolute bottom-3 left-4 right-4">
@@ -76,6 +143,15 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
               <span className="text-gray-400 text-[10px] tracking-wider mb-0.5">SECRET</span>
               <span className="text-rose-800 font-medium">{character.weakness}</span>
             </div>
+            {/* Underwear Info */}
+            {character.underwear && (
+              <div className="flex flex-col col-span-2">
+                <span className="text-gray-400 text-[10px] tracking-wider mb-0.5">UNDERWEAR</span>
+                <span className="text-pink-600 font-medium text-xs">
+                  {character.underwear.brand} / {character.underwear.color} {character.underwear.style}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -86,7 +162,7 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
           </p>
         </div>
 
-        {/* CTA Button - Only this triggers selection */}
+        {/* CTA Button */}
         <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-center">
           <button
             onClick={() => onSelect(character)}
@@ -104,4 +180,3 @@ const CharacterCard: React.FC<Props> = ({ character, onSelect }) => {
 };
 
 export default CharacterCard;
-

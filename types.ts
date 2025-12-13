@@ -49,6 +49,16 @@ export interface Character {
   pubicHair?: string;         // 陰毛 (e.g. 「薄め」「処理している」「自然」)
   vaginalTightness?: string;  // 膣の締まり (e.g. 「キツキツ」「柔らかく包み込む」)
   clitorisSize?: string;      // クリトリス (e.g. 「敏感で大きめ」「皮被り」)
+
+  // 下着設定
+  underwear?: {
+    bra: string;              // ブラジャー詳細 (e.g. 「ワコールの白レース、C70」)
+    panties: string;          // パンティ詳細 (e.g. 「おそろいのTバック」)
+    brand: string;            // メインブランド (e.g. 「Wacoal」「Triumph」「PEACH JOHN」)
+    style: string;            // スタイル (e.g. 「清楚系」「セクシー系」「スポーティ」)
+    color: string;            // 色 (e.g. 「白」「黒」「ベビーピンク」)
+    special?: string;         // 特記事項 (e.g. 「最近は勝負下着を持ち歩いている」)
+  };
 }
 
 export interface HistoryItem {
