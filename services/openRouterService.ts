@@ -1075,6 +1075,7 @@ ${(chapter === 1 && part <= 2) ? `
         let fullContent = "";
         let buffer = "";
         let liveStoryBuffer = ""; // For streaming fallback when JSON field extraction fails
+        let rawStreamLog = ""; // Keep raw SSE payloads to recover moderator/system messages
 
         while (true) {
             const { done, value } = await reader.read();
@@ -1091,12 +1092,17 @@ ${(chapter === 1 && part <= 2) ? `
                     const data = line.slice(6);
                     if (data === '[DONE]') continue;
 
+                    rawStreamLog += data + "\n";
+
                     try {
                         const parsed = JSON.parse(data);
-                        const delta = parsed.choices?.[0]?.delta?.content;
-                        if (delta) {
-                            fullContent += delta;
-                            liveStoryBuffer += delta;
+                        const deltaContent = parsed.choices?.[0]?.delta?.content
+                            ?? parsed.choices?.[0]?.message?.content;
+                        const deltaText = extractDeltaText(deltaContent);
+
+                        if (deltaText) {
+                            fullContent += deltaText;
+                            liveStoryBuffer += deltaText;
 
                             // Extract and clean the "text" field for display
                             const cleanedText = extractTextFieldFromStream(fullContent);
@@ -1113,6 +1119,39 @@ ${(chapter === 1 && part <= 2) ? `
                     }
                 }
             }
+        }
+
+        // Gemini 2.5 Flash (and some other OpenRouter models) return delta.content as an
+        // array of content blocks instead of a plain string. Normalize it so we always
+        // accumulate text and avoid empty fullContent that would break JSON parsing.
+        function extractDeltaText(content: unknown): string {
+            if (!content) return "";
+
+            if (typeof content === "string") return content;
+
+            if (Array.isArray(content)) {
+                return content
+                    .map(item => {
+                        if (typeof item === "string") return item;
+                        if (item && typeof item === "object" && "text" in item) {
+                            const textValue = (item as { text?: unknown }).text;
+                            return typeof textValue === "string" ? textValue : "";
+                        }
+                        return "";
+                    })
+                    .join("");
+            }
+
+            if (typeof content === "object") {
+                if ("text" in content && typeof (content as { text?: unknown }).text === "string") {
+                    return (content as { text: string }).text;
+                }
+                if ("content" in content) {
+                    return extractDeltaText((content as { content?: unknown }).content);
+                }
+            }
+
+            return "";
         }
 
         // Helper function to extract only the "text" field content from streaming JSON
@@ -1197,9 +1236,17 @@ ${(chapter === 1 && part <= 2) ? `
                     .replace(/^#+\s+/gm, "")
                     .trim();
 
-                if (cleanText.length > 100) {
+                const rawLogText = rawStreamLog
+                    .replace(/\s*event:\s*\w+\s*/gi, "")
+                    .replace(/^data:\s*/gmi, "")
+                    .trim();
+
+                const fallbackText = cleanText || rawLogText;
+
+                if (fallbackText.length > 0) {
                     parsed = {
-                        text: cleanStoryText(cleanText),
+                        text: cleanStoryText(fallbackText) ||
+                            "応答の整形に失敗しましたが、モデルからのメッセージを表示します。安全フィルタに触れている場合は表現を少し穏やかにしてください。",
                         location: currentLocation || "不明",
                         date: "",
                         time: "",
