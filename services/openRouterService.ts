@@ -9,6 +9,9 @@ const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const buildPreferencePrompt = (prefs: PlayPreferences): string => {
     const sections: string[] = [];
 
+    // 嗜好設定の優先度を明示
+    sections.push("【最優先ルール】女性キャラクターの初期設定よりも、以下の嗜好設定を絶対に優先してください。初期設定と矛盾する場合は嗜好設定で上書きし、本文や行動リストに初期設定由来の不要な要素を混ぜないでください。");
+
     // A. メインシチュエーション (25種類)
     const situationMap: Record<string, string> = {
         'pure_love': '【シチュエーション：純愛】ロマンチックで甘い展開を重視してください。お互いの気持ちを確かめ合いながら進む純粋な恋愛物語です。',
@@ -1299,6 +1302,105 @@ ${(chapter === 1 && part <= 2) ? `
         };
     } catch (error) {
         console.error("Streaming story generation failed:", error);
+        throw error;
+    }
+};
+
+// 再生成時に本文を変更せず、新しい選択肢のみを生成
+export const regenerateActionChoices = async (
+    character: Character,
+    chapter: number,
+    part: number,
+    currentText: string,
+    currentLocation: string | null,
+    currentSummary: string,
+    lastUserAction?: string
+): Promise<string[]> => {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) {
+        throw new Error("APIキーが設定されていません");
+    }
+
+    const userPreferences = getStoredPreferences();
+    const preferencePrompt = buildPreferencePrompt(userPreferences);
+    const { style: callingStyleInstruction } = buildCallingStyleGuidance(
+        character,
+        part,
+        userPreferences.dynamicCallingEnabled
+    );
+
+    const systemInstruction = `${BASE_SYSTEM_INSTRUCTION}
+
+${preferencePrompt ? `
+===========================================
+【ユーザー嗜好設定（最優先で反映）】
+===========================================
+${preferencePrompt}
+` : ''}
+
+【行動リスト再生成専用タスク】
+- 今回は「choices」配列のみを新しく作成し、本文（text）や要約（summary）など他の要素は一切書き換えないこと。
+- 既存の本文に沿った具体的で実行可能な5つの行動を、主人公（タケル）の視点・主語で生成してください。
+- ${callingStyleInstruction}
+- 女性キャラクターの初期設定よりも嗜好設定を優先し、矛盾する場合は嗜好設定で補正した行動だけを提示してください。
+- 出力は必ず次のJSONのみ：{"choices": ["選択肢1", ... "選択肢5"]}`;
+
+    const userMessage = `現在の章: 第${chapter}章 / パート${part}
+直前の場所: ${currentLocation || "不明"}
+これまでのあらすじ: ${currentSummary || "物語は始まったばかりです。"}
+ユーザーが直近で選択した行動: ${lastUserAction || "特になし"}
+
+【現在の本文（変更禁止）】
+${currentText}
+
+上記の本文を前提に、次の展開へ繋がる行動案を生成してください。本文を一切変更せず、choices配列だけを返してください。`;
+
+    const response = await fetch(OPENROUTER_API_URL, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            'HTTP-Referer': window.location.origin,
+            'X-Title': "Takeru's Tales"
+        },
+        body: JSON.stringify({
+            model: getTextModel(),
+            messages: [
+                { role: 'system', content: systemInstruction },
+                { role: 'user', content: userMessage }
+            ],
+            temperature: 0.75,
+            max_tokens: 1200
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Action choice regeneration API error:", response.status, errorData);
+
+        if (response.status === 401) {
+            throw new Error("APIキーが無効です。正しいキーを設定してください。");
+        } else if (response.status === 402) {
+            throw new Error("API料金が不足しています。OpenRouterでクレジットを追加してください。");
+        } else if (response.status === 429) {
+            throw new Error("レート制限に達しました。しばらく待ってから再試行してください。");
+        } else {
+            throw new Error(`APIエラー (${response.status}): ${errorData?.error?.message || JSON.stringify(errorData)}`);
+        }
+    }
+
+    try {
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content || '{}';
+        const parsed = typeof content === 'string' ? JSON.parse(content) : content;
+
+        if (Array.isArray(parsed?.choices)) {
+            return parsed.choices as string[];
+        }
+
+        throw new Error('APIから有効な選択肢リストを取得できませんでした');
+    } catch (error) {
+        console.error("Failed to parse regenerated choices:", error);
         throw error;
     }
 };
