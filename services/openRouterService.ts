@@ -1075,6 +1075,7 @@ ${(chapter === 1 && part <= 2) ? `
         let fullContent = "";
         let buffer = "";
         let liveStoryBuffer = ""; // For streaming fallback when JSON field extraction fails
+        let rawStreamLog = ""; // Keep raw SSE payloads to recover moderator/system messages
 
         while (true) {
             const { done, value } = await reader.read();
@@ -1090,6 +1091,8 @@ ${(chapter === 1 && part <= 2) ? `
                 if (line.startsWith('data: ')) {
                     const data = line.slice(6);
                     if (data === '[DONE]') continue;
+
+                    rawStreamLog += data + "\n";
 
                     try {
                         const parsed = JSON.parse(data);
@@ -1233,9 +1236,17 @@ ${(chapter === 1 && part <= 2) ? `
                     .replace(/^#+\s+/gm, "")
                     .trim();
 
-                if (cleanText.length > 100) {
+                const rawLogText = rawStreamLog
+                    .replace(/\s*event:\s*\w+\s*/gi, "")
+                    .replace(/^data:\s*/gmi, "")
+                    .trim();
+
+                const fallbackText = cleanText || rawLogText;
+
+                if (fallbackText.length > 0) {
                     parsed = {
-                        text: cleanStoryText(cleanText),
+                        text: cleanStoryText(fallbackText) ||
+                            "応答の整形に失敗しましたが、モデルからのメッセージを表示します。安全フィルタに触れている場合は表現を少し穏やかにしてください。",
                         location: currentLocation || "不明",
                         date: "",
                         time: "",
