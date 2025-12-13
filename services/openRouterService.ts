@@ -1292,8 +1292,13 @@ export const generateSceneImage = async (character: Character, sceneText: string
     }
 
     // FLUX モデルの場合 (OpenRouter経由)
-    if (imageModel.startsWith('black-forest-labs/')) {
-        return generateImageWithFlux(imagePrompt, imageModel);
+    if (imageModel.startsWith('black-forest-labs/') || imageModel.startsWith('blackforestlabs/')) {
+        return generateImageWithOpenRouter(imagePrompt, imageModel);
+    }
+
+    // Gemini モデルの場合 (OpenRouter経由)
+    if (imageModel.startsWith('google/')) {
+        return generateImageWithOpenRouter(imagePrompt, imageModel);
     }
 
     // その他のOpenRouter経由モデルの場合
@@ -1438,14 +1443,14 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
     }
 };
 
-// FLUX (OpenRouter経由) で画像生成
-const generateImageWithFlux = async (prompt: string, model: string): Promise<string | null> => {
+// OpenRouter経由で画像生成（FLUX、Gemini等）
+const generateImageWithOpenRouter = async (prompt: string, model: string): Promise<string | null> => {
     const apiKey = getStoredApiKey();
     if (!apiKey) {
         throw new Error("OpenRouter APIキーが設定されていません。");
     }
 
-    console.log("FLUX Image generation request:", {
+    console.log("OpenRouter Image generation request:", {
         model: model,
         promptLength: prompt.length
     });
@@ -1470,7 +1475,7 @@ const generateImageWithFlux = async (prompt: string, model: string): Promise<str
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error("FLUX Image generation API error response:", errorText);
+            console.error("OpenRouter Image generation API error response:", errorText);
 
             let errorData;
             try {
@@ -1485,11 +1490,11 @@ const generateImageWithFlux = async (prompt: string, model: string): Promise<str
             if (response.status === 402) {
                 throw new Error("OpenRouter API料金が不足しています。クレジットを追加してください。");
             }
-            throw new Error(`FLUX画像生成エラー (${response.status}): ${errorData?.error?.message || errorData?.message || "不明なエラー"}`);
+            throw new Error(`画像生成エラー (${response.status}): ${errorData?.error?.message || errorData?.message || "不明なエラー"}`);
         }
 
         const data = await response.json();
-        console.log("FLUX Image generation response:", data);
+        console.log("OpenRouter Image generation response:", data);
 
         // 画像URLを取得
         if (data.data?.[0]?.url) {
@@ -1499,10 +1504,10 @@ const generateImageWithFlux = async (prompt: string, model: string): Promise<str
             return `data:image/png;base64,${data.data[0].b64_json}`;
         }
 
-        console.warn("No image found in FLUX response:", data);
+        console.warn("No image found in OpenRouter response:", data);
         return null;
     } catch (error) {
-        console.error("FLUX Image generation failed:", error);
+        console.error("OpenRouter Image generation failed:", error);
         throw error;
     }
 };
@@ -1737,7 +1742,12 @@ export const generateImageFromScene = async (
 
     // FLUX モデルの場合 (OpenRouter経由)
     if (imageModel.startsWith('black-forest-labs/') || imageModel.startsWith('blackforestlabs/')) {
-        return generateImageWithFlux(imagePrompt, imageModel);
+        return generateImageWithOpenRouter(imagePrompt, imageModel);
+    }
+
+    // Gemini モデルの場合 (OpenRouter経由)
+    if (imageModel.startsWith('google/')) {
+        return generateImageWithOpenRouter(imagePrompt, imageModel);
     }
 
 
