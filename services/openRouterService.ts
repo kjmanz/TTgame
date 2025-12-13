@@ -1261,8 +1261,10 @@ export const generateSceneImage = async (character: Character, sceneText: string
     // シーンテキストを短く切り取る（100文字程度）
     const shortScene = sceneText.slice(0, 100).replace(/\n/g, ' ');
 
-    // キャラクター固有のビジュアル参照を取得
-    const visualRef = character.visualPrompt?.slice(0, 100) || '';
+    // キャラクター固有のビジュアル参照を取得（visualPrompt + feature を組み合わせ）
+    const visualRef = character.visualPrompt?.slice(0, 150) || '';
+    const featureRef = character.feature?.slice(0, 50) || '';
+    const characterDetails = `${visualRef}, ${featureRef}`.slice(0, 180);
 
     // 品質向上要素
     const qualityEnhancers = ', perfect hands, perfect fingers, anatomically correct, sharp focus';
@@ -1270,13 +1272,13 @@ export const generateSceneImage = async (character: Character, sceneText: string
 
     if (imageStyle === 'realistic_anime') {
         // リアル系アニメ風プロンプト - CGアニメ・3Dアニメ調
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, high quality realistic anime, 3D CG anime style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${characterDetails}, ${shortScene}. Semi-realistic anime, detailed shading, volumetric lighting, studio quality CGI, beautiful detailed eyes, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     } else if (imageStyle === 'illustration_anime') {
         // イラスト系アニメ風プロンプト - 2Dイラスト・手描き風
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, beautiful 2D anime illustration, hand-drawn style, solo, one Japanese mature woman ${character.age}yo, ${character.hairStyle}, ${characterDetails}, ${shortScene}. Vibrant anime colors, detailed anime eyes, cel shading, manga style, dynamic lighting, mature female features, adult proportions, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     } else {
         // 実写風プロンプト（短縮版）- 女性単体にフォーカス
-        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${visualRef}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
+        imagePrompt = `masterpiece, best quality, ultra detailed, 8k, perfect anatomy, photo, solo, one Japanese woman ${character.age}yo, ${character.hairStyle}, ${characterDetails}, ${shortScene}. Photorealistic, cinematic lighting, detailed skin texture, mature female features, POV, first-person perspective, looking at viewer${qualityEnhancers}${negativeAvoidance}`;
     }
 
     // 1024文字以内に確実に収める
