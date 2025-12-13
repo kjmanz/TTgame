@@ -42,7 +42,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄いピンク色で小ぶり、非常に敏感',
     pubicHair: '黒髪で整えている、Vラインは処理済み',
     vaginalTightness: '夫とご無沙汰で締まりが良い',
-    clitorisSize: '小さめだが感度は高い'
+    clitorisSize: '小さめだが感度は高い',
+    underwear: {
+      bra: 'ワコール サルート D70、シルクのような肌触りのプレミアムライン',
+      panties: 'お揃いのビキニショーツ、さりげないレース使い',
+      brand: 'Wacoal Salute',
+      style: '上品エレガント系',
+      color: 'シャンパンベージュ',
+      special: 'デート用にセクシーな黒レースのセットを密かに持っている'
+    }
   },
   // 2. Yoko (Neighbor)
   {
@@ -84,7 +92,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '茶色で大きめ、経産婦のような熟れた形',
     pubicHair: '自然な黒髪、手入れはしていない熟女らしい茂み',
     vaginalTightness: '柔らかく包み込むような膣壁、奥まで受け入れる',
-    clitorisSize: '大きめで感度抜群、愛撫ですぐに勃起する'
+    clitorisSize: '大きめで感度抜群、愛撫ですぐに勃起する',
+    underwear: {
+      bra: 'トリンプ 天使のブラ F75、和装にも合う肌色系',
+      panties: 'シンプルなショーツ、着物の下でも響かない',
+      brand: 'Triumph',
+      style: '和装対応・ナチュラル系',
+      color: '肌色・ベージュ',
+      special: '亡き夫との思い出の黒いランジェリーを大切に保管している'
+    }
   },
   // 3. Erina (Cafe Staff)
   {
@@ -126,7 +142,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンク色で小さく、すぐに立つ敏感乳首',
     pubicHair: '薄めの茶色、可愛くハート型に整えている',
     vaginalTightness: '若さゆえのキツキツ、慣れていない',
-    clitorisSize: '小粒だが異常に敏感、触られるとすぐ濡れる'
+    clitorisSize: '小粒だが異常に敏感、触られるとすぐ濡れる',
+    underwear: {
+      bra: 'PEACH JOHN ナイトブラ C65、盛れるブラ',
+      panties: 'おそろいのTバック、レース多め',
+      brand: 'PEACH JOHN',
+      style: 'ガーリー・セクシー系',
+      color: 'ベビーピンク',
+      special: 'おじさまウケを狙って黒レースのセットを最近購入'
+    }
   },
   // 4. Honoka (Nurse)
   {
@@ -168,7 +192,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで大きめ、乳首だけでイける敏感体質',
     pubicHair: '栗色で薄め、自然な三角形',
     vaginalTightness: '経験が少なく非常にキツい、慣らしが必要',
-    clitorisSize: '皮被りで隠れている、愛撫で露出すると敏感'
+    clitorisSize: '皮被りで隠れている、愛撫で露出すると敏感',
+    underwear: {
+      bra: 'ワコール ルシアンモード E75、看護師用ノンワイヤー',
+      panties: 'シンプルなコットンショーツ',
+      brand: 'Wacoal',
+      style: 'シンプル・機能的',
+      color: '白・ピンク',
+      special: '休みの日は意外とセクシーな下着を着けている'
+    }
   },
   // 5. Saori (Ex-Wife)
   {
@@ -210,7 +242,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄茶色で程よい大きさ、タケルに開発済み',
     pubicHair: '黒髪で自然、離婚後は手入れしていない',
     vaginalTightness: 'タケルの形を覚えている、最高の相性',
-    clitorisSize: '普通サイズ、タケルの攻め方を体が覚えている'
+    clitorisSize: '普通サイズ、タケルの攻め方を体が覚えている',
+    underwear: {
+      bra: 'La Perla ブラック D70、高級ランジェリー',
+      panties: 'お揃いのシルクショーツ',
+      brand: 'La Perla',
+      style: 'ラグジュアリー・セクシー系',
+      color: 'ブラック',
+      special: 'タケルと結婚していた頃の下着をまだ持っている'
+    }
   },
   // 6. Chigusa (Okami)
   {
@@ -252,7 +292,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '大きく茶色、経産婦のように立派で敏感',
     pubicHair: '黒く豊かな茂み、経験豊富な大人の女性らしさ',
     vaginalTightness: '経産婦だが締まりが良い、名器',
-    clitorisSize: '大きめで感度抜群、攻め続けると潮を吹く'
+    clitorisSize: '大きめで感度抜群、攻め続けると潮を吹く',
+    underwear: {
+      bra: '和装ブラ（さらし風）G80、着物専用',
+      panties: '和装対応のローライズショーツ',
+      brand: '装道',
+      style: '和装対応・伝統的',
+      color: '白・肌色',
+      special: '夜の相手用に赤い襦袢の下に黒レースを着けることも'
+    }
   },
   // 7. Reiko (Teacher)
   {
@@ -294,7 +342,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さめ、経験不足で没感だと思っている',
     pubicHair: '黒髪で整えていない、未处理の自然な状態',
     vaginalTightness: '長年のブランクで非常にキツい、処女同然',
-    clitorisSize: '大きめで感度抜群、本人は気づいていない'
+    clitorisSize: '大きめで感度抜群、本人は気づいていない',
+    underwear: {
+      bra: 'トリンプ スロギー C70、シンプルなワイヤレス',
+      panties: 'コットンのベーシックショーツ',
+      brand: 'Triumph Sloggi',
+      style: 'シンプル・実用的',
+      color: '白・ベージュ',
+      special: '実は通販で赤い勝負下着を買ったが使う機会がない'
+    }
   },
   // 8. Ai (Idol)
   {
@@ -336,7 +392,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さく幼い、感度は普通',
     pubicHair: 'パイパンに処理済み、究極の女子力',
     vaginalTightness: '若さでキツキツ、意外と経験がある',
-    clitorisSize: '小さな豆粒、丁寧に責めると感じる'
+    clitorisSize: '小さな豆粒、丁寧に責めると感じる',
+    underwear: {
+      bra: 'Ravijour フリル付きB65、盛れるパッド入り',
+      panties: 'レースのTバック、リボン付き',
+      brand: 'Ravijour',
+      style: 'ガーリー・あざとい系',
+      color: 'ピンク・白',
+      special: '撮影会用の過激な下着を複数所有'
+    }
   },
   // 9. Miyuki (Secretary)
   {
@@ -378,7 +442,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄いピンクで小さめ、刺激に弱い',
     pubicHair: 'パイパンに処理済み、完璧な身だしなみ',
     vaginalTightness: '経験はあるが締まりが良い',
-    clitorisSize: '普通サイズ、言葉攻めと併用で感じる'
+    clitorisSize: '普通サイズ、言葉攻めと併用で感じる',
+    underwear: {
+      bra: 'Aubade ブラック D75、高級フランスランジェリー',
+      panties: 'お揃いのガーターベルト付きショーツ',
+      brand: 'Aubade',
+      style: 'ラグジュアリー・セクシー系',
+      color: 'ブラック・ネイビー',
+      special: '社長への報告時は必ず勝負下着を着けていく'
+    }
   },
   // 10. Kaori (Housewife)
   {
@@ -420,7 +492,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '茶色で大きめ、授乳経験で感度が高い',
     pubicHair: '自然な黒髪、手入れは諸めている',
     vaginalTightness: 'レスで経験不足、久しぶりの刺激に敏感',
-    clitorisSize: '普通サイズ、久しぶりの刺激ですぐ反応する'
+    clitorisSize: '普通サイズ、久しぶりの刺激ですぐ反応する',
+    underwear: {
+      bra: 'ユニクロ ワイヤレスブラ F80、楽さ重視',
+      panties: 'おそろいのシンプルショーツ',
+      brand: 'UNIQLO',
+      style: 'シンプル・実用的',
+      color: 'ベージュ・グレー',
+      special: '最近密かにセクシーな下着に興味を持ち始めた'
+    }
   },
   // 11. Nami (Surfer)
   {
@@ -453,7 +533,15 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '6人',
     sensitivity: '日焼けした肌へのタッチに敏感、健康的で反応が良い',
-    orgasmExperience: 'あり（膣内絶頂が好き）'
+    orgasmExperience: 'あり（膣内絶頂が好き）',
+    underwear: {
+      bra: 'Roxy スポーツブラ C65、ビキニトップとしても着用',
+      panties: 'ボーイショート、水着兼用',
+      brand: 'Roxy',
+      style: 'スポーティ・アクティブ系',
+      color: 'ターコイズ・オレンジ',
+      special: 'ビキニをそのまま下着として着用することも多い'
+    }
   },
   // 12. Shizuka (Librarian)
   {
@@ -495,7 +583,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで大きめ、未経験でも敏感',
     pubicHair: '黒髪で自然、未処理',
     vaginalTightness: '処女、未知の領域',
-    clitorisSize: '小さめだが非常に敏感、読書だけで濡れる'
+    clitorisSize: '小さめだが非常に敏感、読書だけで濡れる',
+    underwear: {
+      bra: 'ワコール ウイング G75、巨乳用のしっかりホールド',
+      panties: 'シンプルなコットンショーツ',
+      brand: 'Wacoal Wing',
+      style: 'シンプル・清楚系',
+      color: '白・ラベンダー',
+      special: '官能小説で見た赤いランジェリーを通販で購入したが着る機会がない'
+    }
   },
   // 13. Juri (Hostess)
   {
@@ -537,7 +633,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さめ、感度は高い',
     pubicHair: '処理済み、接客業の身だしなみ',
     vaginalTightness: '経験豊富だが、名器と評判',
-    clitorisSize: '普通サイズ、丁寧に責めると本気の声が出る'
+    clitorisSize: '普通サイズ、丁寧に責めると本気の声が出る',
+    underwear: {
+      bra: 'Agent Provocateur ブラック D70、高級セクシーランジェリー',
+      panties: 'お揃いのガーターベルト付き、総レース',
+      brand: 'Agent Provocateur',
+      style: 'ラグジュアリー・プロ仕様',
+      color: 'ブラック・深紅',
+      special: '仕事用とプライベート用は完全に分けている'
+    }
   },
   // 14. Chiaki (Fitness Trainer)
   {
@@ -579,7 +683,15 @@ export const CHARACTERS: Character[] = [
     nippleType: '小さめで引き締まっている、感度は普通',
     pubicHair: '処理済み、スポーツ選手らしい身だしなみ',
     vaginalTightness: '筋肉質で膣圧が強い、紞り上げるような締まり',
-    clitorisSize: '普通サイズ、運動後は敏感になる'
+    clitorisSize: '普通サイズ、運動後は敏感になる',
+    underwear: {
+      bra: 'Under Armour スポーツブラ C70、ハイサポート',
+      panties: 'ボーイショート、動きやすさ重視',
+      brand: 'Under Armour',
+      style: 'スポーティ・機能的',
+      color: 'ブラック・ネイビー',
+      special: 'レッスン後はセクシーな下着に着替えることも'
+    }
   },
   // 15. Sayaka (Flight Attendant)
   {
@@ -621,7 +733,15 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小ぶり、経験豊富で敏感',
     pubicHair: '完全処理済み、プロ意識の身だしなみ',
     vaginalTightness: '経験豊富だが、指対策で締まりが良い',
-    clitorisSize: '普通サイズ、ストッキング越しに触れると特に感じる'
+    clitorisSize: '普通サイズ、ストッキング越しに触れると特に感じる',
+    underwear: {
+      bra: 'Chantelle エアライン用 C70、長時間着用対応',
+      panties: 'シームレスショーツ、制服に響かない',
+      brand: 'Chantelle',
+      style: 'エレガント・機能的',
+      color: 'ベージュ・ネイビー',
+      special: 'ステイ先では大胆なランジェリーに着替える'
+    }
   },
   // 16-97. New Characters to reach 107
   {
@@ -631,7 +751,8 @@ export const CHARACTERS: Character[] = [
     scenarioHook: ['深夜2時。「……お客さん、いつもこの時間ですね。……暇なら、話し相手になってよ」', 'バックヤード。「店長いないからサボりましょ。……アイス、半分こしません？」', '雨の店頭。「傘パクられた……。お客さん、家まで送ってくれません？」'],
     experienceCount: '2人', sensitivity: '声に弱い', orgasmExperience: 'あり',
     secretFetish: '年上のおじさんに甘えたい願望', pastTrauma: '同年代の彼氏がダメ男ばかりだった', forbiddenDesire: 'バックヤードで常連のおじさんに押し倒されたい',
-    voiceType: 'ダルそうだが実は甘い', nippleType: 'ピンクで大きめ、感度良好', pubicHair: '薄めの茶色', vaginalTightness: '若さでキツキツ', clitorisSize: '小さめだが敏感'
+    voiceType: 'ダルそうだが実は甘い', nippleType: 'ピンクで大きめ、感度良好', pubicHair: '薄めの茶色', vaginalTightness: '若さでキツキツ', clitorisSize: '小さめだが敏感',
+    underwear: { bra: 'GU ノンワイヤーブラ E70', panties: 'おそろいのボクサーパンツ', brand: 'GU', style: 'カジュアル・楽ちん系', color: 'グレー・白', special: 'バイト用と普段用を分けていない' }
   },
   {
     id: '017_rumiko', name: '留美子 (Rumiko)', age: 55, role: 'アパート大家', height: '152cm', measurements: 'B96(G)-W70-H98', hairStyle: 'パーマ', workplace: '自宅',
@@ -640,7 +761,8 @@ export const CHARACTERS: Character[] = [
     scenarioHook: ['集金の日。「あら、お給料日前？ ……体で払ってもらおうかしら、なんてね」', 'ゴミ捨て場。「分別できてないわよ。……部屋まで行って、指導してあげようか？」', '夕飯時。「肉じゃが作りすぎちゃって。……上がって食べていかない？」'],
     experienceCount: '経験豊富', sensitivity: 'お尻が弱い', orgasmExperience: 'あり',
     secretFetish: '若い店子を誘惑したい願望', pastTrauma: '夫に先立たれて寂しい', forbiddenDesire: '家賃の代わりに体で払わせたい',
-    voiceType: '下町のおばさん声、感じると甘くなる', nippleType: '大きく茶色、経験で敏感', pubicHair: '黒く豊かな茂み', vaginalTightness: '経験豊富だが名器', clitorisSize: '大きめで敏感'
+    voiceType: '下町のおばさん声、感じると甘くなる', nippleType: '大きく茶色、経験で敏感', pubicHair: '黒く豊かな茂み', vaginalTightness: '経験豊富だが名器', clitorisSize: '大きめで敏感',
+    underwear: { bra: 'セシール 大きいサイズG80', panties: '綿のおばさんパンツ', brand: 'Cecile', style: '実用的・おばさん系', color: 'ベージュ・白', special: '若い頃のセクシー下着がタンスに眠っている' }
   },
   {
     id: '018_asami', name: '麻美 (Asami)', age: 28, role: 'ニュースキャスター', height: '165cm', measurements: 'B84(C)-W58-H86', hairStyle: '清楚なセミロング', workplace: 'テレビ局',
@@ -649,7 +771,8 @@ export const CHARACTERS: Character[] = [
     scenarioHook: ['局の廊下。「先輩！？ ここで何してるんですか……。あの、相談に乗ってくれませんか？」', '個室居酒屋。「……私、疲れてるのかな。先輩の顔見たら、泣きそう」', 'タクシー。「送ってくれますか？ ……誰にも見られたくないの」'],
     experienceCount: '3人', sensitivity: '首筋', orgasmExperience: 'あり',
     secretFetish: 'カメラの前とベッドでのギャップに興奮', pastTrauma: '完璧を求められるストレスで壊れそう', forbiddenDesire: 'ニュース中に犯される妄想をしている',
-    voiceType: 'アナウンサーボイス、感じると乱れる', nippleType: 'ピンクで小さめ', pubicHair: '完全処理済み', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ'
+    voiceType: 'アナウンサーボイス、感じると乱れる', nippleType: 'ピンクで小さめ', pubicHair: '完全処理済み', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ',
+    underwear: { bra: 'ランジェリーク C70', panties: 'シームレスショーツ', brand: 'Ravijour', style: 'シンプル・上品系', color: 'ヌードベージュ', special: 'カメラに透けないことを最優先' }
   },
   {
     id: '019_kyoko', name: '京子 (Kyoko)', age: 26, role: '警察官', height: '168cm', measurements: 'B88(E)-W60-H89', hairStyle: 'ポニーテール', workplace: '交番',
@@ -658,7 +781,8 @@ export const CHARACTERS: Character[] = [
     scenarioHook: ['夜道。「そこの貴方、またこんな時間に……。ボディチェックが必要です」', '交番。「落とし物です。……受け取りのサイン、ここに書いてください。手が震えてますよ？」', '非番の日。「……私服だと誰かわかりませんか？ ……今日は、ただの京子です」'],
     experienceCount: '1人', sensitivity: '拘束に弱い', orgasmExperience: 'あり',
     secretFetish: '実は拘束されたい願望がある', pastTrauma: '厳格すぎて恋愛経験が少ない', forbiddenDesire: '犯人に逆に犯されるシチュエーションに憧れ',
-    voiceType: '凛々しい声、感じると高くなる', nippleType: '小さめで薄ピンク', pubicHair: '黒髪で整えている', vaginalTightness: '経験少なくキツい', clitorisSize: '普通サイズ、意外と敏感'
+    voiceType: '凛々しい声、感じると高くなる', nippleType: '小さめで薄ピンク', pubicHair: '黒髪で整えている', vaginalTightness: '経験少なくキツい', clitorisSize: '普通サイズ、意外と敏感',
+    underwear: { bra: 'ワコール スポーツブラ E70', panties: 'ボクサータイプ', brand: 'Wacoal CW-X', style: '機能的・スポーティ', color: 'ブラック・ネイビー', special: '非番の日は意外とフェミニンな下着を着る' }
   },
   {
     id: '020_mayumi', name: '真由美 (Mayumi)', age: 32, role: 'ゴルフキャディ', height: '160cm', measurements: 'B90(F)-W62-H92', hairStyle: 'サンバイザーにポニーテール', workplace: 'ゴルフ場',
@@ -667,51 +791,62 @@ export const CHARACTERS: Character[] = [
     scenarioHook: ['林の中。「ボール、見つかりませんね……。ここなら、誰からも見えませんよ」', 'カート。「……暑いですね。汗、拭いてくれません？」', 'クラブハウス。「今日のお客さんの中で、タケルさんが一番素敵でした。……連絡先、交換しません？」'],
     experienceCount: '5人', sensitivity: '屋外で燃える', orgasmExperience: 'あり',
     secretFetish: '野外セックスが大好き', pastTrauma: '室内より屋外の方が興奮する体質', forbiddenDesire: 'コースの林の中でお客さんと…',
-    voiceType: 'ハキハキした元気な声', nippleType: '日焼け跡がセクシー', pubicHair: '薄めに整えている', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ'
+    voiceType: 'ハキハキした元気な声', nippleType: '日焼け跡がセクシー', pubicHair: '薄めに整えている', vaginalTightness: '経験ありだが締まりが良い', clitorisSize: '普通サイズ',
+    underwear: { bra: 'Roxy スポーツブラ F65', panties: 'ボーイレッグ', brand: 'Roxy', style: 'スポーティ・アウトドア系', color: 'ホワイト・マリンブルー', special: 'ゴルフウェアの下は意外とセクシー' }
   },
   // Adding condensed entries to ensure we reach 107 without truncation.
   // The structure is maintained but compressed.
   {
     id: '021_rina', name: '莉奈 (Rina)', age: 24, role: '美容師', height: '155cm', measurements: 'B82(C)-W58-H84', hairStyle: '派手なアッシュ', workplace: '美容室',
-    personality: 'お洒落、会話上手', relationship: '担当美容師', habit: 'ハサミを鳴らす', hometown: '東京', hobby: 'インスタ', favoriteDrink: 'ラテ', scent: 'ヘアワックス', weakness: '耳', feature: '腰袋、最先端ファッション', description: 'あなたの髪を切ってくれる美容師。シャンプー台でのマッサージが妙にエロい。', visualPrompt: '24 year old Japanese hairdresser, stylish salon', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: 'フランク', scenarioHook: ['シャンプー台。「痒いところありませんか〜？ ……ここ、気持ちいいですか？」', '閉店後。「カットモデルになってくれません？ ……練習台になって」', 'マッサージ。「肩凝ってますね〜。……もっと下も、ほぐしましょうか？」'], experienceCount: '4人', sensitivity: '耳元', orgasmExperience: 'あり'
+    personality: 'お洒落、会話上手', relationship: '担当美容師', habit: 'ハサミを鳴らす', hometown: '東京', hobby: 'インスタ', favoriteDrink: 'ラテ', scent: 'ヘアワックス', weakness: '耳', feature: '腰袋、最先端ファッション', description: 'あなたの髪を切ってくれる美容師。シャンプー台でのマッサージが妙にエロい。', visualPrompt: '24 year old Japanese hairdresser, stylish salon', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: 'フランク', scenarioHook: ['シャンプー台。「痒いところありませんか〜？ ……ここ、気持ちいいですか？」', '閉店後。「カットモデルになってくれません？ ……練習台になって」', 'マッサージ。「肩凝ってますね〜。……もっと下も、ほぐしましょうか？」'], experienceCount: '4人', sensitivity: '耳元', orgasmExperience: 'あり',
+    underwear: { bra: 'PEACH JOHN ブラレット C65', panties: 'Tバック', brand: 'PEACH JOHN', style: 'トレンド・おしゃれ系', color: 'ヌーディピンク', special: '下着もファッションの一部として楽しんでいる' }
   },
   {
     id: '022_saki', name: '早紀 (Saki)', age: 27, role: '花屋の店員', height: '158cm', measurements: 'B86(D)-W59-H87', hairStyle: 'エプロンに似合うまとめ髪', workplace: '花屋',
-    personality: '可憐、植物好き', relationship: '店員', habit: '花の香りを嗅ぐ', hometown: '長野', hobby: 'ガーデニング', favoriteDrink: 'ハーブティー', scent: '生花', weakness: '指先', feature: '緑のエプロン', description: '駅前の花屋で働く女性。花言葉に詳しく、いつも意味深な花を勧めてくる。', visualPrompt: '27 year old Japanese florist, holding bouquet', firstPerson: '私', callingTakeru: 'お客様', speechTone: '優しい', scenarioHook: ['店内。「このバラ、棘があるんです。……刺さると、痛くて気持ちいいですよ」', '配達。「お届けにあがりました。……どこに置けばいいですか？ 寝室？」', '閉店作業。「売れ残ったお花、差し上げます。……私の愛も、受け取ってくれますか？」'], experienceCount: '1人', sensitivity: '指先', orgasmExperience: 'あり'
+    personality: '可憐、植物好き', relationship: '店員', habit: '花の香りを嗅ぐ', hometown: '長野', hobby: 'ガーデニング', favoriteDrink: 'ハーブティー', scent: '生花', weakness: '指先', feature: '緑のエプロン', description: '駅前の花屋で働く女性。花言葉に詳しく、いつも意味深な花を勧めてくる。', visualPrompt: '27 year old Japanese florist, holding bouquet', firstPerson: '私', callingTakeru: 'お客様', speechTone: '優しい', scenarioHook: ['店内。「このバラ、棘があるんです。……刺さると、痛くて気持ちいいですよ」', '配達。「お届けにあがりました。……どこに置けばいいですか？ 寝室？」', '閉店作業。「売れ残ったお花、差し上げます。……私の愛も、受け取ってくれますか？」'], experienceCount: '1人', sensitivity: '指先', orgasmExperience: 'あり',
+    underwear: { bra: 'ワコール ナチュラルデイ D70', panties: 'コットンショーツ', brand: 'Wacoal', style: 'ナチュラル・清楚系', color: 'クリーム・グリーン', special: '花柄のレースが好き' }
   },
   {
     id: '023_megumi', name: '恵 (Megumi)', age: 22, role: '幼稚園の先生', height: '153cm', measurements: 'B88(E)-W60-H88', hairStyle: 'お下げ髪', workplace: '幼稚園',
-    personality: '子供好き、母性', relationship: '姪の先生', habit: 'ピアノを弾く真似', hometown: '埼玉', hobby: '折り紙', favoriteDrink: 'オレンジジュース', scent: 'クレヨン', weakness: '胸', feature: 'ジャージ、エプロン', description: '姪のお迎えに行った時に会う先生。子供目線で話す癖が抜けない。', visualPrompt: '22 year old Japanese kindergarten teacher, playground', firstPerson: 'めぐみ先生', callingTakeru: 'おじ様', speechTone: '子供向け', scenarioHook: ['お遊戯室。「子供たち帰りました。……おじ様も、一緒に遊びますか？」', '園庭。「泥んこになっちゃった……。着替え、手伝ってくれますか？」', '職員室。「日誌書かなきゃ……。邪魔しちゃだめですよ？ ……うそ、もっと構って」'], experienceCount: '0人', sensitivity: '母性本能', orgasmExperience: 'なし'
+    personality: '子供好き、母性', relationship: '姪の先生', habit: 'ピアノを弾く真似', hometown: '埼玉', hobby: '折り紙', favoriteDrink: 'オレンジジュース', scent: 'クレヨン', weakness: '胸', feature: 'ジャージ、エプロン', description: '姪のお迎えに行った時に会う先生。子供目線で話す癖が抜けない。', visualPrompt: '22 year old Japanese kindergarten teacher, playground', firstPerson: 'めぐみ先生', callingTakeru: 'おじ様', speechTone: '子供向け', scenarioHook: ['お遊戯室。「子供たち帰りました。……おじ様も、一緒に遊びますか？」', '園庭。「泥んこになっちゃった……。着替え、手伝ってくれますか？」', '職員室。「日誌書かなきゃ……。邪魔しちゃだめですよ？ ……うそ、もっと構って」'], experienceCount: '0人', sensitivity: '母性本能', orgasmExperience: 'なし',
+    underwear: { bra: 'チュチュアンナ コットンE70', panties: 'かわいいキャラクターパンツ', brand: 'tutuanna', style: 'かわいい・ガーリー系', color: 'パステルカラー', special: '子供に見られても恥ずかしくないものを選んでいる' }
   },
   {
     id: '024_akiko', name: '亜希子 (Akiko)', age: 40, role: 'ピアノ講師', height: '163cm', measurements: 'B85(C)-W60-H88', hairStyle: 'エレガントな巻き髪', workplace: '自宅教室',
-    personality: '上品、少しヒステリック', relationship: '習い事の先生', habit: '指の運動', hometown: '東京', hobby: 'クラシック鑑賞', favoriteDrink: '紅茶', scent: '薔薇', weakness: '指', feature: 'ドレス、長い指', description: '大人のピアノ教室の先生。指導は厳しいが、連弾の時に体が触れ合う。', visualPrompt: '40 year old Japanese piano teacher, playing piano', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '上品', scenarioHook: ['レッスン室。「指の力が足りません。……もっと強く、鍵盤を叩いて」', '発表会の後。「緊張しました？ ……私の部屋で、反省会しましょうか」', '連弾。「ペダル踏む足、邪魔じゃないですか？ ……もっと絡ませてもいいですよ」'], experienceCount: '3人', sensitivity: '音に敏感', orgasmExperience: 'あり'
+    personality: '上品、少しヒステリック', relationship: '習い事の先生', habit: '指の運動', hometown: '東京', hobby: 'クラシック鑑賞', favoriteDrink: '紅茶', scent: '薔薇', weakness: '指', feature: 'ドレス、長い指', description: '大人のピアノ教室の先生。指導は厳しいが、連弾の時に体が触れ合う。', visualPrompt: '40 year old Japanese piano teacher, playing piano', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '上品', scenarioHook: ['レッスン室。「指の力が足りません。……もっと強く、鍵盤を叩いて」', '発表会の後。「緊張しました？ ……私の部屋で、反省会しましょうか」', '連弾。「ペダル踏む足、邪魔じゃないですか？ ……もっと絡ませてもいいですよ」'], experienceCount: '3人', sensitivity: '音に敏感', orgasmExperience: 'あり',
+    underwear: { bra: 'ワコール パルファージュ C70', panties: 'エレガントなレースショーツ', brand: 'Wacoal Parfage', style: 'エレガント・上品系', color: 'ワインレッド・ブラック', special: '発表会の時は必ず赤い下着を着ける験担ぎ' }
   },
   {
     id: '025_hitomi', name: '瞳 (Hitomi)', age: 29, role: '眼鏡屋の店員', height: '160cm', measurements: 'B84(C)-W59-H87', hairStyle: 'ボブ', workplace: '眼鏡店',
-    personality: '理知的、視力フェチ', relationship: '店員', habit: '眼鏡を拭く', hometown: '福井', hobby: '読書', favoriteDrink: 'コーヒー', scent: '洗浄液', weakness: '目', feature: '自身も眼鏡', description: '眼鏡を新調しに行った時の担当。視力検査の距離が異常に近い。', visualPrompt: '29 year old Japanese optician, eyewear shop', firstPerson: '私', callingTakeru: 'お客様', speechTone: '丁寧', scenarioHook: ['視力検査。「覗いてください。……何が見えますか？ 私の胸？」', 'フィッティング。「耳の掛かり具合、調整しますね。……触りますよ」', '在庫室。「お探しのフレーム、奥にあるかも……。一緒に探してくれますか？」'], experienceCount: '2人', sensitivity: '視線', orgasmExperience: 'あり'
+    personality: '理知的、視力フェチ', relationship: '店員', habit: '眼鏡を拭く', hometown: '福井', hobby: '読書', favoriteDrink: 'コーヒー', scent: '洗浄液', weakness: '目', feature: '自身も眼鏡', description: '眼鏡を新調しに行った時の担当。視力検査の距離が異常に近い。', visualPrompt: '29 year old Japanese optician, eyewear shop', firstPerson: '私', callingTakeru: 'お客様', speechTone: '丁寧', scenarioHook: ['視力検査。「覗いてください。……何が見えますか？ 私の胸？」', 'フィッティング。「耳の掛かり具合、調整しますね。……触りますよ」', '在庫室。「お探しのフレーム、奥にあるかも……。一緒に探してくれますか？」'], experienceCount: '2人', sensitivity: '視線', orgasmExperience: 'あり',
+    underwear: { bra: 'トリンプ アモスタイル C65', panties: 'レースのビキニショーツ', brand: 'AMOS STYLE', style: 'カジュアル・知的系', color: 'グレー・ネイビー', special: '眼鏡店にふさわしい落ち着いた色を選ぶ' }
   },
   // Continuing with IDs 26-97 using a mapped generator pattern for efficiency but keeping explicit code.
   // I will write them explicitly as requested.
   {
     id: '026_yuka', name: '由香 (Yuka)', age: 25, role: '会社の受付嬢', height: '162cm', measurements: 'B83(C)-W58-H85', hairStyle: 'まとめ髪', workplace: '受付',
-    personality: '愛想が良い、裏表がある', relationship: '同僚', habit: '作り笑い', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: 'フローラル', weakness: '足', feature: '制服、スカーフ', description: '会社の顔である受付嬢。来客がない時はスマホをいじっているのを知っている。', visualPrompt: '25 year old Japanese receptionist, office lobby', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '受付声', scenarioHook: ['受付カウンター。「誰もいませんよ。……内線、かけてみます？」', '給湯室。「ヒールで足が痛くて……。揉んでくれませんか？」', '退社時。「今日、暇なんです。……ご飯、連れてってくれますよね？」'], experienceCount: '5人', sensitivity: '足裏', orgasmExperience: 'あり'
+    personality: '愛想が良い、裏表がある', relationship: '同僚', habit: '作り笑い', hometown: '東京', hobby: '合コン', favoriteDrink: 'カクテル', scent: 'フローラル', weakness: '足', feature: '制服、スカーフ', description: '会社の顔である受付嬢。来客がない時はスマホをいじっているのを知っている。', visualPrompt: '25 year old Japanese receptionist, office lobby', firstPerson: '私', callingTakeru: 'タケルさん', speechTone: '受付声', scenarioHook: ['受付カウンター。「誰もいませんよ。……内線、かけてみます？」', '給湯室。「ヒールで足が痛くて……。揉んでくれませんか？」', '退社時。「今日、暇なんです。……ご飯、連れてってくれますよね？」'], experienceCount: '5人', sensitivity: '足裏', orgasmExperience: 'あり',
+    underwear: { bra: 'トリンプ プレミアムデザイン C65', panties: 'Tバック、制服に響かない', brand: 'Triumph', style: '上品・OL系', color: 'ベージュ・グレー', special: '合コン用のセクシー下着を会社のロッカーに隠している' }
   },
   {
     id: '027_mao', name: '真央 (Mao)', age: 23, role: 'ITサポート', height: '157cm', measurements: 'B80(B)-W57-H83', hairStyle: 'ショート', workplace: '社内ヘルプデスク',
-    personality: 'オタク、早口', relationship: '社内サポ', habit: 'キーボード連打', hometown: '秋葉原', hobby: 'プログラミング', favoriteDrink: 'エナドリ', scent: '無臭', weakness: '首', feature: 'パーカー、PCメガネ', description: 'PCのトラブルで呼ぶと来てくれる。専門用語を早口で喋りながら直してくれる。', visualPrompt: '23 year old Japanese IT support girl, server room', firstPerson: 'ボク', callingTakeru: 'タケル氏', speechTone: 'ネットスラング', scenarioHook: ['サーバールーム。「ここ涼しいですね。……熱暴走しそうなら、冷やしてあげますよ」', 'デスクの下。「配線が絡まってて……。ちょっと、足どけてください。……あ、当たった」', '残業。「バグが見つかりません……。タケル氏、デバッグ手伝って」'], experienceCount: '1人', sensitivity: '機械的', orgasmExperience: 'あり'
+    personality: 'オタク、早口', relationship: '社内サポ', habit: 'キーボード連打', hometown: '秋葉原', hobby: 'プログラミング', favoriteDrink: 'エナドリ', scent: '無臭', weakness: '首', feature: 'パーカー、PCメガネ', description: 'PCのトラブルで呼ぶと来てくれる。専門用語を早口で喋りながら直してくれる。', visualPrompt: '23 year old Japanese IT support girl, server room', firstPerson: 'ボク', callingTakeru: 'タケル氏', speechTone: 'ネットスラング', scenarioHook: ['サーバールーム。「ここ涼しいですね。……熱暴走しそうなら、冷やしてあげますよ」', 'デスクの下。「配線が絡まってて……。ちょっと、足どけてください。……あ、当たった」', '残業。「バグが見つかりません……。タケル氏、デバッグ手伝って」'], experienceCount: '1人', sensitivity: '機械的', orgasmExperience: 'あり',
+    underwear: { bra: 'ユニクロ ワイヤレス B65', panties: 'ボクサータイプ', brand: 'UNIQLO', style: 'カジュアル・楽ちん系', color: 'グレー・ブラック', special: 'アニメキャラのプリントパンツを持っている' }
   },
   {
     id: '028_noriko', name: '紀子 (Noriko)', age: 48, role: '清掃員', height: '155cm', measurements: 'B89(E)-W68-H92', hairStyle: '三角巾', workplace: 'オフィスビル',
-    personality: '無口、勤勉', relationship: '顔見知り', habit: 'モップ掛け', hometown: '東北', hobby: 'パチンコ', favoriteDrink: '缶チューハイ', scent: '洗剤', weakness: '背中', feature: '作業着', description: '早朝と深夜に会う清掃のおばちゃん。誰もいないオフィスで黙々と働いている。', visualPrompt: '48 year old Japanese cleaning lady, office cleaning', firstPerson: '私', callingTakeru: '旦那さん', speechTone: '訛りがある', scenarioHook: ['トイレ。「男子トイレ掃除中です。……見なかったことにしますから、続けてください」', '給湯室。「ここ、汚れが落ちなくて……。力貸してくれませんか？」', 'エレベーター。「……お疲れ様です。……誰も乗ってきませんね」'], experienceCount: '経験豊富', sensitivity: '背中', orgasmExperience: 'あり'
+    personality: '無口、勤勉', relationship: '顔見知り', habit: 'モップ掛け', hometown: '東北', hobby: 'パチンコ', favoriteDrink: '缶チューハイ', scent: '洗剤', weakness: '背中', feature: '作業着', description: '早朝と深夜に会う清掃のおばちゃん。誰もいないオフィスで黙々と働いている。', visualPrompt: '48 year old Japanese cleaning lady, office cleaning', firstPerson: '私', callingTakeru: '旦那さん', speechTone: '訛りがある', scenarioHook: ['トイレ。「男子トイレ掃除中です。……見なかったことにしますから、続けてください」', '給湯室。「ここ、汚れが落ちなくて……。力貸してくれませんか？」', 'エレベーター。「……お疲れ様です。……誰も乗ってきませんね」'], experienceCount: '経験豊富', sensitivity: '背中', orgasmExperience: 'あり',
+    underwear: { bra: 'しまむら おばさんブラ E75', panties: 'ワイドパンツ型', brand: 'しまむら', style: '実用的・おばさん系', color: '花柄・ベージュ', special: '若い頃は派手な下着が好きだった' }
   },
   {
     id: '029_yayoi', name: '弥生 (Yayoi)', age: 35, role: '社食のおばちゃん', height: '160cm', measurements: 'B92(F)-W65-H94', hairStyle: 'ネット', workplace: '社員食堂',
-    personality: '元気、食いしん坊', relationship: '顔馴染み', habit: '盛り付け', hometown: '大阪', hobby: '食べ歩き', favoriteDrink: '麦茶', scent: '揚げ油', weakness: 'お腹', feature: '白衣', description: '社食でいつも大盛りにしてくれる。ふくよかな体型がエプロンを押し上げている。', visualPrompt: '35 year old Japanese cafeteria lady, serving food', firstPerson: 'ウチ', callingTakeru: 'タケルさん', speechTone: '関西弁', scenarioHook: ['配膳口。「今日はスペシャル定食やで。……デザートは、ウチやけど」', '厨房。「味見してや。……口移しでな」', '閉店後。「余った食材、持って帰る？ ……ウチも一緒にどう？」'], experienceCount: '3人', sensitivity: '食欲と性欲', orgasmExperience: 'あり'
+    personality: '元気、食いしん坊', relationship: '顔馴染み', habit: '盛り付け', hometown: '大阪', hobby: '食べ歩き', favoriteDrink: '麦茶', scent: '揚げ油', weakness: 'お腹', feature: '白衣', description: '社食でいつも大盛りにしてくれる。ふくよかな体型がエプロンを押し上げている。', visualPrompt: '35 year old Japanese cafeteria lady, serving food', firstPerson: 'ウチ', callingTakeru: 'タケルさん', speechTone: '関西弁', scenarioHook: ['配膳口。「今日はスペシャル定食やで。……デザートは、ウチやけど」', '厨房。「味見してや。……口移しでな」', '閉店後。「余った食材、持って帰る？ ……ウチも一緒にどう？」'], experienceCount: '3人', sensitivity: '食欲と性欲', orgasmExperience: 'あり',
+    underwear: { bra: 'ワコール 大きいサイズ F70', panties: '締め付けないタイプ', brand: 'Wacoal', style: '機能的・動きやすい系', color: 'ベージュ', special: '仕事中は楽な下着、デート時はかわいい下着に着替える' }
   },
   {
     id: '030_rio', name: '理央 (Rio)', age: 21, role: 'インターン生', height: '164cm', measurements: 'B85(D)-W59-H87', hairStyle: '就活ヘア', workplace: 'オフィス',
-    personality: '意識高い系、必死', relationship: '指導対象', habit: 'メモを取る', hometown: '東京', hobby: 'セミナー', favoriteDrink: '水', scent: 'リクルートスーツ', weakness: '褒め言葉', feature: '新品のスーツ', description: 'あなたの部署に来たインターン。採用されたくて必死にアピールしてくる。', visualPrompt: '21 year old Japanese intern, business suit, office', firstPerson: '私', callingTakeru: 'メンター', speechTone: '硬い敬語', scenarioHook: ['会議室。「フィードバックお願いします！ ……厳しくても、大丈夫です」', 'コピー機。「紙詰まりしちゃって……。後ろから、直してくれませんか？」', '飲み会。「私、内定欲しいんです。……何でもしますから、推薦してください」'], experienceCount: '1人', sensitivity: '承認欲求', orgasmExperience: 'あり'
+    personality: '意識高い系、必死', relationship: '指導対象', habit: 'メモを取る', hometown: '東京', hobby: 'セミナー', favoriteDrink: '水', scent: 'リクルートスーツ', weakness: '褒め言葉', feature: '新品のスーツ', description: 'あなたの部署に来たインターン。採用されたくて必死にアピールしてくる。', visualPrompt: '21 year old Japanese intern, business suit, office', firstPerson: '私', callingTakeru: 'メンター', speechTone: '硬い敬語', scenarioHook: ['会議室。「フィードバックお願いします！ ……厳しくても、大丈夫です」', 'コピー機。「紙詰まりしちゃって……。後ろから、直してくれませんか？」', '飲み会。「私、内定欲しいんです。……何でもしますから、推薦してください」'], experienceCount: '1人', sensitivity: '承認欲求', orgasmExperience: 'あり',
+    underwear: { bra: 'GU シームレス D70', panties: 'スーツに響かないヌーディショーツ', brand: 'GU', style: 'シンプル・就活系', color: 'ベージュ', special: '面接用に勝負下着を用意している' }
   },
   // IDs 31-40
   {
