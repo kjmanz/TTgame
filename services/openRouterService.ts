@@ -1444,6 +1444,7 @@ const generateImageWithXai = async (prompt: string): Promise<string | null> => {
 };
 
 // OpenRouter経由で画像生成（FLUX、Gemini等）
+// OpenRouterは /api/v1/chat/completions を使い、modalities: ["image", "text"] を指定する
 const generateImageWithOpenRouter = async (prompt: string, model: string): Promise<string | null> => {
     const apiKey = getStoredApiKey();
     if (!apiKey) {
@@ -1456,8 +1457,8 @@ const generateImageWithOpenRouter = async (prompt: string, model: string): Promi
     });
 
     try {
-        // OpenRouter の画像生成APIを使用
-        const response = await fetch('https://openrouter.ai/api/v1/images/generations', {
+        // OpenRouter の chat/completions エンドポイントを使用（modalities指定で画像生成）
+        const response = await fetch(OPENROUTER_API_URL, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
@@ -1467,9 +1468,13 @@ const generateImageWithOpenRouter = async (prompt: string, model: string): Promi
             },
             body: JSON.stringify({
                 model: model,
-                prompt: prompt,
-                n: 1,
-                size: '768x1024'  // 縦長ポートレート
+                modalities: ["image", "text"],
+                messages: [
+                    {
+                        role: 'user',
+                        content: prompt
+                    }
+                ]
             })
         });
 
@@ -1496,7 +1501,31 @@ const generateImageWithOpenRouter = async (prompt: string, model: string): Promi
         const data = await response.json();
         console.log("OpenRouter Image generation response:", data);
 
-        // 画像URLを取得
+        // レスポンスから画像を抽出
+        const content = data.choices?.[0]?.message?.content;
+
+        // content が配列の場合（OpenAI形式）
+        if (Array.isArray(content)) {
+            for (const item of content) {
+                if (item.type === 'image_url' && item.image_url?.url) {
+                    return item.image_url.url;
+                }
+                // base64 data URL の場合
+                if (typeof item === 'object' && item.image_url?.url?.startsWith('data:image')) {
+                    return item.image_url.url;
+                }
+            }
+        }
+
+        // content が文字列の場合、URL抽出を試みる
+        if (typeof content === 'string') {
+            const extractedUrl = extractImageUrlFromContent(content);
+            if (extractedUrl) {
+                return extractedUrl;
+            }
+        }
+
+        // data配列形式のレスポンス
         if (data.data?.[0]?.url) {
             return data.data[0].url;
         }
