@@ -1990,7 +1990,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '手フェチ、触れられるだけで濡れてしまう',
-    orgasmExperience: 'あり（潮吹き体質）'
+    orgasmExperience: 'あり（潮吹き体質）',
+    underwear: { bra: 'ソフトブラ F70', panties: '綿の深履きショーツ', brand: 'Triumph', style: '癒やし系・優しい', color: 'ラベンダー', special: 'リラックスできることを最優先した優しい下着' }
   },
   // 122. Akemi (Counselor)
   {
@@ -2023,7 +2024,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '経験豊富',
     sensitivity: '相手の精神的な高ぶりに共鳴して感じる',
-    orgasmExperience: 'あり（静かに、しかし深く絶頂する）'
+    orgasmExperience: 'あり（静かに、しかし深く絶頂する）',
+    underwear: { bra: 'フルカップのレースブラ E75', panties: 'ガードルショーツ', brand: 'Wacoal', style: 'マダム・補正', color: 'モカベージュ', special: '年齢を感じさせないための補正機能付き' }
   },
   // ===== 新規追加キャラクター（20代 x 5人）=====
   // 123. Haruka (Event Planner)
@@ -2057,7 +2059,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '4人',
     sensitivity: '酔うと感度が上がる',
-    orgasmExperience: 'あり（声が大きい）'
+    orgasmExperience: 'あり（声が大きい）',
+    underwear: { bra: '花柄プリントブラ C70', panties: 'ヒップハング', brand: 'Peach John', style: 'トレンド・可愛い', color: 'イエロー・花柄', special: '見えても恥ずかしくない可愛い系' }
   },
   // 124. Natsuki (Veterinarian)
   {
@@ -2090,7 +2093,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人',
     sensitivity: '動物を撫でるように触られると弱い',
-    orgasmExperience: 'あり（静かにイく）'
+    orgasmExperience: 'あり（静かにイく）',
+    underwear: { bra: 'シンプルなコットンブラ D70', panties: 'ボクサーショーツ', brand: '無印良品', style: 'ナチュラル・機能的', color: 'グレー', special: '動物の毛がついても目立たない色を選ぶ' }
   },
   // 125. Kotone (Pianist)
   {
@@ -2123,7 +2127,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '0人（処女）',
     sensitivity: '音や声に極端に弱い、手を握られるだけで濡れる',
-    orgasmExperience: 'なし（自慰のみ）'
+    orgasmExperience: 'なし（自慰のみ）',
+    underwear: { bra: '総レースのブラレット', panties: '総レースショーツ', brand: 'Chantelle', style: '繊細・上品', color: 'アイボリー', special: 'ドレスに響かない繊細なレース' }
   },
   // 126. Sae (Travel Agent)
   {
@@ -2156,7 +2161,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '6人（旅先の思い出）',
     sensitivity: '旅先だと解放的になる',
-    orgasmExperience: 'あり（開放的）'
+    orgasmExperience: 'あり（開放的）',
+    underwear: { bra: 'トロピカル柄ブラ E70', panties: 'ビキニショーツ', brand: 'Local Brand', style: 'リゾート・派手', color: 'ハイビスカス柄', special: '海に行ったらそのまま泳げるようなデザイン' }
   },
   // 127. Miyu (Dance Instructor)
   {
@@ -2189,7 +2195,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '体を動かした後は感度が上がる',
-    orgasmExperience: 'あり（声を抑えられない）'
+    orgasmExperience: 'あり（声を抑えられない）',
+    underwear: { bra: 'スポーツブラ', panties: 'ボクサーパンツ', brand: 'Adidas', style: 'スポーティ・機能美', color: '黒・白ライン', special: '激しい動きでもズレないことが最優先' }
   },
   // ===== 新規追加キャラクター（30代 x 5人）=====
   // 128. Ayaka (Wine Sommelier)
@@ -2223,7 +2230,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '8人',
     sensitivity: 'ワインで酔うと理性が溶ける',
-    orgasmExperience: 'あり（低い声で喘ぐ）'
+    orgasmExperience: 'あり（低い声で喘ぐ）',
+    underwear: { bra: 'ワインレッドのレースブラ D70', panties: 'ストリングショーツ', brand: 'Lise Charmel', style: 'エレガント・大人', color: 'ワインレッド', special: '熟成されたワインのような深みのある色' }
   },
   // 129. Chihiro (Fashion Designer)
   {
@@ -2256,7 +2264,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '多数（アーティストとの関係）',
     sensitivity: '創作と性欲が連動する',
-    orgasmExperience: 'あり（情熱的）'
+    orgasmExperience: 'あり（情熱的）',
+    underwear: { bra: '幾何学模様のブラ', panties: 'ハイウエストショーツ', brand: 'Designer Brand', style: 'モード・個性的', color: 'モノトーン', special: '下着もファッションの一部として捉えている' }
   },
   // 130. Marina (Scuba Diving Instructor)
   {
@@ -2289,7 +2298,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '5人',
     sensitivity: '水に浮かんでいる時に感度が上がる',
-    orgasmExperience: 'あり（大声で叫ぶ）'
+    orgasmExperience: 'あり（大声で叫ぶ）',
+    underwear: { bra: 'ターコイズブルーのブラ E70', panties: 'ローライズショーツ', brand: 'Hurley', style: 'マリン・爽やか', color: 'ターコイズ', special: '海の色を写したような鮮やかなブルー' }
   },
   // 131. Risa (Perfumer)
   {
