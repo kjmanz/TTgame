@@ -1320,7 +1320,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '0人（処女）',
     sensitivity: '未経験ゆえに全てが新鮮、特に乳房への刺激に過敏',
-    orgasmExperience: 'なし（未知の世界）'
+    orgasmExperience: 'なし（未知の世界）',
+    underwear: { bra: 'メイド服に合わせた純白ブラ J70', panties: 'フリルたっぷりのドロワーズ', brand: 'Victoria\'s Secret', style: 'コスプレ風・実用的', color: '白', special: '巨乳すぎて普通のブラでは収まらないため特注' }
   },
   // 102. Rara (Hypnotist)
   {
@@ -1353,7 +1354,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '多数',
     sensitivity: '精神的な結合を重視する、視線を合わせたままでの絶頂を好む',
-    orgasmExperience: 'あり（ドライオーガズムも可能）'
+    orgasmExperience: 'あり（ドライオーガズムも可能）',
+    underwear: { bra: 'シースルーの黒レースブラ', panties: 'クロッチレスショーツ', brand: 'La Perla', style: 'ミステリアス・過激', color: '黒', special: '催眠術のように見る者を惑わすデザイン' }
   },
   // 103. Uta (Voice Actress Egg)
   {
@@ -1386,7 +1388,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '0人（知識だけはある）',
     sensitivity: '耳が良く、声攻めに弱い、喘ぎ声が可愛い',
-    orgasmExperience: 'なし（これから開発される）'
+    orgasmExperience: 'なし（これから開発される）',
+    underwear: { bra: '苺柄のジュニアブラ', panties: '苺柄のショーツ', brand: 'チュチュアンナ', style: 'ロリ・キュート', color: '白・赤', special: '見た目は子供っぽいがサイズはFカップ' }
   },
   // 104. Marin (Aquarium Keeper)
   {
@@ -1419,7 +1422,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人',
     sensitivity: '水の中や濡れた状態だと興奮する、肌触りに敏感',
-    orgasmExperience: 'あり（潮吹き体質）'
+    orgasmExperience: 'あり（潮吹き体質）',
+    underwear: { bra: '競泳水着（インナーとして）', panties: '競泳水着（インナーとして）', brand: 'Speedo', style: 'スポーティ・水着', color: '黒', special: 'ウェットスーツの下はいつも水着' }
   },
   // 105. Yuzu (Bathhouse Attendant)
   {
@@ -1452,7 +1456,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '熱さと強引さに弱い、Mっ気がある',
-    orgasmExperience: 'あり（声が大きい）'
+    orgasmExperience: 'あり（声が大きい）',
+    underwear: { bra: '晒（さらし）', panties: '腰巻', brand: '和風', style: '和装・粋', color: '白', special: '番台での仕事中は動きやすい和装下着を着用' }
   },
   // 106. Koyuki (Ryokan Nakai)
   {
@@ -1485,7 +1490,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '0人',
     sensitivity: '着物を脱がされる過程で興奮する、恥じらいが強い',
-    orgasmExperience: 'なし（自慰の経験のみ）'
+    orgasmExperience: 'なし（自慰の経験のみ）',
+    underwear: { bra: 'さらし風和装ブラ', panties: '純白の綿ショーツ', brand: '旅館支給', style: '伝統的・清純', color: '白', special: '女将に厳しく指導された正しい和装下着' }
   },
   // 107. Erena (Pole Dancer)
   {
@@ -1518,7 +1524,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '多数',
     sensitivity: '肉体的な強さと裏腹に、中は締まりが良く敏感',
-    orgasmExperience: 'あり（連続絶頂が可能）'
+    orgasmExperience: 'あり（連続絶頂が可能）',
+    underwear: { bra: 'スパンコールの極小ブラ', panties: 'スパンコールのGストリング', brand: '衣装', style: '派手・露出狂', color: 'ゴールド', special: '衣装と下着の境界線がない' }
   },
   // 108. Ayame (Dermatologist)
   {
@@ -1551,7 +1558,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人',
     sensitivity: '皮膚感覚が非常に鋭く、撫でられるだけで熱くなる',
-    orgasmExperience: 'あり（理性を保とうとするが崩れる）'
+    orgasmExperience: 'あり（理性を保とうとするが崩れる）',
+    underwear: { bra: 'シルクの高級ブラ E70', panties: 'シルクのシームレス', brand: 'Aubade', style: '高級・肌触り重視', color: 'シャンパンゴールド', special: '肌への負担を最小限にする最高級素材' }
   },
   // 109. Hina (Burger Shop Clerk)
   {
@@ -1584,7 +1592,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '1人',
     sensitivity: '舐められる感触に弱く、くすぐったがり',
-    orgasmExperience: 'あり（声が大きい）'
+    orgasmExperience: 'あり（声が大きい）',
+    underwear: { bra: 'アメリカンな柄ブラ D70', panties: 'ボーイズレッグ', brand: 'Victoria\'s Secret PINK', style: 'ポップ・スポーティ', color: '赤・白チェック', special: '見えても可愛い元気なデザイン' }
   },
   // 110. Ren (Tattoo Artist)
   {
@@ -1617,7 +1626,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '4人',
     sensitivity: '痛みと快感の区別がつかなくなるタイプ',
-    orgasmExperience: 'あり（噛み付く癖がある）'
+    orgasmExperience: 'あり（噛み付く癖がある）',
+    underwear: { bra: '黒一色のノンワイヤーブラ', panties: 'Tバック', brand: 'Calvin Klein', style: 'クール・モード', color: '黒', special: 'タトゥーが映えるシンプルな黒下着' }
   },
   // 111. Maia (Pilates Instructor)
   {
