@@ -7,7 +7,7 @@ import StoryReader from './components/StoryReader';
 import ApiKeyScreen, { getStoredApiKey, getStoredImageStyle, getStoredStreamingMode, getStoredImageCount } from './components/ApiKeyScreen';
 import ModelSelector from './components/ModelSelector';
 import PreferenceSettings from './components/PreferenceSettings';
-import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene } from './services/openRouterService';
+import { generateStorySegment, generateStorySegmentStreaming, generateSceneImage, editSceneImage, extractImageScenes, generateImageFromScene, regenerateActionChoices } from './services/openRouterService';
 
 // Save slot system (3 slots)
 const SAVE_SLOT_KEYS = [
@@ -622,111 +622,62 @@ function App() {
     if (!state.selectedCharacter || !state.currentSegment) return;
     clearError();
 
-    const useStreaming = getStoredStreamingMode();
-
     setState(prev => ({
       ...prev,
       isRegeneratingChoices: true,
-      currentPhase: useStreaming ? 'STREAMING' : prev.currentPhase,
-      streamingText: useStreaming ? '' : prev.streamingText
+      streamingText: null,
+      currentPhase: 'READING'
     }));
 
     try {
       const historyWithoutResponse = [...state.history];
-      // Remove current Model response
       historyWithoutResponse.pop();
 
-      // Get the last user action
       const lastUserItem = historyWithoutResponse[historyWithoutResponse.length - 1];
       let lastAction = "";
       if (lastUserItem && lastUserItem.role === 'user') {
         lastAction = lastUserItem.parts[0].text.replace(/^【.*?】:\s*/, '');
       }
 
-      // Current chapter/part logic
-      const chapter = state.currentChapter;
-      const part = state.currentPart;
+      const newChoices = await regenerateActionChoices(
+        state.selectedCharacter,
+        state.currentChapter,
+        state.currentPart,
+        state.currentSegment.text,
+        state.currentLocation,
+        state.currentSummary,
+        lastAction
+      );
 
-      // We need the summary from BEFORE the current turn
-      let previousSummary = "";
-      let contextLocation = state.currentLocation;
+      setState(prev => {
+        const updatedSegment = prev.currentSegment
+          ? { ...prev.currentSegment, choices: newChoices }
+          : prev.currentSegment;
 
-      if (historyWithoutResponse.length >= 2) {
-        const prevModelItem = historyWithoutResponse[historyWithoutResponse.length - 2];
-        if (prevModelItem && prevModelItem.meta) {
-          if (prevModelItem.meta.location) contextLocation = prevModelItem.meta.location;
-          if (prevModelItem.meta.summary) previousSummary = prevModelItem.meta.summary;
-        }
-      }
-
-      let result;
-
-      if (useStreaming) {
-        result = await generateStorySegmentStreaming(
-          state.selectedCharacter,
-          chapter,
-          part,
-          historyWithoutResponse,
-          contextLocation,
-          previousSummary, // Pass PREVIOUS summary for regeneration
-          (streamingText) => {
-            setState(prev => ({ ...prev, streamingText }));
-          },
-          lastAction
-        );
-      } else {
-        result = await generateStorySegment(
-          state.selectedCharacter,
-          chapter,
-          part,
-          historyWithoutResponse,
-          contextLocation,
-          previousSummary, // Pass PREVIOUS summary for regeneration
-          lastAction
-        );
-      }
-
-      const regeneratedSegment: StorySegment = {
-        chapter,
-        part,
-        text: result.text,
-        location: result.location,
-        date: result.date,
-        time: result.time,
-        choices: result.choices,
-        isChapterEnd: result.isChapterEnd,
-        summary: result.summary,
-        scenes: result.scenes
-      };
-
-      setState(prev => ({
-        ...prev,
-        currentSegment: regeneratedSegment,
-        currentLocation: result.location,
-        currentSummary: result.summary,
-        history: [
-          ...historyWithoutResponse,
-          {
-            role: 'model',
-            parts: [{ text: result.text }],
-            meta: {
-              chapter,
-              part,
-              location: result.location,
-              date: result.date,
-              time: result.time,
-              choices: result.choices,
-              isChapterEnd: result.isChapterEnd,
-              imageUrl: prev.generatedImageUrl,
-              summary: result.summary,
-              scenes: result.scenes
-            }
+        const updatedHistory = [...prev.history];
+        for (let i = updatedHistory.length - 1; i >= 0; i--) {
+          const item = updatedHistory[i];
+          if (item.role === 'model') {
+            updatedHistory[i] = {
+              ...item,
+              meta: {
+                ...(item.meta || {}),
+                choices: newChoices
+              }
+            };
+            break;
           }
-        ],
-        streamingText: null,
-        currentPhase: 'READING',
-        isRegeneratingChoices: false
-      }));
+        }
+
+        return {
+          ...prev,
+          currentSegment: updatedSegment || null,
+          history: updatedHistory,
+          streamingText: null,
+          currentPhase: 'READING',
+          isRegeneratingChoices: false
+        };
+      });
     } catch (err) {
       console.error(err);
       setState(prev => ({
@@ -736,7 +687,6 @@ function App() {
         isRegeneratingChoices: false,
         streamingText: null
       }));
-      // Capture retry action
       setRetryAction(() => () => handleRegenerate());
     }
   }, [state, clearError]);
