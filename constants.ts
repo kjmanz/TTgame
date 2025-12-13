@@ -873,7 +873,8 @@ export const CHARACTERS: Character[] = [
     id: '035_ran', name: '蘭 (Ran)', age: 30, role: '占い師', height: '165cm', measurements: 'B94(G)-W62-H92', hairStyle: 'ヴェール', workplace: '占いの館',
     personality: 'ミステリアス', relationship: '客', habit: '水晶を撫でる', hometown: '不明', hobby: 'タロット', favoriteDrink: 'ハーブティー', scent: '抹香', weakness: '手相', feature: '露出度高い', description: '路地裏の占い師。あなたの運命の人を占うふりをして、自分を売り込んでくる。', visualPrompt: '30 year old Japanese fortune teller, crystal ball', firstPerson: '私', callingTakeru: 'あなた', speechTone: '予言めいた', scenarioHook: ['館。「あなたの相、女難の相が出ています。……私が祓ってあげましょう」', '手相。「生命線が長いですね。……精力も、強そう」', '閉店後。「今夜の運勢、最悪です。……私といないと、死ぬかもよ？」'], experienceCount: '多数', sensitivity: '運命', orgasmExperience: 'あり',
     underwear: {
-      bra: 'Victoria's Secret プッシュアップ G70', panties: 'レースのストリングス', brand: "Victoria's Secret", style: 'セクシー・ミステリアス系', color: '紫・黒', special: '占いの衣装に合わせた神秘的なランジェリー' }
+      bra: "Victoria's Secret プッシュアップ G70", panties: 'レースのストリングス', brand: "Victoria's Secret", style: 'セクシー・ミステリアス系', color: '紫・黒', special: '占いの衣装に合わせた神秘的なランジェリー'
+    }
   },
   {
     id: '036_nana', name: '奈々 (Nana)', age: 24, role: '薬剤師', height: '159cm', measurements: 'B86(D)-W59-H87', hairStyle: '一本結び', workplace: 'ドラッグストア',
