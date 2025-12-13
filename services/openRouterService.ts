@@ -276,8 +276,9 @@ YOU MUST WRITE EVERYTHING IN JAPANESE (日本語).
 - 全ての小説本文、セリフ、選択肢、場所名、要約を日本語で書いてください。
 - 固有名詞（人名・地名）も日本語で表記してください。
 - JSONのキー名のみ英語を使用してください（"text", "choices"など）
-- 同じ文章を繰り返し出力しないでください。文章のループは禁止です。
-- 新しい展開、新しい描写を常に心がけてください。
+- **【絶対禁止】同じ文章を繰り返し出力しないでください。文章のループは厳禁です。**
+- **【重要】前のパートと全く同じ展開や描写を繰り返すことは禁止です。必ず新しい展開、新しいシーン、新しい描写を書いてください。**
+- 各パートは常にストーリーを前進させ、新しい要素を加えてください。
 
 あなたは「官能的な純文学作家」です。
 読者の心を揺さぶり、情動を掻き立てるような、湿度と体温を感じる大人の恋愛小説を執筆してください。
@@ -1689,46 +1690,48 @@ export const extractImageScenes = async (
     }
 
     const systemPrompt = `
-You are an expert at extracting visual scenes from erotic/adult literature for image generation.
-Your task is to extract 4 distinct visual scenes from the given story text.
+あなたはアダルト文学から画像生成用の視覚的シーンを抽出する専門家です。
+与えられたストーリーテキストから4つの異なる視覚的シーンを抽出してください。
 
-RULES:
-1. Output ONLY valid JSON, no other text.
-2. Extract scenes that would make compelling images.
-3. Include both SFW and NSFW scenes as appropriate to the content.
-4. Generate English prompts optimized for image generation.
-5. The woman in the scene is ALWAYS Japanese.
-6. Be explicit in NSFW prompts when the scene content is sexual.
-7. Each scene should be visually distinct.
-8. **IMPORTANT: Focus on ONE Japanese woman as the main subject.**
-9. **IMPORTANT: Male character should be at most ONE person, or preferably not visible in the image.**
-10. **IMPORTANT: If a male is included, use terms like "male hand", "male figure partially visible", or POV perspective instead of showing full male body.**
-11. **IMPORTANT: All scenes MUST be POV (first-person perspective) from the protagonist's eyes.**
+ルール:
+1. 有効なJSONのみを出力してください。他のテキストは一切含めないでください。
+2. 魅力的な画像になるようなシーンを抽出してください。
+3. コンテンツに応じて、SFWとNSFWの両方のシーンを含めてください。
+4. 画像生成に最適化された英語のプロンプトを生成してください。
+5. シーンの女性は常に日本人です。
+6. シーンの内容が性的な場合、NSFWプロンプトは明確に記述してください。
+7. 各シーンは視覚的に異なるものにしてください。
+8. **重要: メインの被写体は1人の日本人女性に焦点を当ててください。**
+9. **重要: 男性キャラクターは最大1人、または画像に映らないようにしてください。**
+10. **重要: 男性を含める場合は、「male hand」、「male figure partially visible」、またはPOV視点を使用し、男性の全身を映さないでください。**
+11. **重要: すべてのシーンは主人公の目線からのPOV（一人称視点）でなければなりません。**
 
-Output format:
+**descriptionは必ず日本語で記述してください。imagePromptは英語で記述してください。**
+
+出力フォーマット:
 {
   "scenes": [
     {
       "id": 1,
-      "description": "シーンの説明（日本語）",
+      "description": "シーンの説明（必ず日本語で記述）",
       "imagePrompt": "solo Japanese woman, ${stylePromptPart}, [scene description focusing on the woman]",
       "isNsfw": true/false
     }
   ]
 }
 
-Generate exactly 4 scenes.
+正確に4つのシーンを生成してください。
 `;
 
     const userPrompt = `
-Character: ${character.name}, ${character.age} years old Japanese woman
-Appearance: ${character.hairStyle}, ${character.feature || ''}, ${character.height}, ${character.measurements}
-Visual reference: ${character.visualPrompt || ''}
+キャラクター: ${character.name}、${character.age}歳の日本人女性
+外見: ${character.hairStyle}、${character.feature || ''}、${character.height}、${character.measurements}
+ビジュアル参照: ${character.visualPrompt || ''}
 
-Story text:
+ストーリーテキスト:
 ${storyText.slice(0, 3000)}
 
-Extract 4 visual scenes from this story. Focus on the woman as the main subject. Male character should be minimally visible or use POV perspective. Include NSFW scenes if the content is sexual.
+このストーリーから4つの視覚的シーンを抽出してください。女性をメインの被写体として焦点を当ててください。男性キャラクターは最小限に表示するか、POV視点を使用してください。コンテンツが性的な場合はNSFWシーンも含めてください。
 `;
 
     try {
