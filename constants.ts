@@ -2332,7 +2332,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人',
     sensitivity: '嗅覚と性感が直結している',
-    orgasmExperience: 'あり（香りで絶頂することも）'
+    orgasmExperience: 'あり（香りで絶頂することも）',
+    underwear: { bra: 'シルクのシームレスブラ', panties: 'シルクのストリングショーツ', brand: 'Hanro', style: '高級・肌触り', color: 'ヌードベージュ', special: '香水の香りを邪魔しない無臭・清潔な素材' }
   },
   // 132. Nanase (Takarazuka Actress)
   {
@@ -2365,7 +2366,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '2人',
     sensitivity: '女扱いされると急に感じやすくなる',
-    orgasmExperience: 'あり（ドラマチックに絶頂）'
+    orgasmExperience: 'あり（ドラマチックに絶頂）',
+    underwear: { bra: '純白のレースブラ C75', panties: 'フリル付きショーツ', brand: 'Himico', style: '清純・乙女チック', color: '白', special: '男装の下には乙女心を隠した真っ白なランジェリー' }
   },
   // ===== 新規追加キャラクター（40代 x 5人）=====
   // 133. Keiko (Antique Shop Owner)
@@ -2399,7 +2401,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '経験豊富',
     sensitivity: '熟成された感度、すぐには落ちない',
-    orgasmExperience: 'あり（深くゆっくりとイく）'
+    orgasmExperience: 'あり（深くゆっくりとイく）',
+    underwear: { bra: '和装ブラ（補正あり）', panties: '絹の股割れショーツ', brand: '和装専門店', style: '伝統的・機能的', color: '薄桃色', special: '着物を美しく着こなすための機能美と密かな色気' }
   },
   // 134. Tomoe (Martial Arts Master)
   {
@@ -2432,7 +2435,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '1人（若い頃）',
     sensitivity: '長いブランクで感度が高まっている',
-    orgasmExperience: 'あり（声を殺してイく）'
+    orgasmExperience: 'あり（声を殺してイく）',
+    underwear: { bra: 'さらし', panties: '褌（ふんどし）', brand: '武道具店', style: '硬派・伝統', color: '白', special: '気合を入れるための伝統的な下着' }
   },
   // 135. Yoshiko (Luxury Hotel Concierge)
   {
@@ -2465,7 +2469,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '経験豊富',
     sensitivity: 'サービス精神が性欲に転化',
-    orgasmExperience: 'あり（声を抑えて上品にイく）'
+    orgasmExperience: 'あり（声を抑えて上品にイく）',
+    underwear: { bra: '黒レースのワイヤーブラ E75', panties: '総レースショーツ', brand: 'Aubade', style: 'エレガント・高級', color: '黒', special: '制服の下に隠した最高級ランジェリー' }
   },
   // 136. Sawako (Pottery Artist)
   {
@@ -2498,7 +2503,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '経験豊富',
     sensitivity: '手への刺激に極端に弱い',
-    orgasmExperience: 'あり（静かに深くイく）'
+    orgasmExperience: 'あり（静かに深くイく）',
+    underwear: { bra: 'コットンのノンワイヤーブラ', panties: '深履きショーツ', brand: '無印良品', style: 'ナチュラル・実用', color: '生成り', special: '動きやすさと肌触りを重視した素朴な下着' }
   },
   // 137. Michiko (Hospital Director)
   {
@@ -2531,7 +2537,8 @@ export const CHARACTERS: Character[] = [
     ],
     experienceCount: '3人（若い頃）',
     sensitivity: '長いブランクで未知の快感に弱い',
-    orgasmExperience: 'あり（涙を流しながらイく）'
+    orgasmExperience: 'あり（涙を流しながらイく）',
+    underwear: { bra: '最高級シルクのブラ D80', panties: 'シルクショーツ', brand: 'La Perla', style: '極上・シンプル', color: 'パールホワイト', special: '誰にも見せないが、自分を律するための最高級品' }
   },
   // ========================================
   // 新規追加: 20代女性10人（既婚2人含む）+ 30代既婚女性3人
@@ -2575,7 +2582,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さく可愛らしい、未開発',
     pubicHair: '薄い黒髪、清楚に整えている',
     vaginalTightness: '処女、未知の領域',
-    clitorisSize: '小さめで繊細'
+    clitorisSize: '小さめで繊細',
+    underwear: { bra: 'パステルカラーのフリルブラ C65', panties: 'フリルショーツ', brand: 'Samantha Thavasa', style: 'アイドル・王道', color: 'パステルブルー', special: '衣装の下でもアイドルでいるための可愛い下着' }
   },
   // 139. Mirei (Gravure Model)
   {
@@ -2616,7 +2624,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '大きく茶色、感度抜群',
     pubicHair: '薄めに整えている、ビキニライン処理済',
     vaginalTightness: '経験ありだが締まりが良い',
-    clitorisSize: '大きめで敏感'
+    clitorisSize: '大きめで敏感',
+    underwear: { bra: '黒の大胆なブラ G70', panties: 'マイクロTバック', brand: 'Ravijour', style: 'セクシー・グラマラス', color: '黒', special: '撮影でも使えそうなほど際どい私物' }
   },
   // 140. Aoi (Adult Actress)
   {
@@ -2657,7 +2666,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで形が良い、撮影用に手入れ済',
     pubicHair: 'パイパン（撮影のため）',
     vaginalTightness: '経験豊富だが膣圧トレーニングで締まりが良い',
-    clitorisSize: '大きめ、開発済みで敏感'
+    clitorisSize: '大きめ、開発済みで敏感',
+    underwear: { bra: 'シンプルな白ブラ', panties: '綿のショーツ', brand: 'UNIQLO', style: '普通・ピュア', color: '白', special: '仕事以外では普通の女の子に戻るために、あえて地味な下着' }
   },
   // 141. Riko (Fashion Model)
   {
@@ -2698,7 +2708,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さく、刺激に敏感',
     pubicHair: '処理済み、モデルとしての身だしなみ',
     vaginalTightness: '締まりが良い',
-    clitorisSize: '小さめだが敏感'
+    clitorisSize: '小さめだが敏感',
+    underwear: { bra: '黒のスリムブラ B75', panties: 'タンガ', brand: 'Calvin Klein', style: 'シンプル・モード', color: '黒', special: '無駄のないデザインが体のラインを引き立てる' }
   },
   // 142. Kokoa (Beauty Influencer)
   {
@@ -2739,7 +2750,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで形が良い、意外と敏感',
     pubicHair: '処理済み、美容意識高い',
     vaginalTightness: '若さでキツキツ',
-    clitorisSize: '小さめ'
+    clitorisSize: '小さめ',
+    underwear: { bra: 'くすみピンクのレースブラ D70', panties: 'リボンショーツ', brand: 'SNIDEL HOME', style: 'SNS映え・あざとい', color: 'くすみピンク', special: '見せブラとしても使える計算されたデザイン' }
   },
   // 143. Nanami (Model/OL)
   {
@@ -2780,7 +2792,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄ピンク、感度良好',
     pubicHair: '処理済み',
     vaginalTightness: '締まりが良い',
-    clitorisSize: '普通サイズ'
+    clitorisSize: '普通サイズ',
+    underwear: { bra: 'ベージュのモールドブラ D70', panties: 'シームレスショーツ', brand: 'Wacoal', style: 'オフィス・実用', color: 'ベージュ', special: '白いブラウスにも透けない実用性重視' }
   },
   // 144. Kaede (Cosplayer)
   {
@@ -2821,7 +2834,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで大きめ、未開発',
     pubicHair: '自然な黒髪',
     vaginalTightness: '処女',
-    clitorisSize: '普通サイズ'
+    clitorisSize: '普通サイズ',
+    underwear: { bra: 'フリルたっぷりのブラ F70', panties: '紐パン', brand: 'Ank Rouge', style: 'ロリータ・甘め', color: 'ピンク', special: '普段は晒しで隠しているが、実は可愛い下着が好き' }
   },
   // 145. Sara (Actress - Married)
   {
@@ -2862,7 +2876,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄ピンク、繊細で敏感',
     pubicHair: '黒髪で整えている',
     vaginalTightness: '締まりが良い',
-    clitorisSize: '小さめだが敏感'
+    clitorisSize: '小さめだが敏感',
+    underwear: { bra: '高級シルクのブラ D70', panties: 'シルクショーツ', brand: 'La Perla', style: 'ハイブランド・優雅', color: 'ロイヤルブルー', special: '夫には見せない、自分だけのための高級下着' }
   },
   // 146. Midori (Race Queen - Married)
   {
@@ -2903,7 +2918,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '茶色で日焼け跡が残る、感度良好',
     pubicHair: '薄めに整えている',
     vaginalTightness: 'スポーツで鍛えた締まり',
-    clitorisSize: '普通サイズ、刺激に敏感'
+    clitorisSize: '普通サイズ、刺激に敏感',
+    underwear: { bra: 'ネオンカラーのブラ E70', panties: '極小ビキニ', brand: 'Victoria\'s Secret', style: '派手・セクシー', color: 'ネオンピンク', special: 'サーキットでも目立つような派手な色' }
   },
   // 147. Mashiro (TikToker)
   {
@@ -2944,7 +2960,8 @@ export const CHARACTERS: Character[] = [
     nippleType: 'ピンクで小さく可愛らしい',
     pubicHair: '薄い黒髪、自然',
     vaginalTightness: '若くてキツキツ',
-    clitorisSize: '小さくて敏感'
+    clitorisSize: '小さくて敏感',
+    underwear: { bra: '水色のチェック柄ブラ B65', panties: '綿パンツ', brand: 'tutuanna', style: 'ジュニア・清楚', color: '水色チェック', special: 'まだ子供っぽいデザインが逆にそそる' }
   },
   // ========================================
   // 30代既婚女性 3人
@@ -2988,7 +3005,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '茶色で大きめ、母性的',
     pubicHair: '黒髪で自然',
     vaginalTightness: '久しぶりで締まりが良い',
-    clitorisSize: '普通サイズ、愛情を込めて触られると敏感'
+    clitorisSize: '普通サイズ、愛情を込めて触られると敏感',
+    underwear: { bra: '花柄のレースブラ E75', panties: 'スタンダードショーツ', brand: 'Wing', style: '家庭的・優しい', color: 'サーモンピンク', special: '夫に見せる機会が減ってしまった勝負下着' }
   },
   // 149. Chie (Lawyer)
   {
@@ -3029,7 +3047,8 @@ export const CHARACTERS: Character[] = [
     nippleType: '薄ピンクで小さめ、意外と感度高い',
     pubicHair: '黒髪で整えている',
     vaginalTightness: '締まりが良い',
-    clitorisSize: '普通サイズ'
+    clitorisSize: '普通サイズ',
+    underwear: { bra: 'ネイビーのサテンブラ C70', panties: 'レースショーツ', brand: 'Triumph', style: '知的・クール', color: 'ネイビー', special: '冷静さを保つための寒色系' }
   },
   // 150. Miho (Yoga Instructor)
   {
@@ -3070,6 +3089,7 @@ export const CHARACTERS: Character[] = [
     nippleType: '茶色で熟れた形、経験で敏感',
     pubicHair: '黒髪で自然、オーガニック派',
     vaginalTightness: 'ヨガで鍛えた膣圧が凄い',
-    clitorisSize: '大きめで開発済み'
+    clitorisSize: '大きめで開発済み',
+    underwear: { bra: 'オーガニックコットンのブラ D70', panties: 'ふんどしパンツ', brand: 'Organic Brand', style: '自然派・解放', color: '草木染め', special: '締め付けのない、体が喜ぶ下着' }
   }
 ];
