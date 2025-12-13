@@ -258,6 +258,37 @@ const buildPreferencePrompt = (prefs: PlayPreferences): string => {
     return sections.filter(s => s.length > 0).join('\n\n');
 };
 
+// 呼び方の親密化ガイダンスを現在のPartに応じて生成
+const buildCallingStyleGuidance = (
+    character: Character,
+    part: number,
+    dynamicEnabled: boolean
+) => {
+    if (!dynamicEnabled) {
+        return {
+            style: `- **呼び方固定モード**: 全パートで「${character.callingTakeru}」のみ使用。毎パート最低5回は呼びかけのセリフを入れ、どんなに盛り上がっても絶対に呼び方を変えないこと。`,
+            safety: `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`
+        };
+    }
+
+    const baseName = character.callingTakeru;
+    const mustAskName = baseName.includes("タケル") ? '' : '（名前以外で呼んでいる場合は、このパート内で1回は「そういえばお名前は？」「タケルさんって呼んでいい？」など、名前を尋ねたり確認する会話を必ず挟んでください）';
+
+    let stageInstruction = '';
+    if (part <= 3) {
+        stageInstruction = `- **現在のステージ（Part${part}）**: 初期呼称「${baseName}」を保ちつつ、親密になるための布石を作ってください。呼びかけを最低5回入れ、${baseName.includes('タケル') ? '次のステップで呼び捨て・愛称に移れるよう、呼び方に迷う独白や揺らぎを描写してください。' : '名前をまだ知らないなら、ささやかなタイミングで必ず名前を尋ねるか、本人の自己紹介を挿入してください。'}${mustAskName}`;
+    } else if (part <= 6) {
+        stageInstruction = `- **現在のステージ（Part${part}）**: 距離のある呼称「${baseName}」から「タケルさん」もしくは「タケル」への移行をこのパート中に必ず描写してください。変化の瞬間はセリフで明示し（例：「ねえ、もうタケルさんって呼んでいい？」）、直後に心理の揺らぎやドキドキを入れてください。名前スタートの場合も、呼び捨てへの躊躇→許可をもらう流れを作ってください。`;
+    } else {
+        stageInstruction = `- **現在のステージ（Part${part}）**: 「タケル」呼びを基本に、愛称（「タケちゃん」「あなた」など）や独占欲のこもった呼び方に1回はスイッチしてください。呼び方が変わる瞬間は必ず理由や感情（恥じらい、独占欲、蕩けた声）を添え、変化後の呼び方も最低5回は繰り返して親密度の跳ね上がりを見せてください。`;
+    }
+
+    return {
+        style: `- **呼び方の段階的変化（絶対遵守）**\n${stageInstruction}\n- 呼び方が変わる瞬間には、女性の心理描写（戸惑い・喜び・独占欲）を必ずセットで書き、変化前後の呼称を数回織り交ぜて段階的に定着させてください。` ,
+        safety: '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
+    };
+};
+
 
 // テキストクリーニング関数: Grokなどのモデルが出力する余計なメタ情報を除去
 const cleanStoryText = (text: string): string => {
@@ -572,13 +603,11 @@ export const generateStorySegment = async (
     // ユーザーの嗜好設定を取得してプロンプトに変換
     const userPreferences = getStoredPreferences();
     const preferencePrompt = buildPreferencePrompt(userPreferences);
-    const callingStyleInstruction = userPreferences.dynamicCallingEnabled
-        ? `- 序盤はキャラクター設定の「${character.callingTakeru}」など距離感のある呼称を基本に、章/Partが進んだり性的盛り上がりが高まるタイミングで、名前呼び捨てや愛称など親密さを感じる呼び方に段階的に変化させてください。呼び方の変化はシーンの熱量や女性の心情の高まりに連動させ、唐突に変えないこと。名前以外の呼称（お客様・プロデューサー等）から始まる場合は、親しくなる瞬間に「そういえばお名前は？」「タケルさんって呼んでいい？」といった会話を必ず挟み、名前呼びや愛称へのスイッチに理由と感情を添えてください。`
-        : `- 主人公を呼ぶときは常に「${character.callingTakeru}」。物語の進行や盛り上がりに関係なく呼び方を変えないでください。`;
-
-    const callingSafetyRule = userPreferences.dynamicCallingEnabled
-        ? '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
-        : `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`;
+    const { style: callingStyleInstruction, safety: callingSafetyRule } = buildCallingStyleGuidance(
+        character,
+        part,
+        userPreferences.dynamicCallingEnabled
+    );
 
     const innerThoughtsEnabled = getStoredInnerThoughtsMode();
 
@@ -883,14 +912,11 @@ export const generateStorySegmentStreaming = async (
     const preferencePrompt = buildPreferencePrompt(userPreferences);
     const innerThoughtsEnabled = getStoredInnerThoughtsMode();
 
-    // 呼び方の段階的変化（非ストリーミング版と同じ強化版）
-    const callingStyleInstruction = userPreferences.dynamicCallingEnabled
-        ? `- **呼び方の段階的変化**: Part1-3では「${character.callingTakeru}」などの距離のある呼称（毎パート最低3回）、Part4-6で「タケルさん」→「タケル」への移行（変化の瞬間をセリフで明示）、Part7以降で愛称への変化。毎パート最低5回は現在の呼び方を使用し、変化時は心理描写を付け加えること。名前以外の呼称（お客様・プロデューサー等）スタートの場合は、親しくなるシーンで名前を尋ねたり愛称を提案する会話を必ず挟み、呼び方の変化に理由と感情の流れを与えること。`
-        : `- **呼び方固定モード**: 全パートで「${character.callingTakeru}」のみ使用。毎パート最低5回は呼びかけのセリフを入れ、どんなに盛り上がっても絶対に呼び方を変えないこと。`;
-
-    const callingSafetyRule = userPreferences.dynamicCallingEnabled
-        ? '- 侮蔑的な呼称は禁止。親密化させる場合も、優しさ・独占欲・甘さなどプラスのニュアンスで呼んでください。'
-        : `- 女性は必ず「${character.callingTakeru}」で主人公を呼んでください。`;
+    const { style: callingStyleInstruction, safety: callingSafetyRule } = buildCallingStyleGuidance(
+        character,
+        part,
+        userPreferences.dynamicCallingEnabled
+    );
 
     const innerThoughtsPrompt = innerThoughtsEnabled ? `
 【女性の内心（本音）表示モード：ON】
