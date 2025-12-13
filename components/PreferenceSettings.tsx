@@ -187,6 +187,72 @@ const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({ onClose }) => {
         setTimeout(() => onClose(), 500);
     };
 
+    // ランダム選択ヘルパー関数
+    const getRandomElement = <T,>(array: T[]): T => {
+        return array[Math.floor(Math.random() * array.length)];
+    };
+
+    const getRandomElements = <T,>(array: T[], min: number, max: number): T[] => {
+        const count = Math.floor(Math.random() * (max - min + 1)) + min;
+        const shuffled = [...array].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, Math.min(count, array.length));
+    };
+
+    // すべての設定をランダム化
+    const handleRandomize = () => {
+        const randomPrefs: PlayPreferences = {
+            // メインシチュエーションから1つ選択
+            mainSituation: getRandomElement(MAIN_SITUATIONS).id,
+
+            // 関係性ダイナミクスから0～3個選択
+            relationshipDynamics: getRandomElements(
+                RELATIONSHIP_DYNAMICS.map(r => r.id),
+                0,
+                3
+            ),
+
+            // 前戯の好みから1～5個選択
+            foreplayPreferences: getRandomElements(
+                FOREPLAY_PREFERENCES.map(f => f.id),
+                1,
+                5
+            ),
+
+            // 体位の好みから1～3個選択
+            positionPreferences: getRandomElements(
+                POSITION_PREFERENCES.map(p => p.id),
+                1,
+                3
+            ),
+
+            // フィニッシュの好みから1～2個選択
+            finishPreferences: getRandomElements(
+                FINISH_PREFERENCES.map(f => f.id),
+                1,
+                2
+            ),
+
+            // 女性の反応タイプから1つ選択
+            femaleReactionType: getRandomElement(FEMALE_REACTIONS).id,
+
+            // フェチ強調から0～5個選択
+            fetishEmphasis: getRandomElements(
+                FETISH_OPTIONS.map(f => f.id),
+                0,
+                5
+            ),
+
+            // 比較セリフをランダムに有効化/無効化
+            comparisonEnabled: Math.random() > 0.5,
+            comparisonTarget: getRandomElement(COMPARISON_TARGETS).id,
+
+            // 呼び方親密化をランダムに有効化/無効化
+            dynamicCallingEnabled: Math.random() > 0.5,
+        };
+
+        setPrefs(randomPrefs);
+    };
+
     // Toggle helpers for array fields
     const toggleArrayItem = <T extends string>(
         field: keyof PlayPreferences,
@@ -491,6 +557,12 @@ const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({ onClose }) => {
                         className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 font-bold py-3 px-6 rounded-lg tracking-wider uppercase text-sm transition-all border border-white/10"
                     >
                         キャンセル
+                    </button>
+                    <button
+                        onClick={handleRandomize}
+                        className="flex-1 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold py-3 px-6 rounded-lg tracking-wider uppercase text-sm transition-all shadow-lg shadow-pink-500/20"
+                    >
+                        🎲 ランダム
                     </button>
                     <button
                         onClick={handleSave}
